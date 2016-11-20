@@ -1,7 +1,7 @@
 JUtils: Utilities for Java
 ==========================
 
--[![Build Status](https://travis-ci.org/rhkiswani/JUtils.svg?branch=develop)](https://travis-ci.org/rhkiswani/JUtils)
+- [![Build Status](https://travis-ci.org/rhkiswani/JUtils.svg?branch=develop)](https://travis-ci.org/rhkiswani/JUtils)
 
 JUtils is a set of APIs/utilities that you need in any Java application.
 
