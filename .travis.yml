@@ -7,5 +7,5 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-      
+
 script: mvn clean verify
