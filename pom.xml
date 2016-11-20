@@ -4,13 +4,13 @@
 
     <groupId>io.github.rhkiswani</groupId>
     <artifactId>jutils</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <scm>
         <connection>scm:git:https://github.com/rhkiswani/JUtils.git</connection>
         <developerConnection>scm:git:https://github.com/rhkiswani/JUtils.git</developerConnection>
         <url>https://github.com/rhkiswani/JUtils</url>
-        <tag>jutils-1.3</tag>
+        <tag>jutils-0.0.1</tag>
     </scm>
 
     <properties>
