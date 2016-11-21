@@ -3,29 +3,33 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.rhkiswani</groupId>
-    <artifactId>jutils</artifactId>
+    <artifactId>javaff</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-    <name>JUtils: Utilities for Java</name>
+    <name>JavaFF: Java Facade/Factories</name>
     <description>
-        JUtils is a set of APIs/utilities that you need in any Java application.
+        We all know the Golden Object Oriented rule **Don't talk to strangers**
+
+        We all know that the API/frameworks defects or magic or limitations is not showing at the begging of the development.
+
+        So imagine that you using an API in all your projects and after spending months or years that API you got a production issue becuase of it ,
+        changing the that API would be soo hard and costy !!!
+
 
         Main Features
         --------------
-        - Transparent equals / hashcode/ clone
-        - Simple/Clean API
-        - Transparent Exception handling and localization
-        - Transparent JSON Handlers
-        - Transparent Logging Handlers
-        - Formatter's
-        - Transparent Locale Managers (Multiple messages per need)
+        - This project offers a standard/clear API for the most used API's in the Java Applications like : Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers ...etc
+        - **you can control the implementation's through the class path without changing line of code**
+        - Smart Exception handling mechanism
+        - Default Implementations
+        - Many Utilises
     </description>
-    <url>https://github.com/rhkiswani/JUtils</url>
+    <url>https://github.com/rhkiswani/JavaFF</url>
 
     <scm>
-        <connection>scm:git:https://github.com/rhkiswani/JUtils.git</connection>
-        <developerConnection>scm:git:https://github.com/rhkiswani/JUtils.git</developerConnection>
-        <url>https://github.com/rhkiswani/JUtils</url>
-        <tag>jutils-1.3</tag>
+        <connection>scm:git:https://github.com/rhkiswani/JavaFF.git</connection>
+        <developerConnection>scm:git:https://github.com/rhkiswani/JavaFF.git</developerConnection>
+        <url>https://github.com/rhkiswani/JavaFF</url>
+        <tag>javaff-1.3</tag>
     </scm>
 
     <properties>
