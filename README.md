@@ -30,7 +30,7 @@ To add a dependency on JavaFF using Maven, use the following:
 ```xml
 <dependency>
   <groupId>com.rhkiswani.github</groupId>
-  <artifactId>jutils</artifactId>
+  <artifactId>javaff</artifactId>
   <version>0.0.1</version>
 </dependency>
 ```
@@ -39,7 +39,7 @@ To add a dependency using Gradle:
 
 ```
 dependencies {
-  compile 'com.rhkiswani.github:jutils:0.0.1'
+  compile 'com.rhkiswani.github:javaff:0.0.1'
 }
 ```
 
