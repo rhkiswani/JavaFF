@@ -1,18 +1,23 @@
 package io.github.rhkiswani.jutils.log;
 
-import io.github.rhkiswani.jutils.reflection.ReflectionUtil;
+import io.github.rhkiswani.jutils.decetor.ApiDetectorUtil;
+import io.github.rhkiswani.jutils.factory.AbstractFactory;
 
-public class LogFactory {
+public class LogFactory extends AbstractFactory<Log>{
+    private static LogFactory instance = new LogFactory();
 
-    private LogFactory() {
-        // Do nothing
+    private LogFactory(){
     }
 
-    public static SmartLogger getLog(Class<?> clazz) {
-        if (ReflectionUtil.isPresent("org.slf4j.Logger")) {
-            return new SmartLogger(new Slf4jLog(org.slf4j.LoggerFactory.getLogger(clazz)));
-        } else {
-            return new SmartLogger(new DefaultLog(java.util.logging.Logger.getLogger(clazz.getName())));
+    public static LogFactory instance(){
+        return instance;
+    }
+
+    @Override
+    public Log getDefault(Class targetClazz) {
+        if (ApiDetectorUtil.isSlf4jAvailable()){
+            return new Slf4jLog(targetClazz);
         }
+        return new DefaultLog(targetClazz.getClass());
     }
 }

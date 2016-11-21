@@ -1,6 +1,6 @@
 package io.github.rhkiswani.jutils.exceptions;
 
-import io.github.rhkiswani.jutils.lang.Arrays;
+import io.github.rhkiswani.jutils.lang.ArraysHelper;
 import io.github.rhkiswani.jutils.locale.LocaleUtil;
 
 public class SmartException extends RuntimeException{
@@ -11,6 +11,8 @@ public class SmartException extends RuntimeException{
     public static final String TYPE_ERROR = "TYPE_ERROR";
     public static final String EXCEEDS_LIMIT = "EXCEEDS_LIMIT";
     public static final String FORMAT_EXCEPTION = "FORMAT_EXCEPTION";
+    public static final String ALREADY_EXIST = "ALREADY_EXIST";
+    public static final String NIGATIVE_VAL = "NEGATIVE_VAL";
     private Object[] errorMsgParams = null;
 
     public SmartException(String message) {
@@ -32,7 +34,7 @@ public class SmartException extends RuntimeException{
 
     @Override
     public String getMessage() {
-        if (!Arrays.isEmpty(errorMsgParams)){
+        if (!ArraysHelper.isEmpty(errorMsgParams)){
             return LocaleUtil.getString(super.getMessage(), errorMsgParams);
         } else {
             return LocaleUtil.getString(super.getMessage());

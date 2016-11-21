@@ -6,7 +6,7 @@ public class ExceptionUtil {
     }
 
     public static void handle(Throwable t){
-        ExceptionHandlersManager.instance().handle(t);
+        ExceptionHandlersFactory.instance().handle(t);
     }
 
     public static Throwable getRootCause(Throwable throwable) {

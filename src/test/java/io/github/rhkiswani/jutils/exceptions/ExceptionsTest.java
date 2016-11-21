@@ -22,7 +22,7 @@ public class ExceptionsTest {
         try {
             throw new SmartException(SmartException.NOT_FOUND, new RuntimeException(new NullPointerException()));
         }catch (Throwable t) {
-            assertThat(t).isInstanceOf(SmartException.class).hasMessage("NOT_FOUND");
+            assertThat(t).isInstanceOf(SmartException.class).hasMessage("{0} not found");
         }
 
     }
@@ -43,10 +43,11 @@ public class ExceptionsTest {
             assertThat(ExceptionUtil.getRootCause(t).getMessage()).isEqualTo("NOT_FOUND");
         }
         try {
-            throw new SmartException(SmartException.NOT_FOUND);
+            throw new SmartException(SmartException.NOT_FOUND, "Kiswani");
         }catch (Throwable t) {
             assertThat(ExceptionUtil.getRootCause(t).getClass()).isEqualTo(SmartException.class);
-            assertThat(ExceptionUtil.getRootCause(t).getMessage()).isEqualTo("NOT_FOUND");
+            assertThat(ExceptionUtil.getRootCause(t).getMessage()).isEqualTo("Kiswani not found");
         }
     }
+
 }

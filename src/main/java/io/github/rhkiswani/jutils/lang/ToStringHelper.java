@@ -1,17 +1,17 @@
 package io.github.rhkiswani.jutils.lang;
 
 import io.github.rhkiswani.jutils.format.FormatUtil;
-import io.github.rhkiswani.jutils.reflection.DefaultReflectionHelper;
-import io.github.rhkiswani.jutils.reflection.ReflectionHelper;
+import io.github.rhkiswani.jutils.lang.annotations.EqualsField;
+import io.github.rhkiswani.jutils.security.encode.EncodeFactory;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class StringHelper {
+public class ToStringHelper extends AbstractObjectHelper<Object, String>{
 
-    public static String toString(Object obj) {
-        ReflectionHelper helper = new DefaultReflectionHelper();
-        List<Field> fields = helper.getFields(obj.getClass());
+    @Override
+    protected String doAction(Object obj) {
+        List<Field> fields = getFieldsByAnnotation(obj, EqualsField.class);
         StringBuilder builder = new StringBuilder();
         builder.append(obj.getClass().getSimpleName());
         builder.append("[");
@@ -21,12 +21,20 @@ public class StringHelper {
             builder.append(f.getName());
             builder.append("=");
             builder.append("{"+i+"}");
-            values[i]= helper.getFieldValue(obj, f.getName());
+            values[i]= reflectionHelper.getFieldValue(obj, f.getName());
             if ( i < fields.size() -1){
                 builder.append(", ");
             }
         }
         builder.append("]");
         return FormatUtil.formatString(builder.toString(), values);
+    }
+
+    public static String toString(Object obj) {
+        return new ToStringHelper().doAction(obj);
+    }
+
+    public static String encode(String input) {
+        return (String) EncodeFactory.instance().getHandlerFor(String.class).encode(input);
     }
 }

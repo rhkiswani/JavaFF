@@ -1,7 +1,7 @@
 package io.github.rhkiswani.jutils.format;
 
 import io.github.rhkiswani.jutils.format.exception.FormatException;
-import io.github.rhkiswani.jutils.lang.Arrays;
+import io.github.rhkiswani.jutils.lang.ArraysHelper;
 
 public abstract class DefaultFormatter<IN, OUT> implements Formatter<IN, OUT> {
 
@@ -14,7 +14,7 @@ public abstract class DefaultFormatter<IN, OUT> implements Formatter<IN, OUT> {
         }
         if (params.length > 0){
             try {
-                Arrays.replace(params, null, "");
+                ArraysHelper.replace(params, null, "");
                 return formatVal(in, params);
             } catch (Throwable t ){
                 throw new FormatException(t);

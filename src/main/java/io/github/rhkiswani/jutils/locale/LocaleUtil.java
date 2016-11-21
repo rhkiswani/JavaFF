@@ -7,6 +7,6 @@ public class LocaleUtil {
     }
 
     public static String getString(String key, Object... params){
-        return LocaleWorkersManager.instance().getString(key, params);
+        return LocaleWorkersFactory.instance().getString(key, params);
     }
 }

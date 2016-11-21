@@ -6,7 +6,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.List;
 
-public class Arrays {
+public class ArraysHelper {
 
     public static final int MAX_ARRAY_SIZE = 500000;
 

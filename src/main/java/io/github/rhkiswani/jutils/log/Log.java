@@ -2,14 +2,14 @@ package io.github.rhkiswani.jutils.log;
 
 public interface Log {
 
-    void debug(String message);
+    void debug(String message, Object... params);
 
-    void info(String message);
+    void info(String message, Object... params);
 
-    void warn(String message);
+    void warn(String message, Object... params);
 
-    void error(String message);
+    void error(String message, Object... params);
 
-    void error(String message, Exception e);
+    void error(String message, Exception e, Object... params);
 
 }

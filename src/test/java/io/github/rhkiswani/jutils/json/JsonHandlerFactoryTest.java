@@ -3,19 +3,19 @@ package io.github.rhkiswani.jutils.json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.github.rhkiswani.jutils.beans.withOutAnnotation.withEqualsAnnotation.EmployeeX;
-import io.github.rhkiswani.jutils.reflection.ReflectionUtil;
+import io.github.rhkiswani.jutils.decetor.ApiDetectorUtil;
+import io.github.rhkiswani.jutils.json.annotations.GsonBean;
+import io.github.rhkiswani.jutils.json.annotations.JacksonBean;
+import io.github.rhkiswani.jutils.lang.exceptions.IllegalParamException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-
 @RunWith(PowerMockRunner.class)
-@PrepareForTest( { ReflectionUtil.class })
 public class JsonHandlerFactoryTest {
 
     private EmployeeX employeeX = null;
@@ -27,18 +27,40 @@ public class JsonHandlerFactoryTest {
         employeeX.setId(10);
     }
     @Test
+    @PrepareForTest( { ApiDetectorUtil.class })
     public void testJsonHandler() {
-        assertThat(JsonHandlerFactory.getHandler().getImplementation()).isInstanceOf(ObjectMapper.class);
-        mockStatic(ReflectionUtil.class);
-        when(ReflectionUtil.isPresent("com.fasterxml.jackson.databind.ObjectMapper")).thenReturn(false);
-        assertThat(JsonHandlerFactory.getHandler().getImplementation()).isInstanceOf(Gson.class);
+        assertThat(JsonHandlerFactory.instance().getHandlerFor(JacksonBean.class).getImplementation()).isInstanceOf(ObjectMapper.class);
+        assertThat(JsonHandlerFactory.instance().getHandlerFor(GsonBean.class).getImplementation()).isInstanceOf(Gson.class);
+        try {
+            JsonHandlerFactory.instance().getHandlerFor(null);
+        } catch (Exception e){
+            assertThat(e).isInstanceOf(IllegalParamException.class).hasMessage("Target Class cant be null");
+        }
+        assertThat(JsonHandlerFactory.instance().getDefault().getImplementation()).isInstanceOf(ObjectMapper.class);
+        PowerMockito.mockStatic(ApiDetectorUtil.class);
+        PowerMockito.when(ApiDetectorUtil.isJacksonAvailable()).thenReturn(false);
+        assertThat(JsonHandlerFactory.instance().getDefault().getImplementation()).isInstanceOf(Gson.class);
     }
 
     @Test
     public void testJson() {
-        String empAsJson = "{\"id\":10,\"name\":\"Kiswani\",\"empId\":1000}";
-        assertThat(JsonHandlerFactory.getHandler().toJson(employeeX)).isEqualTo(empAsJson);
-        assertThat(JsonHandlerFactory.getHandler().fromJson(empAsJson, EmployeeX.class)).isEqualTo(employeeX);
+        String jacksonJson = "{\"id\":10,\"name\":\"Kiswani\",\"empId\":1000}";
+        String gsonJson = "{\"empId\":1000,\"id\":10,\"name\":\"Kiswani\"}";
+        assertThat(JsonHandlerFactory.instance().getHandlerFor(GsonBean.class).toJson(employeeX)).isEqualTo(gsonJson);
+        assertThat(JsonHandlerFactory.instance().getHandlerFor(JacksonBean.class).toJson(employeeX)).isEqualTo(jacksonJson);
+        assertThat(JsonHandlerFactory.instance().getHandlerFor(GsonBeanX.class).toJson(employeeX)).isEqualTo(gsonJson);
+        assertThat(JsonHandlerFactory.instance().getHandlerFor(JacksonBeanX.class).toJson(employeeX)).isEqualTo(jacksonJson);
+        assertThat(JsonHandlerFactory.instance().getDefault().fromJson(gsonJson, EmployeeX.class)).isEqualTo(employeeX);
+    }
+
+    @GsonBean
+    private class GsonBeanX extends EmployeeX{
+
+    }
+
+    @JacksonBean
+    private class JacksonBeanX extends EmployeeX{
+
     }
 
 }

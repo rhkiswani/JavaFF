@@ -1,5 +1,8 @@
 package io.github.rhkiswani.jutils.format;
 
+import io.github.rhkiswani.jutils.exceptions.SmartException;
+import io.github.rhkiswani.jutils.lang.exceptions.IllegalParamException;
+
 import java.util.Date;
 
 public class FormatUtil {
@@ -21,6 +24,9 @@ public class FormatUtil {
     }
 
     public static <T>T format(Object obj, Object... params){
-        return (T) FormatterManager.instance().getFormatter(obj).format(String.valueOf(obj), params);
+        if (obj == null){
+            throw new IllegalParamException(SmartException.NULL_VAL, "Object");
+        }
+        return (T) FormatFactory.instance().getHandlerFor(obj.getClass()).format(String.valueOf(obj), params);
     }
 }

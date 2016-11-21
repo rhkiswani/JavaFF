@@ -4,7 +4,7 @@ import io.github.rhkiswani.jutils.json.JsonHandler;
 import io.github.rhkiswani.jutils.json.JsonHandlerFactory;
 import io.github.rhkiswani.jutils.lang.EqualsHelper;
 import io.github.rhkiswani.jutils.lang.HashCodeHelper;
-import io.github.rhkiswani.jutils.lang.StringHelper;
+import io.github.rhkiswani.jutils.lang.ToStringHelper;
 
 import java.io.Serializable;
 
@@ -22,11 +22,11 @@ public class ValuesHolder<T> implements Serializable{
 
     @Override
     public String toString() {
-        return StringHelper.toString(this);
+        return ToStringHelper.toString(this);
     }
 
     public T clone() {
-        JsonHandler jh = JsonHandlerFactory.getHandler();
+        JsonHandler jh = JsonHandlerFactory.instance().getHandlerFor(this.getClass());
         String json = jh.toJson(this);
         return (T) jh.fromJson(json, getClass());
     }

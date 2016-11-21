@@ -5,6 +5,21 @@
     <groupId>io.github.rhkiswani</groupId>
     <artifactId>jutils</artifactId>
     <version>0.0.2-SNAPSHOT</version>
+    <name>JUtils: Utilities for Java</name>
+    <description>
+        JUtils is a set of APIs/utilities that you need in any Java application.
+
+        Main Features
+        --------------
+        - Transparent equals / hashcode/ clone
+        - Simple/Clean API
+        - Transparent Exception handling and localization
+        - Transparent JSON Handlers
+        - Transparent Logging Handlers
+        - Formatter's
+        - Transparent Locale Managers (Multiple messages per need)
+    </description>
+    <url>https://github.com/rhkiswani/JUtils</url>
 
     <scm>
         <connection>scm:git:https://github.com/rhkiswani/JUtils.git</connection>

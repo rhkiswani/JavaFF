@@ -2,7 +2,7 @@ package io.github.rhkiswani.jutils.format;
 
 import java.text.MessageFormat;
 
-class NumberFormatter extends DefaultFormatter<Number, String>{
+class NumberFormatter extends DefaultFormatter<Number, String> {
 
     @Override
     protected String formatVal(Number number, Object... params) {

@@ -1,10 +1,14 @@
 package io.github.rhkiswani.jutils.lang;
 
+import io.github.rhkiswani.jutils.beans.ValuesHolder;
 import io.github.rhkiswani.jutils.beans.withIdAnnotation.withEqualsAnnotation.EmployeeByIdAnnotation;
 import io.github.rhkiswani.jutils.beans.withIdAnnotation.withEqualsAnnotation.PersonByIdAnnotation;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -52,11 +56,30 @@ public class ValuesHolderTest {
     @Test
     public void testToString() throws Exception {
         e1.setEmpId(500000);
-        assertThat(e1.toString()).isEqualTo("EmployeeByIdAnnotation[empId=500,000, id=100,000, name=Kiswani123, transientVal=Kiswani, staticVal=Static]");
+        assertThat(e1.toString()).isEqualTo("EmployeeByIdAnnotation[id=100,000]");
+        ToStringTestClass x = new ToStringTestClass();
+        x.i = 123123123;
+        x.f = 123123123;
+        x.d = 123123123;
+        x.date = new SimpleDateFormat("yyyy-MM-dd").parse("2016-11-21");
+        x.c = '\n';
+        x.l = 123123123;
+        x.s = "Kiswani";
+        assertThat(x.toString()).isEqualTo("ToStringTestClass[i=123,123,123, f=123,123,120, d=123,123,123, date=11/21/16 12:00 AM, c=\n, l=123,123,123, s=Kiswani]");
     }
 
     @Test
     public void testX() throws Exception {
         assertThat(PersonByIdAnnotation.class.isInstance(e1)).isEqualTo(true);
+    }
+
+    private class ToStringTestClass extends ValuesHolder{
+        int i;
+        float f;
+        double d;
+        Date date;
+        char c;
+        long l;
+        String s;
     }
 }
