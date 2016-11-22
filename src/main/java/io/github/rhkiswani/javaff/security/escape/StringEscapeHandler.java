@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.security.encode;
+package io.github.rhkiswani.javaff.security.escape;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
- * @see io.github.rhkiswani.javaff.security.encode.DefaultEncodeHandler
- * @see io.github.rhkiswani.javaff.security.encode.EncodeHandler
+ * @see DefaultEscapeHandler
+ * @see EscapeHandler
  */
-class StringEncodeHandler extends DefaultEncodeHandler<String, String> {
+class StringEscapeHandler extends DefaultEscapeHandler<String, String> {
 
     @Override
     protected String encodeVal(String input, Object... params) {

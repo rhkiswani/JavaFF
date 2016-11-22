@@ -15,9 +15,6 @@
  */
 package io.github.rhkiswani.javaff.format;
 
-import io.github.rhkiswani.javaff.exceptions.SmartException;
-import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
-
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
@@ -35,7 +32,7 @@ public class FormatUtil {
 
     public static <T>T format(Object obj, Object... params){
         if (obj == null){
-            throw new IllegalParamException(SmartException.NULL_VAL, "Object");
+            return null;
         }
         return (T) FormatFactory.getFormatter(obj.getClass()).format(String.valueOf(obj), params);
     }

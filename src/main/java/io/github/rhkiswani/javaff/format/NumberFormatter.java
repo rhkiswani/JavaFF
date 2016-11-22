@@ -30,4 +30,7 @@ class NumberFormatter extends DefaultFormatter<Number, String> {
         return MessageFormat.format("{0}", number);
     }
 
+    public String format(Number num){
+        return format(num, new Object[]{});
+    }
 }
