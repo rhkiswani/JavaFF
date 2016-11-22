@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ExceptionHandlersFactoryTest {
 
+    private String exceptionMsg = "dummyMsg";
     private ExceptionHandler exceptionHandler ;
 
     @Before
@@ -52,7 +53,6 @@ public class ExceptionHandlersFactoryTest {
 
     @Test
     public void testFactory() throws Exception {
-        //FIXME it's failing on travis but not local
         assertThat(ExceptionHandlersFactory.getExceptionHandler(Throwable.class).getClass()).isEqualTo(DefaultExceptionHandler.class);
         ExceptionHandlersFactory.instance().overrideImp(Throwable.class, exceptionHandler);
         assertThat(ExceptionHandlersFactory.getExceptionHandler(Throwable.class).getClass()).isEqualTo(TestExceptionHandler.class);
@@ -66,14 +66,6 @@ public class ExceptionHandlersFactoryTest {
         }
     }
 
-    private class TestExceptionHandler implements ExceptionHandler {
-        @Override
-        public void handle(Throwable t) {
-            t.printStackTrace();
-        }
-    };
-
-    String exceptionMsg = "dummyMsg";
     @Test
     public void testSmartException() throws Exception {
         try {
@@ -192,4 +184,11 @@ public class ExceptionHandlersFactoryTest {
     private static class SubMailException extends MailException {
 
     }
+
+    private class TestExceptionHandler implements ExceptionHandler {
+        @Override
+        public void handle(Throwable t) {
+            t.printStackTrace();
+        }
+    };
 }

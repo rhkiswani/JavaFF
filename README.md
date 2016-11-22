@@ -50,18 +50,22 @@ Now I have the below dependencies in my pom.xml
     </dependency>
 ```
 So when I call 
-```javascript
+```java
     LogFactory.getLogger(LogFactory.class).info("LOCALIZED_MSG", "Kiswani");  
-    output:
+    
+    Output:
+    
     Nov 22, 2016 6:54:07 PM io.github.rhkiswani.javaff.log.Slf4jLog info
     INFO: this is localized msg from messages_en.properties thanks for Mr Kiswani
 ```
 
 When I remove the dependencies from the pom.xml and run the same code I will get 
     
-```javascript
+```java
     LogFactory.getLogger(LogFactory.class).info("LOCALIZED_MSG", "Kiswani");
-    output:
+    
+    Output:
+    
     Nov 22, 2016 7:00:15 PM io.github.rhkiswani.javaff.log.DefaultLog info
     INFO: this is localized msg from messages_en.properties thanks for Mr Kiswani
  ```
@@ -80,7 +84,7 @@ When I remove the dependencies from the pom.xml and run the same code I will get
     public class TestMain {
     
         public static void main(String[] args) {
-            //Any class is instance of ConsoleException will be handled here
+            //Any instance of ConsoleException will be handled here
             ExceptionHandlersFactory.instance().add(ConsoleException.class, new ExceptionHandler() {
                 @Override
                 public void handle(Throwable t) {
@@ -88,7 +92,7 @@ When I remove the dependencies from the pom.xml and run the same code I will get
                 }
             });
     
-            //Any class is instance of MailException will be handled here
+            //Any instance of MailException will be handled here
             ExceptionHandlersFactory.instance().add(MailException.class, new ExceptionHandler() {
                 @Override
                 public void handle(Throwable t) {
@@ -141,11 +145,15 @@ When I remove the dependencies from the pom.xml and run the same code I will get
 
 ```java
     LogFactory.getLogger(LogFactory.class).info("LOCALIZED_MSG", "Kiswani");
-    output : INFO: this is localized msg from messages_en.properties thanks for Mr Kiswani
+    
+    Output : 
+    INFO: this is localized msg from messages_en.properties thanks for Mr Kiswani
 ``` 
 
 ```java
     LogFactory.getLogger(LogFactory.class).info("normal msg num {0} date {1}", Integer.MAX_VALUE, new Date());
+    
+    Output:
     INFO: normal msg num 2,147,483,647 date 11/22/16 6:06 PM
 ``` 
 
@@ -157,6 +165,7 @@ When I remove the dependencies from the pom.xml and run the same code I will get
         System.out.println(FormatUtil.format(new Date(), "yyyy-MM-dd"));
         System.out.println(FormatUtil.format(Integer.MAX_VALUE));
         
+        Output:
         Mr Mohamed Kiswani
         11/22/16 6:16 PM
         2016-11-22
@@ -168,6 +177,7 @@ When I remove the dependencies from the pom.xml and run the same code I will get
             System.out.println(JsonHandlerFactory.getJsonHandler(TestMain.class).toJson(new Employee(1000)));
             output : {"id":0,"name":null,"empId":1000}
        ``` 
+       
       ```java
             System.out.println(JsonHandlerFactory.getJsonHandler(TestMain.class).fromJson("{\"id\":100,\"name\":null,\"empId\":1000}", Employee.class));
             output: Employee[id=100]   
