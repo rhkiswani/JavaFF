@@ -108,7 +108,8 @@ public class ExceptionsTest {
 
         ExceptionUtil.handle(new NullPointerException());
         assertThat(exceptionMsg).isEqualTo("Overridden handler");
-
+        ExceptionHandlersFactory.instance().remove(MailException.class);
+        ExceptionHandlersFactory.instance().remove(ConsoleException.class);
     }
 
     private static class ConsoleException extends RuntimeException{
