@@ -1,12 +1,14 @@
 package io.github.rhkiswani.javaff.exceptions;
 
 import io.github.rhkiswani.javaff.format.FormatUtil;
+import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExceptionsTest {
 
+    String exceptionMsg = "dummyMsg";
     @Test
     public void testSmartException() throws Exception {
         try {
@@ -28,7 +30,7 @@ public class ExceptionsTest {
     }
 
     @Test
-    public void testExceptionUtil() throws Exception {
+    public void testGetRootCause() throws Exception {
         assertThat(ExceptionUtil.getRootCause(null)).isNull();
         try {
             throw new SmartException(new RuntimeException(new NullPointerException(SmartException.NOT_FOUND)));
@@ -48,6 +50,26 @@ public class ExceptionsTest {
             assertThat(ExceptionUtil.getRootCause(t).getClass()).isEqualTo(SmartException.class);
             assertThat(ExceptionUtil.getRootCause(t).getMessage()).isEqualTo("Kiswani not found");
         }
+    }
+
+    @Test
+    public void testHandle() throws Exception {
+        try {
+             ExceptionUtil.handle(null);
+        }catch (Throwable t) {
+            assertThat(ExceptionUtil.getRootCause(t).getClass()).isEqualTo(IllegalParamException.class);
+            assertThat(ExceptionUtil.getRootCause(t).getMessage()).isEqualTo("Exception cant be null");
+        }
+
+        ExceptionHandlersFactory.instance().setDefault(new ExceptionHandler() {
+            @Override
+            public void handle(Throwable t) {
+                exceptionMsg = "Kiswani";
+            }
+        });
+        ExceptionUtil.handle(new NullPointerException());
+        assertThat(exceptionMsg).isEqualTo("Kiswani");
+        exceptionMsg = "dummyMsg";
     }
 
 }

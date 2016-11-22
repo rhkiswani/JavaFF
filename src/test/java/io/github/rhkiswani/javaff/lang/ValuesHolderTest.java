@@ -3,11 +3,17 @@ package io.github.rhkiswani.javaff.lang;
 import io.github.rhkiswani.javaff.beans.ValuesHolder;
 import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.EmployeeByIdAnnotation;
 import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.PersonByIdAnnotation;
+import io.github.rhkiswani.javaff.lang.annotations.EqualsField;
+import io.github.rhkiswani.javaff.lang.annotations.HashcodeField;
+import io.github.rhkiswani.javaff.lang.annotations.ToString;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.persistence.Id;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,15 +63,17 @@ public class ValuesHolderTest {
     public void testToString() throws Exception {
         e1.setEmpId(500000);
         assertThat(e1.toString()).isEqualTo("EmployeeByIdAnnotation[id=100,000]");
-        ToStringTestClass x = new ToStringTestClass();
-        x.i = 123123123;
-        x.f = 123123123;
-        x.d = 123123123;
-        x.date = new SimpleDateFormat("yyyy-MM-dd").parse("2016-11-21");
-        x.c = '\n';
-        x.l = 123123123;
-        x.s = "Kiswani";
-        assertThat(x.toString()).isEqualTo("ToStringTestClass[i=123,123,123, f=123,123,120, d=123,123,123, date=11/21/16 12:00 AM, c=\n, l=123,123,123, s=Kiswani]");
+        ToStringTestClass stringTestClass = new ToStringTestClass();
+        stringTestClass.date = new SimpleDateFormat("yyyy-MM-dd").parse("2016-11-21");
+        assertThat(stringTestClass.toString()).isEqualTo("ToStringTestClass[i=123,123,123, f=123,123,120, d=123,123,123, date=11/21/16 12:00 AM, c=\n, l=123,123,123, s=Kiswani, arr=[1,2,3], coll=[[1,2,3]]]");
+        ToStringTestClassX x = new ToStringTestClassX();
+        assertThat(x.toString()).isEqualTo("ToStringTestClassX[i=123,123,123, f=123,123,120]");
+        ToStringTestClassXX xx = new ToStringTestClassXX();
+        assertThat(xx.toString()).isEqualTo("ToStringTestClassXX[f=4,444,111]");
+        ToStringTestClassXXX xxx = new ToStringTestClassXXX();
+        assertThat(xxx.toString()).isEqualTo("ToStringTestClassXXX[i=10,000]");
+        ToStringTestClassXXXX xxxx = new ToStringTestClassXXXX();
+        assertThat(xxxx.toString()).isEqualTo("ToStringTestClassXXXX[d=99,900,011]");
     }
 
     @Test
@@ -74,12 +82,43 @@ public class ValuesHolderTest {
     }
 
     private class ToStringTestClass extends ValuesHolder{
-        int i;
-        float f;
-        double d;
-        Date date;
-        char c;
-        long l;
-        String s;
+        int i = 123123123;
+        float f = 123123123;
+        double d = 123123123;
+        Date date = new Date();
+        char c = '\n';
+        long l = 123123123;
+        String s = "Kiswani";
+        int[] arr = new int[]{1, 2, 3};
+        Collection coll = Arrays.asList(arr);
+    }
+
+    private class ToStringTestClassX extends ValuesHolder{
+        @ToString
+        int i = 123123123;
+        @ToString
+        float f = 123123123;
+        double d = 123123123;
+    }
+
+    private class ToStringTestClassXX extends ValuesHolder{
+        int i = 9090909;
+        @HashcodeField
+        float f = 4444111;
+        double d = 123123123;
+    }
+
+    private class ToStringTestClassXXX extends ValuesHolder{
+        @EqualsField
+        int i = 10000;
+        float f = 123123123;
+        double d = 123123123;
+    }
+
+    private class ToStringTestClassXXXX extends ValuesHolder{
+        int i = 50000;
+        float f = 123123123;
+        @Id
+        double d = 99900011;
     }
 }

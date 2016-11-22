@@ -13,23 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.format.exception;
+package io.github.rhkiswani.javaff.detector;
 
 import io.github.rhkiswani.javaff.exceptions.SmartException;
+import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
+import io.github.rhkiswani.javaff.reflection.ReflectionUtil;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
- * @see io.github.rhkiswani.javaff.exceptions.SmartException
+ * @see io.github.rhkiswani.javaff.detector.ApiDetector
  *
  */
-public class FormatException extends SmartException{
-
-    public FormatException(String errorMsg, Object... errorMsgParams) {
-        super(errorMsg, errorMsgParams);
-    }
-
-    public FormatException(Throwable e) {
-        super(e);
+class DefaultApiDetectorHandler implements ApiDetector{
+    public boolean isAvailable(ApiMetadata apiMetadata){
+        if (apiMetadata == null){
+            throw new IllegalParamException(SmartException.NULL_VAL, "Api Metadata");
+        }
+        if (apiMetadata.getMainClassName() == null){
+            throw new IllegalParamException(SmartException.NULL_VAL, "Api Main Class Name");
+        }
+        return ReflectionUtil.isPresent(apiMetadata.getMainClassName());
     }
 }

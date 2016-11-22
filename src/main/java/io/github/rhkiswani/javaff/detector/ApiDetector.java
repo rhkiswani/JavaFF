@@ -13,20 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.log.annotations;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package io.github.rhkiswani.javaff.detector;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
  *
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Slf4jLogger {
-
+public interface ApiDetector {
+    boolean isAvailable(ApiMetadata apiMetadata);
 }
