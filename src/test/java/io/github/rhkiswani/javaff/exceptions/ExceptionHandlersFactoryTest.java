@@ -48,7 +48,6 @@ public class ExceptionHandlersFactoryTest {
 
     @Test
     public void testFactory() throws Exception {
-        assertThat(ExceptionHandlersFactory.getExceptionHandler(Throwable.class).getClass()).isEqualTo(DefaultExceptionHandler.class);
         ExceptionHandlersFactory.instance().overrideImp(Throwable.class, exceptionHandler);
         assertThat(ExceptionHandlersFactory.getExceptionHandler(Throwable.class).getClass()).isEqualTo(TestExceptionHandler.class);
         assertThat(ExceptionHandlersFactory.getExceptionHandler(SQLException.class).getClass()).isEqualTo(TestExceptionHandler.class);
