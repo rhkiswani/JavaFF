@@ -13,23 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.format.exception;
+package io.github.rhkiswani.javaff.detector;
 
-import io.github.rhkiswani.javaff.exceptions.SmartException;
+import io.github.rhkiswani.javaff.factory.AbstractFactory;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
- * @see io.github.rhkiswani.javaff.exceptions.SmartException
+ * @see io.github.rhkiswani.javaff.factory.AbstractFactory
  *
  */
-public class FormatException extends SmartException{
+public class ApiDetectorFactory extends AbstractFactory<ApiDetector>{
+    private static ApiDetectorFactory instance = new ApiDetectorFactory();
 
-    public FormatException(String errorMsg, Object... errorMsgParams) {
-        super(errorMsg, errorMsgParams);
+    private ApiDetectorFactory(){
     }
 
-    public FormatException(Throwable e) {
-        super(e);
+    public static ApiDetectorFactory instance(){
+        return instance;
     }
+
+    @Override
+    protected ApiDetector getDefault(Class targetClazz) {
+        return new DefaultApiDetectorHandler();
+    }
+
+    public static ApiDetector getDetector() {
+        return instance.create(ApiDetectorFactory.class);
+    }
+
 }

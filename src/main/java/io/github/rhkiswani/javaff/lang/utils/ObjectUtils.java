@@ -13,20 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.log.annotations;
+package io.github.rhkiswani.javaff.lang.utils;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import io.github.rhkiswani.javaff.lang.EqualsHelper;
+import io.github.rhkiswani.javaff.lang.HashCodeHelper;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
  *
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Slf4jLogger {
+public class ObjectUtils {
 
+    public static boolean isEqual(Object obj1, Object obj2) {
+        return new EqualsHelper().isEqual(obj1, obj2);
+    }
+
+    public static int toHashCode(Object obj) {
+        return new HashCodeHelper().toHashCode(obj);
+    }
 }

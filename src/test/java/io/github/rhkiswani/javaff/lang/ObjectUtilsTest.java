@@ -5,11 +5,12 @@ import io.github.rhkiswani.javaff.beans.withEqualsAnnotation.Person;
 import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.EmployeeByIdAnnotation;
 import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.PersonByIdAnnotation;
 import io.github.rhkiswani.javaff.beans.withOutAnnotation.withEqualsAnnotation.EmployeeX;
+import io.github.rhkiswani.javaff.lang.utils.ObjectUtils;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EqualsHelperTest {
+public class ObjectUtilsTest {
 
     @Test
     public void testEqualsWithSuperClassWithoutAnnotation() throws Exception {
@@ -20,16 +21,16 @@ public class EqualsHelperTest {
         EmployeeX e1 = new EmployeeX();
         e1.setId(1);
         e1.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e1)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(e, e1)).isEqualTo(false);
         e1.setId(-1);
         e1.setEmpId(1000);
         e1.setName("Kiswani");
-        assertThat(EqualsHelper.isEqual(e, e1)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(e, e1)).isEqualTo(false);
         e1.setId(1);
-        assertThat(EqualsHelper.isEqual(e, e1)).isEqualTo(true);
+        assertThat(ObjectUtils.isEqual(e, e1)).isEqualTo(true);
         e1.setName(null);
         e.setName(null);
-        assertThat(EqualsHelper.isEqual(e, e1)).isEqualTo(true);
+        assertThat(ObjectUtils.isEqual(e, e1)).isEqualTo(true);
     }
 
     @Test
@@ -41,7 +42,7 @@ public class EqualsHelperTest {
         Employee e1 = new Employee();
         e1.setId(1);
         e1.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e1)).isEqualTo(true);
+        assertThat(ObjectUtils.isEqual(e, e1)).isEqualTo(true);
     }
 
     @Test
@@ -52,18 +53,18 @@ public class EqualsHelperTest {
         Person e1 = new Person();
         e1.setId(1);
         e1.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e1)).isEqualTo(true);
+        assertThat(ObjectUtils.isEqual(e, e1)).isEqualTo(true);
         Employee e2 = new Employee();
         e2.setId(1);
         e2.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e2)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(e, e2)).isEqualTo(false);
         Person e3 = new Employee();
         e3.setId(1);
         e3.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e3)).isEqualTo(false);
-        assertThat(EqualsHelper.isEqual(null, null)).isEqualTo(true);
-        assertThat(EqualsHelper.isEqual(e, null)).isEqualTo(false);
-        assertThat(EqualsHelper.isEqual(null, e)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(e, e3)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(null, null)).isEqualTo(true);
+        assertThat(ObjectUtils.isEqual(e, null)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(null, e)).isEqualTo(false);
     }
 
     @Test
@@ -75,7 +76,7 @@ public class EqualsHelperTest {
         EmployeeByIdAnnotation e1 = new EmployeeByIdAnnotation();
         e1.setId(1);
         e1.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e1)).isEqualTo(true);
+        assertThat(ObjectUtils.isEqual(e, e1)).isEqualTo(true);
     }
 
     @Test
@@ -86,23 +87,23 @@ public class EqualsHelperTest {
         PersonByIdAnnotation e1 = new PersonByIdAnnotation();
         e1.setId(1);
         e1.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e1)).isEqualTo(true);
+        assertThat(ObjectUtils.isEqual(e, e1)).isEqualTo(true);
         EmployeeByIdAnnotation e2 = new EmployeeByIdAnnotation();
         e2.setId(1);
         e2.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e2)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(e, e2)).isEqualTo(false);
         PersonByIdAnnotation e3 = new EmployeeByIdAnnotation();
         e3.setId(1);
         e3.setName("Kiswani123");
-        assertThat(EqualsHelper.isEqual(e, e3)).isEqualTo(false);
-        assertThat(EqualsHelper.isEqual(null, null)).isEqualTo(true);
-        assertThat(EqualsHelper.isEqual(e, null)).isEqualTo(false);
-        assertThat(EqualsHelper.isEqual(null, e)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(e, e3)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(null, null)).isEqualTo(true);
+        assertThat(ObjectUtils.isEqual(e, null)).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(null, e)).isEqualTo(false);
     }
 
     @Test
     public void testEmptyClass() throws Exception {
-        assertThat(EqualsHelper.isEqual(new EmptyClass(), new EmptyClass())).isEqualTo(false);
+        assertThat(ObjectUtils.isEqual(new EmptyClass(), new EmptyClass())).isEqualTo(false);
     }
 
     private class EmptyClass{

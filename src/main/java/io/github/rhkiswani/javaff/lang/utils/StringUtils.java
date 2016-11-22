@@ -13,20 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.log.annotations;
+package io.github.rhkiswani.javaff.lang.utils;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import io.github.rhkiswani.javaff.lang.ToStringHelper;
+import io.github.rhkiswani.javaff.security.encode.EncodeFactory;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
  *
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Slf4jLogger {
+public class StringUtils {
 
+    public static String toString(Object obj) {
+        return new ToStringHelper().toString(obj);
+    }
+
+    public static String encode(String input) {
+        return (String) EncodeFactory.getEncoder(String.class).encode(input);
+    }
+
+    public static boolean isEmpty(String input){
+        return input == null || input.isEmpty();
+    }
 }
