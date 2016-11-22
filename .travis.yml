@@ -1,4 +1,5 @@
-anguage: java
+language: java
+sudo: false
 
 jdk:
   - oraclejdk8
