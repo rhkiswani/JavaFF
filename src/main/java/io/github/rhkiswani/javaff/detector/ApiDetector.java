@@ -13,11 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.format;
-
-import io.github.rhkiswani.javaff.factory.AbstractFactory;
-
-import java.util.Date;
+package io.github.rhkiswani.javaff.detector;
 
 /**
  * @author Mohamed Kiswani
@@ -26,25 +22,6 @@ import java.util.Date;
  * @since 0.0.1
  *
  */
-public class FormatFactory extends AbstractFactory<Formatter> {
-
-    private static FormatFactory instance = new FormatFactory();
-
-    private FormatFactory(){
-        add(Date.class, new DateFormatter());
-        add(String.class, new StringFormatter());
-        add(Number.class, new NumberFormatter());
-    }
-
-    public static FormatFactory instance(){
-        return instance;
-    }
-
-    protected Formatter getDefault(Class targetClazz){
-        return new StringFormatter();
-    }
-
-    public static Formatter getFormatter(Class aClass) {
-        return instance.create(aClass);
-    }
+public interface ApiDetector {
+    boolean isAvailable(ApiMetadata apiMetadata);
 }

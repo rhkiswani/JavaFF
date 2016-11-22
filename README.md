@@ -1,7 +1,8 @@
 JavaFF: Java Facade/Factories
 =============================
 
--[![Build Status](https://travis-ci.org/rhkiswani/JavaFF.svg?branch=develop)](https://travis-ci.org/rhkiswani/JavaFF)
+[![Build Status](https://travis-ci.org/rhkiswani/JavaFF.svg?branch=develop)](https://travis-ci.org/rhkiswani/JavaFF)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.rhkiswani/javaff.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.github.rhkiswani%22)
 
 We all know the Golden Object Oriented rule **Don't talk to strangers**
 

@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.format;
+package io.github.rhkiswani.javaff.lang.utils;
 
-import io.github.rhkiswani.javaff.factory.AbstractFactory;
-
-import java.util.Date;
+import io.github.rhkiswani.javaff.lang.EqualsHelper;
+import io.github.rhkiswani.javaff.lang.HashCodeHelper;
 
 /**
  * @author Mohamed Kiswani
@@ -26,25 +25,13 @@ import java.util.Date;
  * @since 0.0.1
  *
  */
-public class FormatFactory extends AbstractFactory<Formatter> {
+public class ObjectUtils {
 
-    private static FormatFactory instance = new FormatFactory();
-
-    private FormatFactory(){
-        add(Date.class, new DateFormatter());
-        add(String.class, new StringFormatter());
-        add(Number.class, new NumberFormatter());
+    public static boolean isEqual(Object obj1, Object obj2) {
+        return new EqualsHelper().isEqual(obj1, obj2);
     }
 
-    public static FormatFactory instance(){
-        return instance;
-    }
-
-    protected Formatter getDefault(Class targetClazz){
-        return new StringFormatter();
-    }
-
-    public static Formatter getFormatter(Class aClass) {
-        return instance.create(aClass);
+    public static int toHashCode(Object obj) {
+        return new HashCodeHelper().toHashCode(obj);
     }
 }

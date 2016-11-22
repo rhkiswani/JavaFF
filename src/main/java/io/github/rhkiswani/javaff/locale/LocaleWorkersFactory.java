@@ -1,8 +1,29 @@
+/*
+ * Copyright 2016 Mohamed Kiswani.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.rhkiswani.javaff.locale;
 
 import io.github.rhkiswani.javaff.factory.AbstractFactory;
-import io.github.rhkiswani.javaff.reflection.ReflectionUtil;
 
+/**
+ * @author Mohamed Kiswani
+ * @email rhkiswani@gmail.com
+ * @url https://github.com/rhkiswani
+ * @since 0.0.1
+ *
+ */
 public class LocaleWorkersFactory extends AbstractFactory<LocaleWorker>{
     private static LocaleWorkersFactory instance = new LocaleWorkersFactory();
 
@@ -15,26 +36,12 @@ public class LocaleWorkersFactory extends AbstractFactory<LocaleWorker>{
         return instance;
     }
 
-    public String getString(String key, Object... params) {
-        LocaleWorker worker = null;
-        try {
-            Class callerClass = ReflectionUtil.getCallerClass(1);
-            if (callerClass.equals(LocaleUtil.class)){
-                callerClass = ReflectionUtil.getCallerClass(2);
-            }
-            worker = getHandlerFor(callerClass);
-        }catch (Exception e ){
-            worker = getDefault(Object.class);
-        }
-        String val = worker.getString(key, params);
-        if (val != null && !val.equals(key)){
-            return val;
-        }
-        return key;
+    @Override
+    protected LocaleWorker getDefault(Class targetClazz) {
+        return new LocaleWorkerBuilder().path("app/").build();
     }
 
-    @Override
-    public LocaleWorker getDefault(Class targetClazz) {
-        return new LocaleWorkerBuilder().path("app/").build();
+    public static LocaleWorker getLocalWorker(Class clazz){
+        return instance.create(clazz);
     }
 }
