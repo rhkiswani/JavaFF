@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.security.encode;
+package io.github.rhkiswani.javaff.security.escape;
 
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
@@ -23,9 +23,9 @@ import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
  * @since 0.0.1
  *
  */
-public class EncodeUtil {
+public class EscapeUtil {
 
-    private EncodeUtil(){
+    private EscapeUtil(){
 
     }
 
@@ -33,6 +33,6 @@ public class EncodeUtil {
         if (obj == null){
             throw new IllegalParamException(SmartException.NULL_VAL, "String");
         }
-        return (T) EncodeFactory.getEncoder(obj.getClass()).encode(String.valueOf(obj), params);
+        return (T) EscapeersFactory.getEscapeer(obj.getClass()).escape(String.valueOf(obj), params);
     }
 }

@@ -22,8 +22,8 @@ import io.github.rhkiswani.javaff.format.exception.FormatException;
  * @since 0.0.1
  *
  */
-public interface Formatter<IN, OUT> {
+public abstract class Formatter<IN, OUT> {
 
-    OUT format(IN in, Object[] params) throws FormatException;
+    protected abstract OUT format(IN in, Object[] params) throws FormatException;
 
 }

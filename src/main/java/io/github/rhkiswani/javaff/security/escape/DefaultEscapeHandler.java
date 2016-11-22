@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.security.encode;
+package io.github.rhkiswani.javaff.security.escape;
 
 import io.github.rhkiswani.javaff.lang.utils.ArraysUtils;
-import io.github.rhkiswani.javaff.security.encode.exception.EncodeException;
+import io.github.rhkiswani.javaff.security.escape.exception.EncodeException;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
- * @see io.github.rhkiswani.javaff.security.encode.EncodeHandler
+ * @see EscapeHandler
  */
-public abstract class DefaultEncodeHandler<IN, OUT> implements EncodeHandler<IN, OUT> {
+public abstract class DefaultEscapeHandler<IN, OUT> implements EscapeHandler<IN, OUT> {
 
     protected abstract OUT encodeVal(IN in, Object... params);
 
     @Override
-    public OUT encode(IN in, Object... params) throws EncodeException {
+    public OUT escape(IN in, Object... params) throws EncodeException {
         if (in == null){
             return null;
         }

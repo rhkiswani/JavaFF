@@ -47,6 +47,9 @@ public class ValuesHolderTest {
         assertThat(e1.hashCode()).isEqualTo(hashCode);
         e1.setName("New Name");
         assertThat(e1.hashCode()).isNotEqualTo(hashCode);
+        e1.setName(null);
+        e1.setId(null);
+        assertThat(e1.hashCode()).isEqualTo(-1);
     }
 
     @Test

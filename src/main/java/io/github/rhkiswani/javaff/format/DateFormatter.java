@@ -15,7 +15,9 @@
  */
 package io.github.rhkiswani.javaff.format;
 
+import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.format.exception.FormatException;
+import io.github.rhkiswani.javaff.lang.utils.StringUtils;
 import io.github.rhkiswani.javaff.log.Log;
 import io.github.rhkiswani.javaff.log.LogFactory;
 
@@ -38,14 +40,21 @@ class DateFormatter extends DefaultFormatter<Date, String> {
     protected String formatVal(Date date, Object... params) {
         if (params.length > 0 && params[0] != null){
             try {
+                if (StringUtils.isEmpty(params[0] + "")){
+                    throw new FormatException(SmartException.TYPE_ERROR, "Date format", date);
+                }
                 SimpleDateFormat format = new SimpleDateFormat(params[0].toString());
                 return format.format(date);
             }catch (Throwable t){
                 LOGGER.error("Failed to format {0} due to {1} ", date, t.getMessage());
-                throw new FormatException(t);
+                throw new FormatException(SmartException.TYPE_ERROR, "Date format", date);
             }
         } else {
             return MessageFormat.format("{0}", date);
         }
+    }
+
+    public String format(Date date, String pattern){
+        return format(date , new Object[]{pattern});
     }
 }

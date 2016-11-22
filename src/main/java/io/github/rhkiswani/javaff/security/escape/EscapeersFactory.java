@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.security.encode;
+package io.github.rhkiswani.javaff.security.escape;
 
 import io.github.rhkiswani.javaff.factory.AbstractFactory;
 
@@ -22,24 +22,24 @@ import io.github.rhkiswani.javaff.factory.AbstractFactory;
  * @since 0.0.1
  * @see io.github.rhkiswani.javaff.factory.AbstractFactory
  */
-public class EncodeFactory extends AbstractFactory<EncodeHandler> {
+public class EscapeersFactory extends AbstractFactory<EscapeHandler> {
 
-    private static EncodeFactory instance = new EncodeFactory();
+    private static EscapeersFactory instance = new EscapeersFactory();
 
-    private EncodeFactory(){
+    private EscapeersFactory(){
 
     }
 
-    public static EncodeFactory instance(){
+    public static EscapeersFactory instance(){
         return instance;
     }
 
     @Override
-    public EncodeHandler getDefault(Class targetClazz) {
-        return new StringEncodeHandler();
+    public EscapeHandler getDefault(Class targetClazz) {
+        return new StringEscapeHandler();
     }
 
-    public static EncodeHandler getEncoder(Class clazz) {
+    public static EscapeHandler getEscapeer(Class clazz) {
         return instance.create(clazz);
     }
 }

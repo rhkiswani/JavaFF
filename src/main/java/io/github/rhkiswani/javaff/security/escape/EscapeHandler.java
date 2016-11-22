@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.security.encode;
+package io.github.rhkiswani.javaff.security.escape;
 
-import io.github.rhkiswani.javaff.security.encode.exception.EncodeException;
+import io.github.rhkiswani.javaff.security.escape.exception.EncodeException;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
  *
  */
-public interface EncodeHandler<IN, OUT> {
+public interface EscapeHandler<IN, OUT> {
 
-    OUT encode(IN in, Object... params) throws EncodeException;
+    OUT escape(IN in, Object... params) throws EncodeException;
 
 }
