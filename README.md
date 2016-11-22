@@ -25,7 +25,7 @@ Performance
 Deadlocks
 - [(Oracle JDK) deadlock in SSLSocketImpl between between write and close](http://bugs.java.com/view_bug.do?bug_id=8013809)
 
-So, we should always protect our project and noy use a framwork or API directly and this is the main idea here  
+So, we should always protect our project and noy use a framework or API directly and this is the main idea here  
 
 Main Features
 -------------- 
