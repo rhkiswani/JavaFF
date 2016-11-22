@@ -60,16 +60,70 @@ public class ExceptionsTest {
             assertThat(ExceptionUtil.getRootCause(t).getClass()).isEqualTo(IllegalParamException.class);
             assertThat(ExceptionUtil.getRootCause(t).getMessage()).isEqualTo("Exception cant be null");
         }
-
         ExceptionHandlersFactory.instance().setDefault(new ExceptionHandler() {
             @Override
             public void handle(Throwable t) {
-                exceptionMsg = "Kiswani";
+                exceptionMsg = "userDefaultHandler";
             }
         });
         ExceptionUtil.handle(new NullPointerException());
-        assertThat(exceptionMsg).isEqualTo("Kiswani");
-        exceptionMsg = "dummyMsg";
+        assertThat(exceptionMsg).isEqualTo("userDefaultHandler");
+
+        //Any class is instance of ConsoleException will be handled here
+        ExceptionHandlersFactory.instance().add(ConsoleException.class, new ExceptionHandler() {
+            @Override
+            public void handle(Throwable t) {
+                exceptionMsg = "ConsoleException handler";
+            }
+        });
+
+        //Any class is instance of MailException will be handled here
+        ExceptionHandlersFactory.instance().add(MailException.class, new ExceptionHandler() {
+            @Override
+            public void handle(Throwable t) {
+                exceptionMsg = "MailException handler";
+            }
+        });
+
+
+        ExceptionUtil.handle(new ConsoleException());
+        assertThat(exceptionMsg).isEqualTo("userDefaultHandler");
+        ExceptionHandlersFactory.instance().setDefault(null);
+        ExceptionUtil.handle(new ConsoleException());
+        assertThat(exceptionMsg).isEqualTo("ConsoleException handler");
+        ExceptionUtil.handle(new SubConsoleException());
+        assertThat(exceptionMsg).isEqualTo("ConsoleException handler");
+        ExceptionUtil.handle(new MailException());
+        assertThat(exceptionMsg).isEqualTo("MailException handler");
+        ExceptionUtil.handle(new SubMailException());
+        assertThat(exceptionMsg).isEqualTo("MailException handler");
+
+        //We decided to override the default implantation for Throwable.class
+        ExceptionHandlersFactory.instance().overrideImp(Throwable.class, new ExceptionHandler() {
+            @Override
+            public void handle(Throwable t) {
+                exceptionMsg = "Overridden handler";
+            }
+        });
+
+        ExceptionUtil.handle(new NullPointerException());
+        assertThat(exceptionMsg).isEqualTo("Overridden handler");
+
     }
 
+    private static class ConsoleException extends RuntimeException{
+
+    }
+
+    private static class SubConsoleException extends ConsoleException{
+
+    }
+
+    private static class MailException extends RuntimeException{
+
+    }
+
+    private static class SubMailException extends MailException {
+
+    }
 }

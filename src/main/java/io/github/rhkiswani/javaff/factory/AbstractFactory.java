@@ -21,6 +21,7 @@ import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Mohamed Kiswani
@@ -57,7 +58,10 @@ public abstract class AbstractFactory<IMP_TYPE> {
         if (userDefaultImpl != null){
             return userDefaultImpl;
         }
-        for (Class aClass : map.keySet()) {
+        Set<Class> classSet = map.keySet();
+        Class[] keys = classSet.toArray(new Class[classSet.size()]);
+        for (int i = keys.length - 1 ; i >=0 ; i--){
+            Class aClass = keys[i];
             if (aClass.isAssignableFrom(targetClass) || targetClass.isAnnotationPresent(aClass)){
                 return map.get(aClass);
             }

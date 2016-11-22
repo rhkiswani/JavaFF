@@ -27,8 +27,8 @@ public class LocaleWorkersFactory extends AbstractFactory<LocaleWorker>{
     private static LocaleWorkersFactory instance = new LocaleWorkersFactory();
 
     private LocaleWorkersFactory(){
-        add(Throwable.class, new LocaleWorkerBuilder().path("exceptions/").build());
         add(Object.class, new LocaleWorkerBuilder().path("app/").build());
+        add(Throwable.class, new LocaleWorkerBuilder().path("exceptions/").build());
     }
 
     public static LocaleWorkersFactory instance(){
