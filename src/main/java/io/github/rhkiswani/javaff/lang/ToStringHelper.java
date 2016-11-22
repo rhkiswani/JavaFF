@@ -20,7 +20,7 @@ import io.github.rhkiswani.javaff.json.JsonHandlerFactory;
 import io.github.rhkiswani.javaff.json.annotations.GsonBean;
 import io.github.rhkiswani.javaff.lang.annotations.EqualsField;
 import io.github.rhkiswani.javaff.lang.annotations.HashcodeField;
-import io.github.rhkiswani.javaff.lang.annotations.ToStringField;
+import io.github.rhkiswani.javaff.lang.annotations.ToString;
 import io.github.rhkiswani.javaff.lang.utils.ArraysUtils;
 
 import java.lang.reflect.Field;
@@ -58,7 +58,7 @@ public class ToStringHelper extends AbstractObjectHelper<Object, String>{
 
     private String normalToString(Object obj) {
         StringBuilder builder = new StringBuilder();
-        List<Field> fields = getFieldsByAnnotation(obj, ToStringField.class, false);
+        List<Field> fields = getFieldsByAnnotation(obj, ToString.class, false);
         if (ArraysUtils.isEmpty(fields)){
             fields = getFieldsByAnnotation(obj, EqualsField.class, false);
         }

@@ -5,7 +5,7 @@ import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.Em
 import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.PersonByIdAnnotation;
 import io.github.rhkiswani.javaff.lang.annotations.EqualsField;
 import io.github.rhkiswani.javaff.lang.annotations.HashcodeField;
-import io.github.rhkiswani.javaff.lang.annotations.ToStringField;
+import io.github.rhkiswani.javaff.lang.annotations.ToString;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -94,9 +94,9 @@ public class ValuesHolderTest {
     }
 
     private class ToStringTestClassX extends ValuesHolder{
-        @ToStringField
+        @ToString
         int i = 123123123;
-        @ToStringField
+        @ToString
         float f = 123123123;
         double d = 123123123;
     }
