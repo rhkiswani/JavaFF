@@ -16,7 +16,7 @@
 package io.github.rhkiswani.javaff.lang.utils;
 
 import io.github.rhkiswani.javaff.lang.ToStringHelper;
-import io.github.rhkiswani.javaff.security.encode.EncodeFactory;
+import io.github.rhkiswani.javaff.security.escape.EscapeersFactory;
 
 /**
  * @author Mohamed Kiswani
@@ -29,8 +29,8 @@ public class StringUtils {
         return new ToStringHelper().toString(obj);
     }
 
-    public static String encode(String input) {
-        return (String) EncodeFactory.getEncoder(String.class).encode(input);
+    public static String escape(String input) {
+        return (String) EscapeersFactory.getEscapeer(String.class).escape(input);
     }
 
     public static boolean isEmpty(String input){

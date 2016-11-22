@@ -23,12 +23,12 @@ import io.github.rhkiswani.javaff.lang.utils.ArraysUtils;
  * @since 0.0.1
  * @see io.github.rhkiswani.javaff.format.Formatter
  */
-public abstract class DefaultFormatter<IN, OUT> implements Formatter<IN, OUT> {
+public abstract class DefaultFormatter<IN, OUT> extends Formatter<IN, OUT> {
 
     protected abstract OUT formatVal(IN in, Object[] params);
 
     @Override
-    public OUT format(IN in, Object[] params) throws FormatException {
+    protected OUT format(IN in, Object[] params) throws FormatException {
         if (in == null){
             return null;
         }
@@ -37,11 +37,14 @@ public abstract class DefaultFormatter<IN, OUT> implements Formatter<IN, OUT> {
                 ArraysUtils.replace(params, null, "");
                 return formatVal(in, params);
             } catch (Throwable t ){
+                if (t instanceof FormatException) {
+                    throw t;
+                }
                 throw new FormatException(t);
             }
 
         }
-        return formatVal(in, null);
+        return formatVal(in, new Object[]{});
     }
 
 }

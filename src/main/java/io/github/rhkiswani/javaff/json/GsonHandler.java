@@ -17,6 +17,7 @@ package io.github.rhkiswani.javaff.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.github.rhkiswani.javaff.json.exceptions.JsonException;
 
 import java.lang.reflect.Modifier;
 
@@ -31,12 +32,20 @@ class GsonHandler implements JsonHandler {
 
     @Override
     public <T> T fromJson(String json, Class clazz) {
-        return (T) gson.fromJson(json, clazz);
+        try {
+            return (T) gson.fromJson(json, clazz);
+        } catch (Throwable t){
+            throw new JsonException(t);
+        }
     }
 
     @Override
     public String toJson(Object object) {
-        return gson.toJson(object);
+        try{
+            return gson.toJson(object);
+        } catch (Throwable t){
+            throw new JsonException(t);
+        }
     }
 
     @Override

@@ -32,10 +32,16 @@ public class HashCodeHelper extends AbstractObjectHelper<Object, Integer>{
             return -1;
         }
         HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+        boolean atLestOneValueInserted = false;
         for (Field field : getFieldsByAnnotation(obj, HashcodeField.class)) {
-            hashCodeBuilder.append(reflectionHelper.getFieldValue(obj, field.getName()));
+            Object val = reflectionHelper.getFieldValue(obj, field.getName());
+            if (val != null){
+                atLestOneValueInserted = true;
+                hashCodeBuilder.append(val);
+            }
+
         }
-        return hashCodeBuilder.toHashCode();
+        return atLestOneValueInserted ? hashCodeBuilder.toHashCode() : -1;
     }
 
     public int toHashCode(Object obj) {
