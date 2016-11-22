@@ -34,6 +34,6 @@ public class FormatUtil {
         if (obj == null){
             return null;
         }
-        return (T) FormatFactory.getFormatter(obj.getClass()).format(String.valueOf(obj), params);
+        return (T) FormatFactory.getFormatter(obj.getClass()).format(obj, params);
     }
 }

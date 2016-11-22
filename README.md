@@ -6,10 +6,11 @@ JavaFF: Java Facade/Factories
 
 We all know the Golden Object Oriented rule **Don't talk to strangers**
 
-We all know that you will never find the API/frameworks defects or magic or limitations the begging of the development.
+We all know that you will never find the API/frameworks defects or magic or limitations the at begging of the development.
  
-So imagine you are using an API in all your projects and after spending months or years that API you got a production issue because of it even if it so famous and mature, 
-changing the that API would be soo hard and costy !!!
+Imagine yourself using API in all your projects for years. Everybody else is using it as well, it is famous and mature. Suddenly you have a huge production issue.  Changing that API is too hard and costly at this stage! 
+
+What now?
 
 Examples for famous bugs in very famous frameworks 
 --------------------------------------------------- 
@@ -25,16 +26,153 @@ Performance
 Deadlocks
 - [(Oracle JDK) deadlock in SSLSocketImpl between between write and close](http://bugs.java.com/view_bug.do?bug_id=8013809)
 
-So, we should always protect our project and noy use a framwork or API directly and this is the main idea here  
+So, we should always protect our project and noy use a framework or API directly and this is the main idea here  
 
 Main Features
 -------------- 
-- This project offers a standard/clear API for the most used API's in the Java Applications like : Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers ...etc 
-- **You can control the implementation's through the class path without changing line of code**
-- Smart Exception handling mechanism
-- Default Implementations
-- Many Utilises 
-  
+- This project offers a standard/clear API for the most used API's in the Java Applications like : Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers, etc. 
+
+- **You can control the implementations through the class path without changing line of code**
+The below example shows how the implementation will be changed without changing the code:
+Now I have the below dependencies in my pom.xml 
+```xml
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4.version}</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-jdk14</artifactId>
+        <version>${slf4.version}</version>
+        <scope>provided</scope>
+    </dependency>
+```
+So when I call 
+```javascript
+    LogFactory.getLogger(LogFactory.class).info("LOCALIZED_MSG", "Kiswani");  
+    output:
+    Nov 22, 2016 6:54:07 PM io.github.rhkiswani.javaff.log.Slf4jLog info
+    INFO: this is localized msg from messages_en.properties thanks for Mr Kiswani
+```
+
+When I remove the dependencies from the pom.xml and run the same code I will get 
+    
+```javascript
+    LogFactory.getLogger(LogFactory.class).info("LOCALIZED_MSG", "Kiswani");
+    output:
+    Nov 22, 2016 7:00:15 PM io.github.rhkiswani.javaff.log.DefaultLog info
+    INFO: this is localized msg from messages_en.properties thanks for Mr Kiswani
+ ```
+
+- Transparent localization for logs, strings, exceptions
+ 
+- Centralized and Configurable Exception Handling by the class type below a full example  
+```java
+    
+    package io.github.rhkiswani.javaff;
+    
+    import io.github.rhkiswani.javaff.exceptions.ExceptionHandler;
+    import io.github.rhkiswani.javaff.exceptions.ExceptionHandlersFactory;
+    import io.github.rhkiswani.javaff.exceptions.ExceptionUtil;
+    
+    public class TestMain {
+    
+        public static void main(String[] args) {
+            //Any class is instance of ConsoleException will be handled here
+            ExceptionHandlersFactory.instance().add(ConsoleException.class, new ExceptionHandler() {
+                @Override
+                public void handle(Throwable t) {
+                    System.out.println("ConsoleException handler");
+                }
+            });
+    
+            //Any class is instance of MailException will be handled here
+            ExceptionHandlersFactory.instance().add(MailException.class, new ExceptionHandler() {
+                @Override
+                public void handle(Throwable t) {
+                    System.out.println("MailException handler");
+                }
+            });
+    
+    
+            ExceptionUtil.handle(new ConsoleException());
+            ExceptionUtil.handle(new SubConsoleException());
+            ExceptionUtil.handle(new MailException());
+            ExceptionUtil.handle(new SubMailException());
+    
+            //Null pointer is not related to the perilous class's it will be handled by default handler for Throwable.class
+            //which is painting the stack trace by default
+            ExceptionUtil.handle(new NullPointerException());
+            
+            //We decided to override the default implantation for Throwable.class
+            ExceptionHandlersFactory.instance().overrideImp(Throwable.class, new ExceptionHandler() {
+                @Override
+                public void handle(Throwable t) {
+                    System.out.println("Overridden handler");
+                }
+            });
+    
+            ExceptionUtil.handle(new NullPointerException());
+        }
+    
+        private static class ConsoleException extends RuntimeException{
+    
+        }
+    
+        private static class SubConsoleException extends ConsoleException{
+    
+        }
+    
+        private static class MailException extends RuntimeException{
+    
+        }
+    
+        private static class SubMailException extends MailException {
+    
+        }
+    
+    }
+
+```
+
+- Logging with localization out of the box
+
+```java
+    LogFactory.getLogger(LogFactory.class).info("LOCALIZED_MSG", "Kiswani");
+    output : INFO: this is localized msg from messages_en.properties thanks for Mr Kiswani
+``` 
+
+```java
+    LogFactory.getLogger(LogFactory.class).info("normal msg num {0} date {1}", Integer.MAX_VALUE, new Date());
+    INFO: normal msg num 2,147,483,647 date 11/22/16 6:06 PM
+``` 
+
+- Many Utilities, below is just examples
+    - Formatter's
+    ```java
+        System.out.println(FormatUtil.format("Mr {0} {1}", "Mohamed", "Kiswani"));
+        System.out.println(FormatUtil.format(new Date()));
+        System.out.println(FormatUtil.format(new Date(), "yyyy-MM-dd"));
+        System.out.println(FormatUtil.format(Integer.MAX_VALUE));
+        
+        Mr Mohamed Kiswani
+        11/22/16 6:16 PM
+        2016-11-22
+        2,147,483,647
+    ``` 
+ 
+    - Json Handlers
+      ```java
+            System.out.println(JsonHandlerFactory.getJsonHandler(TestMain.class).toJson(new Employee(1000)));
+            output : {"id":0,"name":null,"empId":1000}
+       ``` 
+      ```java
+            System.out.println(JsonHandlerFactory.getJsonHandler(TestMain.class).fromJson("{\"id\":100,\"name\":null,\"empId\":1000}", Employee.class));
+            output: Employee[id=100]   
+       ```  
+
 Prerequisites 
 -------------
 Requires JDK 1.7 or higher.
