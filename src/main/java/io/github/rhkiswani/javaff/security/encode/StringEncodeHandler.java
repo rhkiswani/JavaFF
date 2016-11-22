@@ -17,10 +17,9 @@ package io.github.rhkiswani.javaff.security.encode;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
- *
+ * @see io.github.rhkiswani.javaff.security.encode.DefaultEncodeHandler
+ * @see io.github.rhkiswani.javaff.security.encode.EncodeHandler
  */
 class StringEncodeHandler extends DefaultEncodeHandler<String, String> {
 

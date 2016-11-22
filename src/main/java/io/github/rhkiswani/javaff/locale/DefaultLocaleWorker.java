@@ -25,9 +25,9 @@ import java.util.ResourceBundle;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
+ * @see io.github.rhkiswani.javaff.beans.ValuesHolder
+ * @see io.github.rhkiswani.javaff.locale.LocaleWorker
  *
  */
 class DefaultLocaleWorker extends ValuesHolder<DefaultLocaleWorker> implements LocaleWorker {

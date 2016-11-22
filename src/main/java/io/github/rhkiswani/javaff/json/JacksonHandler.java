@@ -23,10 +23,8 @@ import java.io.IOException;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
- *
+ * @see io.github.rhkiswani.javaff.json.JsonHandler
  */
 class JacksonHandler implements JsonHandler {
     private final ObjectMapper mapper = new ObjectMapper();

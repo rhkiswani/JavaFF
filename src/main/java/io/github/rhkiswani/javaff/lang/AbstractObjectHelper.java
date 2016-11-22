@@ -26,8 +26,6 @@ import java.util.List;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
  *
  */
@@ -38,12 +36,16 @@ public abstract class AbstractObjectHelper<INPUT, OUT> {
     protected abstract OUT doAction(INPUT input);
 
     protected List<Field> getFieldsByAnnotation(Object obj,Class annotation){
+        return getFieldsByAnnotation(obj, annotation, true);
+    }
+
+    protected List<Field> getFieldsByAnnotation(Object obj,Class annotation, boolean returnAllOfNotFound){
         List<Field> fields = reflectionHelper.scanFieldsByAnnotation(obj.getClass(), annotation);
         if (ArraysUtils.isEmpty(fields)){
             if (ApiDetectorUtil.isJPAAvailable()){
                 fields = reflectionHelper.scanFieldsByAnnotation(obj.getClass(), Id.class);
             }
-            if (ArraysUtils.isEmpty(fields)){
+            if (ArraysUtils.isEmpty(fields) && returnAllOfNotFound){
                 fields = reflectionHelper.getFields(obj.getClass());
             }
         }

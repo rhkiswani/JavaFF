@@ -18,12 +18,8 @@ package io.github.rhkiswani.javaff.format;
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 
-import java.util.Date;
-
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
  *
  */

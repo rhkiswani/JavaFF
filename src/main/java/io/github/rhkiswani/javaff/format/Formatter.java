@@ -19,8 +19,6 @@ import io.github.rhkiswani.javaff.format.exception.FormatException;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
  *
  */

@@ -17,9 +17,8 @@ package io.github.rhkiswani.javaff.exceptions;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
+ * @see io.github.rhkiswani.javaff.exceptions.ExceptionHandler
  *
  */
 class DefaultExceptionHandler implements ExceptionHandler{

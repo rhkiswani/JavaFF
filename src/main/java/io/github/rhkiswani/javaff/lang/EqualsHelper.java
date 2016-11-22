@@ -23,10 +23,8 @@ import java.util.List;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
- *
+ * @see io.github.rhkiswani.javaff.lang.AbstractObjectHelper
  */
 public class EqualsHelper extends AbstractObjectHelper<Object[], Boolean>{
 

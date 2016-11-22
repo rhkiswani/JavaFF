@@ -19,10 +19,8 @@ import io.github.rhkiswani.javaff.factory.AbstractFactory;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
- *
+ * @see io.github.rhkiswani.javaff.factory.AbstractFactory
  */
 public class EncodeFactory extends AbstractFactory<EncodeHandler> {
 

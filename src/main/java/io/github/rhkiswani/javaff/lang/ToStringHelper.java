@@ -19,6 +19,9 @@ import io.github.rhkiswani.javaff.format.FormatUtil;
 import io.github.rhkiswani.javaff.json.JsonHandlerFactory;
 import io.github.rhkiswani.javaff.json.annotations.GsonBean;
 import io.github.rhkiswani.javaff.lang.annotations.EqualsField;
+import io.github.rhkiswani.javaff.lang.annotations.HashcodeField;
+import io.github.rhkiswani.javaff.lang.annotations.ToStringField;
+import io.github.rhkiswani.javaff.lang.utils.ArraysUtils;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -26,10 +29,8 @@ import java.util.List;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
- *
+ * @see io.github.rhkiswani.javaff.lang.AbstractObjectHelper
  */
 public class ToStringHelper extends AbstractObjectHelper<Object, String>{
 
@@ -57,7 +58,13 @@ public class ToStringHelper extends AbstractObjectHelper<Object, String>{
 
     private String normalToString(Object obj) {
         StringBuilder builder = new StringBuilder();
-        List<Field> fields = getFieldsByAnnotation(obj, EqualsField.class);
+        List<Field> fields = getFieldsByAnnotation(obj, ToStringField.class, false);
+        if (ArraysUtils.isEmpty(fields)){
+            fields = getFieldsByAnnotation(obj, EqualsField.class, false);
+        }
+        if (ArraysUtils.isEmpty(fields)){
+            fields = getFieldsByAnnotation(obj, HashcodeField.class, true);
+        }
         Object[] values = new Object[fields.size()];
         for (int i = 0; i < fields.size() ; i++) {
             Field f = fields.get(i);

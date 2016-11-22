@@ -20,10 +20,8 @@ import io.github.rhkiswani.javaff.security.encode.exception.EncodeException;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
- *
+ * @see io.github.rhkiswani.javaff.security.encode.EncodeHandler
  */
 public abstract class DefaultEncodeHandler<IN, OUT> implements EncodeHandler<IN, OUT> {
 

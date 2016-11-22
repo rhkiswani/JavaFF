@@ -23,8 +23,6 @@ import io.github.rhkiswani.javaff.lang.utils.StringUtils;
 import java.io.Serializable;
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
  *
  */

@@ -20,10 +20,8 @@ import java.util.logging.Logger;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @since 0.0.1
- *
+ * @see io.github.rhkiswani.javaff.log.Log
  */
 class DefaultLog implements Log {
     private Logger logger = null ;

@@ -19,8 +19,6 @@ import io.github.rhkiswani.javaff.factory.AbstractFactory;
 
 /**
  * @author Mohamed Kiswani
- * @email rhkiswani@gmail.com
- * @url https://github.com/rhkiswani
  * @see io.github.rhkiswani.javaff.factory.AbstractFactory
  * @since 0.0.1
  *
