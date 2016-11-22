@@ -5,6 +5,8 @@ git pull origin master
 mvn release:clean release:prepare -PperformRelease=true -B
 mvn release:perform
 git-flow release start "$1"
+git add -A
+git commit . -m"Release $1"
 git-flow release publish "$1"
 git-flow release finish "$1"
 git push --tags
