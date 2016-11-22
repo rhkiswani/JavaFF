@@ -101,7 +101,7 @@ class DefaultLocaleWorker extends ValuesHolder<DefaultLocaleWorker> implements L
         }catch (MissingResourceException e){
             val = key;
         }
-        return FormatUtil.formatString(val, params);
+        return FormatUtil.format(val, params);
     }
 
     @Override

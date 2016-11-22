@@ -33,6 +33,10 @@ public class FormatUtil {
 
     }
 
+    public static String formatString(String str, Object... params){
+        return format(str, params);
+    }
+
     public static <T>T format(Object obj, Object... params){
         if (obj == null){
             throw new IllegalParamException(SmartException.NULL_VAL, "Object");
