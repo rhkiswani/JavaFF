@@ -199,4 +199,4 @@ Requires JDK 1.7 or higher.
 
 Usage & Examples 
 -------------
-[Usage & Examples](https://github.com/rhkiswani/JavaFF/tree/master/src/test/java/io/github/rhkiswani/javaff)
+[Usage & Examples](https://github.com/rhkiswani/JavaFF-Samples/tree/master)
