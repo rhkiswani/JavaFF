@@ -38,6 +38,14 @@ Deadlocks
 
 So, we should always protect our project and noy use a framework or API directly and this is the main idea here  
 
+Prerequisites 
+-------------
+Requires JDK 1.7 or higher.
+
+Usage & Examples 
+-------------
+[Usage & Examples](https://github.com/rhkiswani/JavaFF-Samples/tree/master)
+
 Main Features
 -------------- 
 - This project offers a standard/clear API for the most used API's in the Java Applications like: Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers, etc. 
@@ -265,10 +273,3 @@ When I remove the dependencies from the pom.xml and run the same code I will get
         }
        ```  
 
-Prerequisites 
--------------
-Requires JDK 1.7 or higher.
-
-Usage & Examples 
--------------
-[Usage & Examples](https://github.com/rhkiswani/JavaFF-Samples/tree/master)
