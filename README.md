@@ -12,6 +12,16 @@ Imagine yourself using API in all your projects for years. Everybody else is usi
 
 What now?
 
+Or you decided to change any API/framework for new requirments.
+Lets take  logging as an example, now we have log4j, logback, JDK logging.
+At the beginning of the project you decide to go with the logback since it's so famous and faster than log4j and it's bundled with Spring , etc.
+
+After 1 year of the project you got a new requirement for the logging which :
+- All logs should be localized 
+- FATAL errors should be sent a specific email 
+
+Disaster right !!
+
 Examples for famous bugs in very famous frameworks 
 --------------------------------------------------- 
 Memory Leak
