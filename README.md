@@ -6,7 +6,7 @@ JavaFF: Java Facade/Factories
 
 We all know the Golden Object Oriented rule **Don't talk to strangers**
 
-We all know that you will never find the API/frameworks defects or magic or limitations the at begging of the development.
+We all know that you will never find the API/frameworks defects or magic or limitations at the beginning of the development.
  
 Imagine yourself using API in all your projects for years. Everybody else is using it as well, it is famous and mature. Suddenly you have a huge production issue.  Changing that API is too hard and costly at this stage! 
 
@@ -14,13 +14,13 @@ What now?
 
 Or you decided to change any API/framework for new requirments.
 Lets take  logging as an example, now we have log4j, logback, JDK logging.
-At the beginning of the project you decide to go with the logback since it's so famous and faster than log4j and it's bundled with Spring , etc.
+At the beginning of the project you decide to go with the logback since it's so famous and faster than log4j and it's bundled with Spring, etc.
 
 After 1 year of the project you got a new requirements for the logging which are:
 - All logs should be localized 
 - FATAL errors should be sent to a specific email 
 
-Disaster right !!
+Disaster, right?!
 
 Examples for famous bugs in very famous frameworks 
 --------------------------------------------------- 
@@ -40,9 +40,10 @@ So, we should always protect our project and noy use a framework or API directly
 
 Main Features
 -------------- 
-- This project offers a standard/clear API for the most used API's in the Java Applications like : Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers, etc. 
+- This project offers a standard/clear API for the most used API's in the Java Applications like: Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers, etc. 
 
 - **You can control the implementations through the class path without changing line of code**
+
 The below example shows how the implementation will be changed without changing the code:
 Now I have the below dependencies in my pom.xml 
 ```xml
@@ -82,7 +83,8 @@ When I remove the dependencies from the pom.xml and run the same code I will get
 
 - Transparent localization for logs, strings, exceptions
  
-- Centralized and Configurable Exception Handling by the class type below a full example  
+- Centralized and Configurable Exception Handling by the class type. See below a full example:
+
 ```java
     
     package io.github.rhkiswani.javaff;
@@ -131,15 +133,15 @@ When I remove the dependencies from the pom.xml and run the same code I will get
             ExceptionUtil.handle(new NullPointerException());
         }
     
-        private static class ConsoleException extends RuntimeException{
+        private static class ConsoleException extends RuntimeException {
     
         }
     
-        private static class SubConsoleException extends ConsoleException{
+        private static class SubConsoleException extends ConsoleException {
     
         }
     
-        private static class MailException extends RuntimeException{
+        private static class MailException extends RuntimeException {
     
         }
     
@@ -167,7 +169,7 @@ When I remove the dependencies from the pom.xml and run the same code I will get
     INFO: normal msg num 2,147,483,647 date 11/22/16 6:06 PM
 ``` 
 
-- Many Utilities, below is just examples
+- Many Utilities, see below just a few examples:
     - Formatter's
     ```java
         System.out.println(FormatUtil.format("Mr {0} {1}", "Mohamed", "Kiswani"));
