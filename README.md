@@ -12,6 +12,16 @@ Imagine yourself using API in all your projects for years. Everybody else is usi
 
 What now?
 
+Or you decided to change any API/framework for new requirments.
+Lets take  logging as an example, now we have log4j, logback, JDK logging.
+At the beginning of the project you decide to go with the logback since it's so famous and faster than log4j and it's bundled with Spring , etc.
+
+After 1 year of the project you got a new requirements for the logging which are:
+- All logs should be localized 
+- FATAL errors should be sent to a specific email 
+
+Disaster right !!
+
 Examples for famous bugs in very famous frameworks 
 --------------------------------------------------- 
 Memory Leak
@@ -106,8 +116,8 @@ When I remove the dependencies from the pom.xml and run the same code I will get
             ExceptionUtil.handle(new MailException());
             ExceptionUtil.handle(new SubMailException());
     
-            //Null pointer is not related to the perilous class's it will be handled by default handler for Throwable.class
-            //which is painting the stack trace by default
+            //Null is not related to any class from the previous class's, it will be handled by the default handler for Throwable.class
+            //which is printing the stack trace by default
             ExceptionUtil.handle(new NullPointerException());
             
             //We decided to override the default implantation for Throwable.class
@@ -187,3 +197,6 @@ Prerequisites
 -------------
 Requires JDK 1.7 or higher.
 
+Usage & Examples 
+-------------
+[Usage & Examples](https://github.com/rhkiswani/JavaFF/tree/master/src/test/java/io/github/rhkiswani/javaff)
