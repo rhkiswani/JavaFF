@@ -106,8 +106,8 @@ When I remove the dependencies from the pom.xml and run the same code I will get
             ExceptionUtil.handle(new MailException());
             ExceptionUtil.handle(new SubMailException());
     
-            //Null is not related to any class from the previous class's, it will be handled by default handler for Throwable.class
-            //which is painting the stack trace by default
+            //Null is not related to any class from the previous class's, it will be handled by the default handler for Throwable.class
+            //which is printing the stack trace by default
             ExceptionUtil.handle(new NullPointerException());
             
             //We decided to override the default implantation for Throwable.class
