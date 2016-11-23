@@ -30,7 +30,9 @@ public class JsonHandlerFactory extends AbstractFactory<JsonHandler>{
     private static JsonHandlerFactory instance = new JsonHandlerFactory();
 
     private JsonHandlerFactory(){
-        add(JacksonBean.class, new JacksonHandler());
+        if (ApiDetectorUtil.isJacksonAvailable()) {
+            add(JacksonBean.class, new JacksonHandler());
+        }
         add(GsonBean.class, new GsonHandler());
     }
 
