@@ -22,6 +22,22 @@ After 1 year of the project you got a new requirements for the logging which are
 
 Disaster, right?!
 
+Solution 
+=========================================================
+
+So how we can solve this issue , simply we need to follow three Design Patterns:
+- Factory
+- Wrapper
+- Facade
+
+And use this flow:
+
+![JavaFF](https://media.licdn.com/mpr/mpr/AAEAAQAAAAAAAAepAAAAJGVmYjQzMWM2LTU3MmYtNDUyYy05MjAzLTM0OTUwNjUyYTg3Zg.png)
+
+Below is an exmple class diagram from the logger used in JavaFF
+
+![JavaFF](https://media.licdn.com/mpr/mpr/AAEAAQAAAAAAAAi1AAAAJDYyZTU2MTk5LWMxMTUtNDFlYi05ZWRkLWMxMGUzMWQ3ZTlkZg.png)
+
 Examples for famous bugs in very famous frameworks 
 --------------------------------------------------- 
 Memory Leak
