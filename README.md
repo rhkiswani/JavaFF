@@ -6,7 +6,7 @@ JavaFF: Java Facade/Factories
 
 We all know the Golden Object Oriented rule **Don't talk to strangers**
 
-We all know that you will never find the API/frameworks defects or magic or limitations the at begging of the development.
+We all know that you will never find the API/frameworks defects or magic or limitations at the beginning of the development.
  
 Imagine yourself using API in all your projects for years. Everybody else is using it as well, it is famous and mature. Suddenly you have a huge production issue.  Changing that API is too hard and costly at this stage! 
 
@@ -14,13 +14,13 @@ What now?
 
 Or you decided to change any API/framework for new requirements.
 Lets take  logging as an example, now we have log4j, logback, JDK logging.
-At the beginning of the project you decide to go with the logback since it's so famous and faster than log4j and it's bundled with Spring , etc.
+At the beginning of the project you decide to go with the logback since it's so famous and faster than log4j and it's bundled with Spring, etc.
 
 After 1 year of the project you got a new requirements for the logging which are:
 - All logs should be localized 
 - FATAL errors should be sent to a specific email 
 
-Disaster right !!
+Disaster, right?!
 
 Examples for famous bugs in very famous frameworks 
 --------------------------------------------------- 
@@ -38,11 +38,24 @@ Deadlocks
 
 So, we should always protect our project and noy use a framework or API directly and this is the main idea here  
 
+Prerequisites 
+-------------
+Requires JDK 1.7 or higher.
+
+Usage & Examples 
+-------------
+- [Gson VS Jakson: Example shows how to contol the json implementation through the classpath](https://github.com/rhkiswani/JavaFF-Samples/tree/master/GsonVsJakson)
+
+- [Exception Handling: Example shows how to control the exceptions handling by the type](https://github.com/rhkiswani/JavaFF-Samples/tree/master/Exceptions)
+
+- [Log4j Vs Logback Vs JavaUtillogger: : Example shows how to control the logging through the classpath](https://github.com/rhkiswani/JavaFF-Samples/tree/master/Log4jVsLogbackVsJavaUtillogger)
+
 Main Features
 -------------- 
-- This project offers a standard/clear API for the most used API's in the Java Applications like : Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers, etc. 
+- This project offers a standard/clear API for the most used API's in the Java Applications like: Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers, etc. 
 
 - **You can control the implementations through the class path without changing line of code**
+
 The below example shows how the implementation will be changed without changing the code:
 Now I have the below dependencies in my pom.xml 
 ```xml
@@ -82,7 +95,8 @@ When I remove the dependencies from the pom.xml and run the same code I will get
 
 - Transparent localization for logs, strings, exceptions
  
-- Centralized and Configurable Exception Handling by the class type below a full example  
+- Centralized and Configurable Exception Handling by the class type. See below a full example:
+
 ```java
     
     package io.github.rhkiswani.javaff;
@@ -131,15 +145,15 @@ When I remove the dependencies from the pom.xml and run the same code I will get
             ExceptionUtil.handle(new NullPointerException());
         }
     
-        private static class ConsoleException extends RuntimeException{
+        private static class ConsoleException extends RuntimeException {
     
         }
     
-        private static class SubConsoleException extends ConsoleException{
+        private static class SubConsoleException extends ConsoleException {
     
         }
     
-        private static class MailException extends RuntimeException{
+        private static class MailException extends RuntimeException {
     
         }
     
@@ -167,7 +181,7 @@ When I remove the dependencies from the pom.xml and run the same code I will get
     INFO: normal msg num 2,147,483,647 date 11/22/16 6:06 PM
 ``` 
 
-- Many Utilities, below is just examples
+- Many Utilities, see below just a few examples:
     - Formatter's
     ```java
         System.out.println(FormatUtil.format("Mr {0} {1}", "Mohamed", "Kiswani"));
@@ -184,19 +198,82 @@ When I remove the dependencies from the pom.xml and run the same code I will get
  
     - Json Handlers
       ```java
-            System.out.println(JsonHandlerFactory.getJsonHandler(TestMain.class).toJson(new Employee(1000)));
-            output : {"id":0,"name":null,"empId":1000}
-       ``` 
-       
-      ```java
-            System.out.println(JsonHandlerFactory.getJsonHandler(TestMain.class).fromJson("{\"id\":100,\"name\":null,\"empId\":1000}", Employee.class));
-            output: Employee[id=100]   
+        package javaff.samples.beans;
+        import io.github.rhkiswani.javaff.json.JsonHandler;
+        import io.github.rhkiswani.javaff.json.JsonHandlerFactory;
+
+        public class Main {
+
+            public static void main(String[] args) {
+                Employee emp = new Employee();
+                emp.setId(100);
+                emp.setName("Kiswani");
+                emp.setEmpId(1000);
+
+                // comment jakson in pom.xml
+                System.out.println("\n======================= Default based on class path ========================");
+                // default json handler gson
+                System.out.println(JsonHandlerFactory.getJsonHandler(Employee.class).toJson(emp));
+                System.out.println(JsonHandlerFactory.getJsonHandler(Employee.class).getImplementation());
+
+
+                // when you uncomment jakson from the pom.xml
+                System.out.println(JsonHandlerFactory.getJsonHandler(Employee.class).toJson(emp));
+                System.out.println(JsonHandlerFactory.getJsonHandler(Employee.class).getImplementation());
+
+                System.out.println("\n======================= Force to use Gson By annotation ========================");
+                // you want to have jakson for all the classes except the student , student should use Gson
+                // you need to add @GsonBean
+                Student std = new Student();
+                std.setId(100);
+                std.setName("Kiswani");
+                std.setStdId(1000);
+                System.out.println(JsonHandlerFactory.getJsonHandler(Student.class).toJson(emp));
+                System.out.println(JsonHandlerFactory.getJsonHandler(Student.class).getImplementation());
+
+                System.out.println("\n======================= Custom Json Handler ========================");
+                // you want to add your custom implantation
+                // Note : if you set your custom it will be used everywhere
+                JsonHandlerFactory.instance().setDefault(new MyJsonHandler());
+
+                System.out.println(JsonHandlerFactory.getJsonHandler(Employee.class).toJson(emp));
+                System.out.println(JsonHandlerFactory.getJsonHandler(Employee.class).getImplementation());
+
+                System.out.println(JsonHandlerFactory.getJsonHandler(Student.class).toJson(emp));
+                System.out.println(JsonHandlerFactory.getJsonHandler(Student.class).getImplementation());
+            }
+
+            private static class MyJsonHandler implements JsonHandler {
+                    public <T> T fromJson(String s, Class aClass) {
+                        return null;
+                    }
+
+                public String toJson(Object o) {
+                    return o.toString();
+                }
+
+                public Object getImplementation() {
+                    return MyJsonHandler.class;
+                }
+            }
+            
+            package javaff.samples.beans;
+
+            import io.github.rhkiswani.javaff.json.annotations.GsonBean;
+
+            @GsonBean
+            public class Student extends Person{
+
+                private int stdId;
+
+                public int getStdId() {
+                    return stdId;
+                }
+
+                public void setStdId(int stdId) {
+                    this.stdId = stdId;
+                }
+            }
+        }
        ```  
 
-Prerequisites 
--------------
-Requires JDK 1.7 or higher.
-
-Usage & Examples 
--------------
-[Usage & Examples](https://github.com/rhkiswani/JavaFF-Samples/tree/master)
