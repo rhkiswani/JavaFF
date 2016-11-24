@@ -44,7 +44,9 @@ Requires JDK 1.7 or higher.
 
 Usage & Examples 
 -------------
-[Usage & Examples](https://github.com/rhkiswani/JavaFF-Samples/tree/master)
+- [Gson VS Jakson: Example shows how to contol the json imp through the classpath](https://github.com/rhkiswani/JavaFF-Samples/tree/master/GsonVsJakson)
+
+- [Exception Handling: Example shows how to control the exceptions handling by the type](https://github.com/rhkiswani/JavaFF-Samples/tree/master/Exceptions)
 
 Main Features
 -------------- 
