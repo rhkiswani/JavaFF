@@ -48,6 +48,8 @@ Usage & Examples
 
 - [Exception Handling: Example shows how to control the exceptions handling by the type](https://github.com/rhkiswani/JavaFF-Samples/tree/master/Exceptions)
 
+- [Log4j Vs Logback Vs JavaUtillogger: : Example shows how to control the logging through the classpath](https://github.com/rhkiswani/JavaFF-Samples/tree/master/Log4jVsLogbackVsJavaUtillogger)
+
 Main Features
 -------------- 
 - This project offers a standard/clear API for the most used API's in the Java Applications like: Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers, etc. 
