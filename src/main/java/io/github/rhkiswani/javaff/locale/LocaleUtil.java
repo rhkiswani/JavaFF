@@ -15,7 +15,13 @@
  */
 package io.github.rhkiswani.javaff.locale;
 
+import io.github.rhkiswani.javaff.exceptions.SmartException;
+import io.github.rhkiswani.javaff.format.FormatUtil;
+import io.github.rhkiswani.javaff.lang.utils.StringUtils;
 import io.github.rhkiswani.javaff.reflection.ReflectionUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Mohamed Kiswani
@@ -23,6 +29,20 @@ import io.github.rhkiswani.javaff.reflection.ReflectionUtil;
  *
  */
 public class LocaleUtil {
+
+    private static Map<String, String> DEFAULT_MSGS = null;
+
+    static {
+        DEFAULT_MSGS = new HashMap<>();
+        DEFAULT_MSGS.put(SmartException.EXCEEDS_LIMIT, "{0} MaxSize is {1}");
+        DEFAULT_MSGS.put(SmartException.ALREADY_EXIST, "{0} is already exist {1}");
+        DEFAULT_MSGS.put(SmartException.NULL_VAL, "{0} can't be null");
+        DEFAULT_MSGS.put(SmartException.NOT_FOUND, "{0} not found");
+        DEFAULT_MSGS.put(SmartException.TYPE_ERROR, "{0} is not fit to {1}");
+        DEFAULT_MSGS.put(SmartException.FORMAT_EXCEPTION, "Can't format {0} {1}");
+        DEFAULT_MSGS.put(SmartException.NEGATIVE_VAL, "{0} should be greater or equal 0");
+        DEFAULT_MSGS.put(SmartException.HTTP_ERROR, "failed to connect to {0}");
+    }
 
     private LocaleUtil(){
 
@@ -36,7 +56,11 @@ public class LocaleUtil {
             targetClass = Object.class;
         }
         LocaleWorker worker = LocaleWorkersFactory.getLocalWorker(targetClass);
-        return worker.getString(key, params);
+        String label = worker.getString(key, params);
+        if (!StringUtils.isEmpty(label) && label.equals(key) && DEFAULT_MSGS.get(key) != null){
+            return FormatUtil.formatString(DEFAULT_MSGS.get(key), params);
+        }
+        return label;
     }
 
 }

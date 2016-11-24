@@ -1,5 +1,6 @@
 package io.github.rhkiswani.javaff.locale;
 
+import io.github.rhkiswani.javaff.exceptions.SmartException;
 import org.junit.Test;
 
 import java.util.Locale;
@@ -35,5 +36,14 @@ public class LocaleTest {
         }
         worker.setPath("app");
         assertThat(worker.getString(null, null)).isNull();
+    }
+
+    @Test
+    public void testLocaleUtil() throws Exception {
+        assertThat(LocaleUtil.getString(SmartException.EXCEEDS_LIMIT, "Array", 1000)).isEqualTo("Array MaxSize is 1,000");
+        assertThat(LocaleUtil.getString(SmartException.HTTP_ERROR, "google.com")).isEqualTo("failed to connect to google.com");
+        assertThat(LocaleUtil.getString("LOCALIZED_MSG", "Kiswani")).isEqualTo("this is localized msg from messages_en.properties thanks for Mr Kiswani");
+        assertThat(LocaleUtil.getString(null)).isNull();
+        assertThat(LocaleUtil.getString("LOCALIZED_MSG", null)).isEqualTo("this is localized msg from messages_en.properties thanks for Mr {0}");
     }
 }
