@@ -52,7 +52,7 @@ public class ReflectionUtil {
     public static Class getCallerClass(int numberOfLevels){
         StackTraceElement[] stackTraceElements = new Exception().getStackTrace();
         if (numberOfLevels < 0){
-            throw new IllegalParamException(SmartException.NIGATIVE_VAL, "Number Of Levels");
+            throw new IllegalParamException(SmartException.NEGATIVE_VAL, "Number Of Levels");
         }
         if (numberOfLevels + 1 > stackTraceElements.length){
             throw new IllegalParamException(SmartException.EXCEEDS_LIMIT, "StackTrace", stackTraceElements.length);

@@ -32,7 +32,9 @@ public class SmartException extends RuntimeException{
     public static final String EXCEEDS_LIMIT = "EXCEEDS_LIMIT";
     public static final String FORMAT_EXCEPTION = "FORMAT_EXCEPTION";
     public static final String ALREADY_EXIST = "ALREADY_EXIST";
-    public static final String NIGATIVE_VAL = "NEGATIVE_VAL";
+    public static final String NEGATIVE_VAL = "NEGATIVE_VAL";
+    public static final String HTTP_ERROR = "HTTP_ERROR";
+
     private Object[] errorMsgParams = null;
 
     public SmartException(String message) {
