@@ -65,7 +65,6 @@ public class ToStringHelper extends AbstractObjectHelper<Object, String>{
         if (ArraysUtils.isEmpty(fields)){
             fields = getFieldsByAnnotation(obj, HashcodeField.class, true);
         }
-        Object[] values = new Object[fields.size()];
         for (int i = 0; i < fields.size() ; i++) {
             Field f = fields.get(i);
             builder.append(f.getName());

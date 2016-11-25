@@ -56,6 +56,9 @@
         <mvn.plugin.release.version>2.5</mvn.plugin.release.version>
         <mvn.plugin.javadoc.version>2.9.1</mvn.plugin.javadoc.version>
         <mvn.plugin.gpg.version>1.5</mvn.plugin.gpg.version>
+        <mvn.plugin.coveralls.version>4.3.0</mvn.plugin.coveralls.version>
+        <mvn.plugin.jacoco.version>0.7.6.201602180812</mvn.plugin.jacoco.version>
+
     </properties>
 
     <issueManagement>
@@ -181,6 +184,28 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${mvn.plugin.coveralls.version}</version>
+                <configuration>
+                    <repoToken>jGs4NG4X5ACkcCFw0LMw8sQNUWRRvsuJv</repoToken>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${mvn.plugin.jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

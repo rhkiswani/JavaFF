@@ -43,6 +43,10 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
         for (Field field : fields) {
             for (Class aClass : annotations) {
                 if (field.isAnnotationPresent(aClass)){
+                    if (field != null && field.getName().contains("$jacocoData")){
+                        // ignore jacoco:report added fields
+                        continue;
+                    }
                     list.add(field);
                 }
             }
@@ -76,6 +80,10 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
         }
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
+            if (field != null && field.getName().contains("$jacocoData")){
+                // ignore jacoco:report added fields
+                continue;
+            }
             if (field.getName().equals(fieldName)){
                 field.setAccessible(true);
                 return field;
@@ -105,6 +113,10 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             if (field.getName().contains("this$")){
+                continue;
+            }
+            if (field != null && field.getName().contains("$jacocoData")){
+                // ignore jacoco:report added fields
                 continue;
             }
             field.setAccessible(true);
