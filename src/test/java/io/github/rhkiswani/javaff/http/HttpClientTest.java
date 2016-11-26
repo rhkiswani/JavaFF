@@ -1,6 +1,5 @@
 package io.github.rhkiswani.javaff.http;
 
-import io.github.rhkiswani.javaff.detector.ApiDetectorUtil;
 import io.github.rhkiswani.javaff.factory.exceptions.NoImplementationFoundException;
 import io.github.rhkiswani.javaff.httpclient.ApacheHttpClient;
 import io.github.rhkiswani.javaff.httpclient.HttpClient;
@@ -8,10 +7,6 @@ import io.github.rhkiswani.javaff.httpclient.HttpClientFactory;
 import io.github.rhkiswani.javaff.json.JsonHandler;
 import io.github.rhkiswani.javaff.json.JsonHandlerFactory;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -12,7 +12,7 @@ public class ApiMeadataTest {
     private ApiMetadata apiMetadata2;
 
     @Before
-    public void setup(){
+    public void setUp(){
         apiMetadata = new ApiMetadata(null, null, null, null);
         apiMetadata2 = JACKSON_API_METADATA;
     }

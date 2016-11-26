@@ -19,7 +19,7 @@ public class ExceptionHandlersFactoryTest {
     private ExceptionHandler exceptionHandler ;
 
     @Before
-    public void setup(){
+    public void setUp(){
         exceptionHandler = new TestExceptionHandler();
     }
 
