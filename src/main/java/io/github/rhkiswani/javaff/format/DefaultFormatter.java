@@ -36,10 +36,9 @@ public abstract class DefaultFormatter<IN, OUT> extends Formatter<IN, OUT> {
             try {
                 ArraysUtils.replace(params, null, "");
                 return formatVal(in, params);
+            } catch (FormatException e){
+                throw e;
             } catch (Throwable t ){
-                if (t instanceof FormatException) {
-                    throw t;
-                }
                 throw new FormatException(t.getMessage());
             }
 

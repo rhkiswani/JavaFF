@@ -2,7 +2,7 @@ package io.github.rhkiswani.javaff.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import io.github.rhkiswani.javaff.beans.withOutAnnotation.withEqualsAnnotation.EmployeeX;
+import io.github.rhkiswani.javaff.beans.EmployeeX;
 import io.github.rhkiswani.javaff.factory.exceptions.NoImplementationFoundException;
 import io.github.rhkiswani.javaff.json.annotations.GsonBean;
 import io.github.rhkiswani.javaff.json.annotations.JacksonBean;

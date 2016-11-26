@@ -1,6 +1,6 @@
 package io.github.rhkiswani.javaff.reflection;
 
-import io.github.rhkiswani.javaff.beans.withOutAnnotation.withEqualsAnnotation.EmployeeX;
+import io.github.rhkiswani.javaff.beans.EmployeeX;
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import org.junit.Before;
 import org.junit.Test;

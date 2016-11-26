@@ -20,6 +20,7 @@ import io.github.rhkiswani.javaff.lang.utils.ArraysUtils;
 import io.github.rhkiswani.javaff.reflection.exception.ReflectionException;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +30,13 @@ import java.util.List;
  * @see io.github.rhkiswani.javaff.reflection.ReflectionHelper
  */
 public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
+    private static final ArrayList<String> IGNORE_NAMES = new ArrayList<>();
 
+    static {
+        IGNORE_NAMES.add("$jacocoData");
+        IGNORE_NAMES.add("__cobertura_counters");
+        IGNORE_NAMES.add("this$");
+    }
     @Override
     public List<Field> scanFieldsByAnnotation(Class clazz, Class... annotations) throws ReflectionException {
         if (clazz == null){
@@ -43,8 +50,7 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
         for (Field field : fields) {
             for (Class aClass : annotations) {
                 if (field.isAnnotationPresent(aClass)){
-                    if (field != null && field.getName().contains("$jacocoData")){
-                        // ignore jacoco:report added fields
+                    if (isIgnored(field)){
                         continue;
                     }
                     list.add(field);
@@ -80,8 +86,7 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
         }
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
-            if (field != null && field.getName().contains("$jacocoData")){
-                // ignore jacoco:report added fields
+            if (isIgnored(field)){
                 continue;
             }
             if (field.getName().equals(fieldName)){
@@ -112,11 +117,7 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
         LinkedList<Field> list = new LinkedList<Field>();
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
-            if (field.getName().contains("this$")){
-                continue;
-            }
-            if (field != null && field.getName().contains("$jacocoData")){
-                // ignore jacoco:report added fields
+            if (isIgnored(field)){
                 continue;
             }
             field.setAccessible(true);
@@ -126,6 +127,15 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
             list.addAll(getFields(clazz.getSuperclass()));
         }
         return list;
+    }
+
+    private boolean isIgnored(Field field) {
+        for (String ignoreName : IGNORE_NAMES) {
+            if (field != null && field.getName().contains(ignoreName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public <V> V getFieldValue(T obj, String fieldName) throws ReflectionException {

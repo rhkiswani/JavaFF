@@ -58,9 +58,9 @@ public class SmartException extends RuntimeException{
     @Override
     public String getMessage() {
         if (!ArraysUtils.isEmpty(errorMsgParams)){
-            return LocaleUtil.getString(super.getMessage(), errorMsgParams);
+            return LocaleUtil.getString(super.getMessage(), SmartException.class, errorMsgParams);
         } else {
-            return LocaleUtil.getString(super.getMessage());
+            return LocaleUtil.getString(super.getMessage(), SmartException.class, null);
         }
     }
 }

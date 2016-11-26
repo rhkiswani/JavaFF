@@ -49,8 +49,16 @@ public class LocaleUtil {
         DEFAULT_MSGS.put(SmartException.NO_IMPLEMENTATION_FOUND, "No implementation found for {0} you need to set implementation through {1}.instance().add or add {2} to your classpath");
     }
 
-    public static String getString(String key, Object... params){
+    @Deprecated
+    /**
+     * use public static String getString(String key, Class targetClass, Object[] params) instead
+     */
+    public static String getString(String key, Object[] params){
         Class targetClass = ReflectionUtil.getCallerClass(1);
+        return getString(key, targetClass, params);
+    }
+
+    public static String getString(String key, Class targetClass, Object[] params) {
         LocaleWorker worker = LocaleWorkersFactory.getLocalWorker(targetClass);
         String label = worker.getString(key, params);
         if (!StringUtils.isEmpty(label) && label.equals(key) && DEFAULT_MSGS.get(key) != null){

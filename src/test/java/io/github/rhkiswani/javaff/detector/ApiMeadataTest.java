@@ -1,5 +1,6 @@
 package io.github.rhkiswani.javaff.detector;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static io.github.rhkiswani.javaff.detector.ApiDetectorUtil.*;
@@ -14,6 +15,12 @@ public class ApiMeadataTest {
     public void setup(){
         apiMetadata = new ApiMetadata(null, null, null, null);
         apiMetadata2 = JACKSON_API_METADATA;
+    }
+
+    @Test(expected=IllegalAccessException.class)
+    public void testConstructorPrivate() throws Exception {
+        ApiDetectorUtil.class.newInstance();
+        Assert.fail("Utility class constructor should be private");
     }
 
     @Test

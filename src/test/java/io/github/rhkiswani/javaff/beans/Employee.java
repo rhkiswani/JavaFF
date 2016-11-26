@@ -1,6 +1,6 @@
-package io.github.rhkiswani.javaff.beans.withEqualsAnnotation;
+package io.github.rhkiswani.javaff.beans;
 
-public class Employee extends Person<Employee>{
+public class Employee extends Person<Employee> {
 
     private int empId;
 

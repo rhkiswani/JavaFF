@@ -1,10 +1,10 @@
 package io.github.rhkiswani.javaff.lang;
 
-import io.github.rhkiswani.javaff.beans.withEqualsAnnotation.Employee;
-import io.github.rhkiswani.javaff.beans.withEqualsAnnotation.Person;
-import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.EmployeeByIdAnnotation;
-import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.PersonByIdAnnotation;
-import io.github.rhkiswani.javaff.beans.withOutAnnotation.withEqualsAnnotation.EmployeeX;
+import io.github.rhkiswani.javaff.beans.Employee;
+import io.github.rhkiswani.javaff.beans.Person;
+import io.github.rhkiswani.javaff.beans.EmployeeByIdAnnotation;
+import io.github.rhkiswani.javaff.beans.PersonByIdAnnotation;
+import io.github.rhkiswani.javaff.beans.EmployeeX;
 import io.github.rhkiswani.javaff.lang.utils.ObjectUtils;
 import org.junit.Test;
 
@@ -101,17 +101,10 @@ public class ObjectUtilsTest {
         assertThat(ObjectUtils.isEqual(null, e)).isEqualTo(false);
     }
 
-    @Test
-    public void testEmptyClass() throws Exception {
-        assertThat(ObjectUtils.isEqual(new EmptyClass(), new EmptyClass())).isEqualTo(false);
-    }
 
     @Test
     public void testHashcode() throws Exception {
         assertThat(ObjectUtils.toHashCode(null)).isEqualTo(-1);
     }
 
-    private class EmptyClass{
-
-    }
 }

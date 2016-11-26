@@ -17,7 +17,7 @@ function getVersion(){
 
 function prepare(){
     git checkout master
-#    git reset --hard
+    git reset --hard
     git pull origin master
     getVersion
 }
