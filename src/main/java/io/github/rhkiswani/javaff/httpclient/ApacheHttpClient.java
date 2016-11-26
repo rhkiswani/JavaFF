@@ -39,7 +39,7 @@ import java.util.Map;
  * @since 0.0.20
  *
  */
-class ApacheHttpClient implements HttpClient{
+public class ApacheHttpClient implements HttpClient{
 
     @Override
     public String postJson(String url, String json, Map<String, String> headers) throws HttpClientException {
