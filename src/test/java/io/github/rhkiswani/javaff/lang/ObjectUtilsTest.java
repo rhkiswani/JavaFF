@@ -101,17 +101,10 @@ public class ObjectUtilsTest {
         assertThat(ObjectUtils.isEqual(null, e)).isEqualTo(false);
     }
 
-    @Test
-    public void testEmptyClass() throws Exception {
-        assertThat(ObjectUtils.isEqual(new EmptyClass(), new EmptyClass())).isEqualTo(false);
-    }
 
     @Test
     public void testHashcode() throws Exception {
         assertThat(ObjectUtils.toHashCode(null)).isEqualTo(-1);
     }
 
-    private class EmptyClass{
-
-    }
 }

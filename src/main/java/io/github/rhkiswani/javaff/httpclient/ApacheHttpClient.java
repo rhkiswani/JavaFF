@@ -94,7 +94,8 @@ class ApacheHttpClient implements HttpClient{
         if(params != null){
             List<NameValuePair> urlParameters = new ArrayList<>();
             for (String key : params.keySet()) {
-                urlParameters.add(new BasicNameValuePair(key,  params.get(key)));
+
+                urlParameters.add(new BasicNameValuePair(key, params.get(key)));
             }
             if (method instanceof HttpEntityEnclosingRequestBase){
                 ((HttpEntityEnclosingRequestBase) method).setEntity(new UrlEncodedFormEntity(urlParameters));
