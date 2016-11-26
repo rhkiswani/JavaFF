@@ -16,6 +16,7 @@
 package io.github.rhkiswani.javaff.factory;
 
 import io.github.rhkiswani.javaff.exceptions.SmartException;
+import io.github.rhkiswani.javaff.factory.exceptions.NoImplementationFoundException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 
 import java.util.Collection;
@@ -29,8 +30,6 @@ import java.util.Set;
  *
  */
 public abstract class AbstractFactory<IMP_TYPE> {
-
-    protected abstract IMP_TYPE getDefault(Class targetClazz) ;
 
     private Map<Class, IMP_TYPE> map = new LinkedHashMap<>();
 
@@ -75,5 +74,13 @@ public abstract class AbstractFactory<IMP_TYPE> {
 
     public void setDefault(IMP_TYPE userDefaultImpl) {
         this.userDefaultImpl = userDefaultImpl;
+    }
+
+    protected IMP_TYPE getDefault(Class targetClazz) {
+        throw new NoImplementationFoundException(SmartException.NO_IMPLEMENTATION_FOUND, this.getClass().getSimpleName(), this.getClass().getSimpleName(), getDefaultImplementationUrl());
+    }
+
+    protected String getDefaultImplementationUrl(){
+        return "https://mvnrepository.com";
     }
 }

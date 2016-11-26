@@ -29,7 +29,4 @@ public class FormatException extends SmartException{
         super(errorMsg, errorMsgParams);
     }
 
-    public FormatException(Throwable e) {
-        super(e);
-    }
 }

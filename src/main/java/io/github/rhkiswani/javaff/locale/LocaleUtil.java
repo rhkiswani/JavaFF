@@ -32,6 +32,10 @@ public class LocaleUtil {
 
     private static Map<String, String> DEFAULT_MSGS = null;
 
+    private LocaleUtil(){
+
+    }
+
     static {
         DEFAULT_MSGS = new HashMap<>();
         DEFAULT_MSGS.put(SmartException.EXCEEDS_LIMIT, "{0} MaxSize is {1}");
@@ -42,19 +46,11 @@ public class LocaleUtil {
         DEFAULT_MSGS.put(SmartException.FORMAT_EXCEPTION, "Can't format {0} {1}");
         DEFAULT_MSGS.put(SmartException.NEGATIVE_VAL, "{0} should be greater or equal 0");
         DEFAULT_MSGS.put(SmartException.HTTP_ERROR, "failed to connect to {0}");
-    }
-
-    private LocaleUtil(){
-
+        DEFAULT_MSGS.put(SmartException.NO_IMPLEMENTATION_FOUND, "No implementation found for {0} you need to set implementation through {1}.instance().add or add {2} to your classpath");
     }
 
     public static String getString(String key, Object... params){
-        Class targetClass = null;
-        try {
-            targetClass = ReflectionUtil.getCallerClass(1);
-        }catch (Exception e ){
-            targetClass = Object.class;
-        }
+        Class targetClass = ReflectionUtil.getCallerClass(1);
         LocaleWorker worker = LocaleWorkersFactory.getLocalWorker(targetClass);
         String label = worker.getString(key, params);
         if (!StringUtils.isEmpty(label) && label.equals(key) && DEFAULT_MSGS.get(key) != null){

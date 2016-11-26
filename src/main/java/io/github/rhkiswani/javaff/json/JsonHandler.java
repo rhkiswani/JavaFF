@@ -15,6 +15,8 @@
  */
 package io.github.rhkiswani.javaff.json;
 
+import io.github.rhkiswani.javaff.json.exceptions.JsonException;
+
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
@@ -22,9 +24,9 @@ package io.github.rhkiswani.javaff.json;
  */
 public interface JsonHandler {
 
-    <T> T fromJson(String json, Class clazz);
+    <T> T fromJson(String json, Class clazz) throws JsonException;
 
-    String toJson(Object object);
+    String toJson(Object object) throws JsonException;
 
     Object getImplementation();
 

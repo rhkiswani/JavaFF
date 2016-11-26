@@ -35,7 +35,7 @@ class GsonHandler implements JsonHandler {
         try {
             return (T) gson.fromJson(json, clazz);
         } catch (Throwable t){
-            throw new JsonException(t);
+            throw new JsonException(t.getMessage());
         }
     }
 
@@ -44,7 +44,7 @@ class GsonHandler implements JsonHandler {
         try{
             return gson.toJson(object);
         } catch (Throwable t){
-            throw new JsonException(t);
+            throw new JsonException(t.getMessage());
         }
     }
 

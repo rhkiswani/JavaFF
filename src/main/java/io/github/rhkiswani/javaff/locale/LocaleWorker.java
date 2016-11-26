@@ -26,8 +26,6 @@ public interface LocaleWorker {
 
     void setName(String name);
 
-    void setFilesExtensions(String extensions);
-
     void setLocale(Locale locale);
 
     void reload();

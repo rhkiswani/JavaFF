@@ -24,8 +24,7 @@ import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
  */
 public class ExceptionUtil {
 
-    private ExceptionUtil(){
-    }
+    private ExceptionUtil(){}
 
     public static void handle(Throwable t){
         if (t == null){

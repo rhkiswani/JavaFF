@@ -1,6 +1,5 @@
-package io.github.rhkiswani.javaff.lang;
+package io.github.rhkiswani.javaff.beans;
 
-import io.github.rhkiswani.javaff.beans.ValuesHolder;
 import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.EmployeeByIdAnnotation;
 import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.PersonByIdAnnotation;
 import io.github.rhkiswani.javaff.lang.annotations.EqualsField;

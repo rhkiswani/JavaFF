@@ -40,7 +40,7 @@ public abstract class DefaultFormatter<IN, OUT> extends Formatter<IN, OUT> {
                 if (t instanceof FormatException) {
                     throw t;
                 }
-                throw new FormatException(t);
+                throw new FormatException(t.getMessage());
             }
 
         }
