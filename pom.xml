@@ -4,7 +4,7 @@
 
     <groupId>io.github.rhkiswani</groupId>
     <artifactId>javaff</artifactId>
-    <version>0.0.21-SNAPSHOT</version>
+    <version>0.0.21</version>
     <name>JavaFF: Java Facade/Factories</name>
     <description>
         We all know the Golden Object Oriented rule **Don't talk to strangers**
@@ -29,7 +29,7 @@
         <connection>scm:git:https://github.com/rhkiswani/JavaFF.git</connection>
         <developerConnection>scm:git:https://github.com/rhkiswani/JavaFF.git</developerConnection>
         <url>https://github.com/rhkiswani/JavaFF</url>
-        <tag>javaff-0.0.10</tag>
+        <tag>javaff-0.0.21</tag>
     </scm>
 
     <properties>
