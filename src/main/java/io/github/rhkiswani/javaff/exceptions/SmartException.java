@@ -34,6 +34,7 @@ public class SmartException extends RuntimeException{
     public static final String ALREADY_EXIST = "ALREADY_EXIST";
     public static final String NEGATIVE_VAL = "NEGATIVE_VAL";
     public static final String HTTP_ERROR = "HTTP_ERROR";
+    public static final String NO_IMPLEMENTATION_FOUND = "NO_IMPLEMENTATION_FOUND";
 
     private Object[] errorMsgParams = null;
 

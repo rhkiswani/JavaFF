@@ -25,5 +25,18 @@ public class ApiMeadataTest {
         assertThat(apiMetadata.equals(apiMetadata2)).isEqualTo(true);
     }
 
+    @Test
+    public void testClone() throws Exception {
+        assertThat(apiMetadata).isNotNull();
+        apiMetadata2.setName("Test");
+        apiMetadata2.setFrameworkUrl("URL");
+        ApiMetadata clone = apiMetadata2.clone();
+        assertThat(clone).isNotNull();
+        assertThat(apiMetadata2.getName()).isEqualTo(clone.getName());
+        assertThat(apiMetadata2.getGroupId()).isEqualTo(clone.getGroupId());
+        assertThat(apiMetadata2.getMainClassName()).isEqualTo(clone.getMainClassName());
+        assertThat(apiMetadata2.getFrameworkUrl()).isEqualTo(clone.getFrameworkUrl());
+    }
+
 
 }

@@ -29,10 +29,6 @@ class Slf4jLog implements Log {
         logger = org.slf4j.LoggerFactory.getLogger(clazz);
     }
 
-    public Slf4jLog(Logger logger, Object... params) {
-        this.logger = logger;
-    }
-
     public void debug(String message, Object... params) {
         logger.debug(message);
     }

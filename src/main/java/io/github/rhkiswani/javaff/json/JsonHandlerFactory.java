@@ -30,21 +30,22 @@ public class JsonHandlerFactory extends AbstractFactory<JsonHandler>{
     private static JsonHandlerFactory instance = new JsonHandlerFactory();
 
     private JsonHandlerFactory(){
+        if (ApiDetectorUtil.isGsonAvailable()) {
+            add(Object.class, new GsonHandler());
+            add(GsonBean.class, new GsonHandler());
+        }
         if (ApiDetectorUtil.isJacksonAvailable()) {
             add(JacksonBean.class, new JacksonHandler());
         }
-        add(GsonBean.class, new GsonHandler());
     }
 
     public static JsonHandlerFactory instance(){
         return instance;
     }
+
     @Override
-    protected JsonHandler getDefault(Class targetClazz) {
-        if (ApiDetectorUtil.isJacksonAvailable()){
-            return new JacksonHandler();
-        }
-        return new GsonHandler();
+    protected String getDefaultImplementationUrl() {
+        return "https://mvnrepository.com/artifact/com.google.code.gson/gson";
     }
 
     public static JsonHandler getJsonHandler(Class aClass) {

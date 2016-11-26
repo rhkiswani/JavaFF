@@ -13,25 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.format;
+package io.github.rhkiswani.javaff.factory.exceptions;
+
+import io.github.rhkiswani.javaff.exceptions.SmartException;
 
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
- *
+ * @see SmartException
  */
-public class FormatUtil {
-
-    private FormatUtil(){}
-
-    public static String formatString(String str, Object... params){
-        return format(str, params);
+public class NoImplementationFoundException extends SmartException {
+    public NoImplementationFoundException(String errorMsg, Object... errorMsgParams) {
+        super(errorMsg, errorMsgParams);
     }
 
-    public static <T>T format(Object obj, Object... params){
-        if (obj == null){
-            return null;
-        }
-        return (T) FormatFactory.getFormatter(obj.getClass()).format(obj, params);
-    }
 }

@@ -12,6 +12,7 @@ public class DetectorFactoryTest {
         assertThat(ApiDetectorFactory.instance()).isNotNull();
         assertThat(ApiDetectorFactory.instance() == ApiDetectorFactory.instance()).isEqualTo(true);
         assertThat(ApiDetectorFactory.getDetector().isAvailable(ApiDetectorUtil.JPA_API_METADATA)).isEqualTo(true);
+        assertThat(ApiDetectorFactory.getDetector().isAvailable(ApiDetectorUtil.APACHE_HTTPCLIENT_API_METADATA)).isEqualTo(true);
         try{
             ApiDetectorFactory.getDetector().isAvailable(null);
         }catch (Exception e){

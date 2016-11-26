@@ -1,10 +1,10 @@
 package io.github.rhkiswani.javaff.locale;
 
 import io.github.rhkiswani.javaff.exceptions.SmartException;
+import io.github.rhkiswani.javaff.locale.exceptions.LocaleException;
 import org.junit.Test;
 
 import java.util.Locale;
-import java.util.MissingResourceException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 public class LocaleTest {
@@ -27,12 +27,11 @@ public class LocaleTest {
         DefaultLocaleWorker worker = new DefaultLocaleWorker();
         assertThat(worker.getPath()).isEqualTo("");
         assertThat(worker.getName()).isEqualTo("messages");
-        assertThat(worker.getExtensions()).isEqualTo(".properties");
         assertThat(worker.getLocale()).isEqualTo(Locale.US);
         try{
             assertThat(worker.getString(null, null)).isNull();
         }catch (Throwable t) {
-            assertThat(t).isInstanceOf(MissingResourceException.class).hasMessage("Can't find bundle for base name messages, locale en_US");
+            assertThat(t).isInstanceOf(LocaleException.class).hasMessage("Cant find bundle for base name messages, locale en_US");
         }
         worker.setPath("app");
         assertThat(worker.getString(null, null)).isNull();
@@ -45,5 +44,29 @@ public class LocaleTest {
         assertThat(LocaleUtil.getString("LOCALIZED_MSG", "Kiswani")).isEqualTo("this is localized msg from messages_en.properties thanks for Mr Kiswani");
         assertThat(LocaleUtil.getString(null)).isNull();
         assertThat(LocaleUtil.getString("LOCALIZED_MSG", null)).isEqualTo("this is localized msg from messages_en.properties thanks for Mr {0}");
+    }
+
+    @Test
+    public void testLocaleWorkerBuilder() throws Exception {
+        LocaleWorker localeWorker = new LocaleWorkerBuilder().name("messages").path("/app").locale(Locale.CANADA).build();
+        assertThat(localeWorker).isInstanceOf(DefaultLocaleWorker.class);
+        DefaultLocaleWorker defaultLocaleWorker = (DefaultLocaleWorker) localeWorker;
+        assertThat(defaultLocaleWorker.getName()).isEqualTo("messages");
+        assertThat(defaultLocaleWorker.getPath()).isEqualTo("app/");
+        assertThat(defaultLocaleWorker.getLocale()).isEqualTo(Locale.CANADA);
+    }
+
+    @Test
+    public void testLocaleWorkerBuilderException() throws Exception {
+        try {
+            new LocaleWorkerBuilder().name("Kiswani").path("/SS").locale(Locale.CANADA).build();
+        } catch (Exception e){
+            assertThat(e).isInstanceOf(LocaleException.class).hasMessage("Cant find bundle for base name SS/Kiswani, locale en_CA");
+        }
+    }
+
+    @Test
+    public void testLocaleWorkerFactory() throws Exception {
+        assertThat(LocaleWorkersFactory.instance() == LocaleWorkersFactory.instance()).isEqualTo(true);
     }
 }

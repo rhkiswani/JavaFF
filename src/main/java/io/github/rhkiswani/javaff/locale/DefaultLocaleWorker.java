@@ -18,6 +18,7 @@ package io.github.rhkiswani.javaff.locale;
 import io.github.rhkiswani.javaff.beans.ValuesHolder;
 import io.github.rhkiswani.javaff.format.FormatUtil;
 import io.github.rhkiswani.javaff.lang.annotations.EqualsField;
+import io.github.rhkiswani.javaff.locale.exceptions.LocaleException;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -33,7 +34,6 @@ import java.util.ResourceBundle;
 class DefaultLocaleWorker extends ValuesHolder<DefaultLocaleWorker> implements LocaleWorker {
     @EqualsField
     private String name = "messages";
-    private String extensions = ".properties";
     private String path = "";
     private Locale locale = Locale.US;
     private ResourceBundle bundle = null;
@@ -48,15 +48,6 @@ class DefaultLocaleWorker extends ValuesHolder<DefaultLocaleWorker> implements L
 
     public String getName() {
         return name;
-    }
-
-    @Override
-    public void setFilesExtensions(String extensions) {
-        this.extensions = extensions;
-    }
-
-    public String getExtensions() {
-        return extensions;
     }
 
     @Override
@@ -107,7 +98,11 @@ class DefaultLocaleWorker extends ValuesHolder<DefaultLocaleWorker> implements L
     @Override
     public void reload() {
         synchronized (DefaultLocaleWorker.class){
-            bundle = ResourceBundle.getBundle(getPath() + getName(), locale);
+            try {
+                bundle = ResourceBundle.getBundle(getPath() + getName(), locale);
+            }catch (Exception e){
+                throw new LocaleException (e.getMessage());
+            }
         }
     }
 

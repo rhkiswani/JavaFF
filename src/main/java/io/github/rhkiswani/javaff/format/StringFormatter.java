@@ -15,6 +15,9 @@
  */
 package io.github.rhkiswani.javaff.format;
 
+import io.github.rhkiswani.javaff.log.Log;
+import io.github.rhkiswani.javaff.log.LogFactory;
+
 import java.text.MessageFormat;
 
 /**
@@ -24,9 +27,15 @@ import java.text.MessageFormat;
  * @see io.github.rhkiswani.javaff.format.Formatter 
  */
 class StringFormatter extends DefaultFormatter<String, String> {
+    private static final Log LOGGER = LogFactory.getLogger(StringFormatter.class);
 
     @Override
     protected String formatVal(String string, Object... params) {
-        return MessageFormat.format(string, params);
+        try {
+            return MessageFormat.format(string, params);
+        } catch (Exception e){
+            LOGGER.error("Failed to format {0}", string);
+            return string;
+        }
     }
 }

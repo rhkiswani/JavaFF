@@ -27,7 +27,4 @@ public class JsonException extends SmartException{
         super(errorMsg, errorMsgParams);
     }
 
-    public JsonException(Throwable e) {
-        super(e);
-    }
 }
