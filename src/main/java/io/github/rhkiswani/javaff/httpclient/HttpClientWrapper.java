@@ -48,7 +48,7 @@ public class HttpClientWrapper implements HttpClient{
 
     @Override
     public String put(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException {
-        return httpClient.post(url, params, headers);
+        return httpClient.put(url, params, headers);
     }
 
     @Override

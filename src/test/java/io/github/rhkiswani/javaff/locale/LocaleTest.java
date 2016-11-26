@@ -39,11 +39,11 @@ public class LocaleTest {
 
     @Test
     public void testLocaleUtil() throws Exception {
-        assertThat(LocaleUtil.getString(SmartException.EXCEEDS_LIMIT, "Array", 1000)).isEqualTo("Array MaxSize is 1,000");
-        assertThat(LocaleUtil.getString(SmartException.HTTP_ERROR, "google.com")).isEqualTo("failed to connect to google.com");
-        assertThat(LocaleUtil.getString("LOCALIZED_MSG", "Kiswani")).isEqualTo("this is localized msg from messages_en.properties thanks for Mr Kiswani");
-        assertThat(LocaleUtil.getString(null)).isNull();
-        assertThat(LocaleUtil.getString("LOCALIZED_MSG", null)).isEqualTo("this is localized msg from messages_en.properties thanks for Mr {0}");
+        assertThat(LocaleUtil.getString(SmartException.EXCEEDS_LIMIT, LocaleTest.class, new Object[]{"Array", 1000})).isEqualTo("Array MaxSize is 1,000");
+        assertThat(LocaleUtil.getString(SmartException.HTTP_ERROR, LocaleTest.class, new Object[]{"google.com"})).isEqualTo("failed to connect to google.com");
+        assertThat(LocaleUtil.getString("LOCALIZED_MSG", LocaleTest.class, new Object[]{"Kiswani"})).isEqualTo("this is localized msg from messages_en.properties thanks for Mr Kiswani");
+        assertThat(LocaleUtil.getString(null, LocaleTest.class, null)).isNull();
+        assertThat(LocaleUtil.getString("LOCALIZED_MSG", LocaleTest.class, null)).isEqualTo("this is localized msg from messages_en.properties thanks for Mr {0}");
     }
 
     @Test
