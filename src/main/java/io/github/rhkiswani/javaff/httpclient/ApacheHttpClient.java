@@ -114,13 +114,14 @@ public class ApacheHttpClient implements HttpClient{
 
     @Override
     public String get(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException {
+        String urlWithParams = url;
         if(params != null){
-            url += "?";
+            urlWithParams += "?";
             for (String key : params.keySet()) {
-                url += key + "=" + params.get(key) +"&";
+                urlWithParams += key + "=" + params.get(key) +"&";
             }
         }
-        return doRequest(new HttpGet(url), params, headers);
+        return doRequest(new HttpGet(urlWithParams), params, headers);
     }
 
     @Override

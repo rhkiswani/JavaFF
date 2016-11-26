@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 function getVersion(){
-    MVN_VERSION=$(mvn -q \
+    mvn_version=$(mvn -q \
         -Dexec.executable="echo" \
         -Dexec.args='${project.version}' \
         --non-recursive \
         org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
 
-    if [[ $MVN_VERSION == *"SNAPSHOT"* ]]
+    if [[ $mvn_version == *"SNAPSHOT"* ]]
     then
-        for EACH in `echo "$MVN_VERSION" | grep -o -e "[^-SNAPSHOT]*"`; do
-            version="$EACH";
+        for str in $(echo "$mvn_version" | grep -o -e "[^-SNAPSHOT]*"); do
+            version="$str";
         done
     fi
 }

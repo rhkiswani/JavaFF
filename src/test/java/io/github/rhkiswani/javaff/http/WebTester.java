@@ -84,10 +84,10 @@ public class WebTester {
     }
 
     protected class Response {
-        String method;
-        String contentType;
-        Map<String, String> params = new HashMap<>();
-        Map<String, String> requestHeaders = new HashMap<>();
-        public String jsonParams = "";
+        protected String method;
+        protected String contentType;
+        protected Map<String, String> params = new HashMap<>();
+        protected Map<String, String> requestHeaders = new HashMap<>();
+        protected String jsonParams = "";
     }
 }
