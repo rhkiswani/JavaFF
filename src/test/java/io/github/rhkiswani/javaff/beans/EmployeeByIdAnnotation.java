@@ -1,6 +1,6 @@
-package io.github.rhkiswani.javaff.beans.withOutAnnotation.withEqualsAnnotation;
+package io.github.rhkiswani.javaff.beans;
 
-public class EmployeeX extends PersonX<EmployeeX> {
+public class EmployeeByIdAnnotation extends PersonByIdAnnotation<EmployeeByIdAnnotation> {
 
     private int empId;
 

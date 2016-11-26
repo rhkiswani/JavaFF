@@ -1,6 +1,6 @@
 package io.github.rhkiswani.javaff.format;
 
-import io.github.rhkiswani.javaff.beans.withOutAnnotation.withEqualsAnnotation.EmployeeX;
+import io.github.rhkiswani.javaff.beans.EmployeeX;
 import org.assertj.core.util.Arrays;
 import org.junit.Test;
 

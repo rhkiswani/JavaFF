@@ -1,4 +1,4 @@
-package io.github.rhkiswani.javaff.beans.withOutAnnotation.withEqualsAnnotation;
+package io.github.rhkiswani.javaff.beans;
 
 import io.github.rhkiswani.javaff.beans.ValuesHolder;
 

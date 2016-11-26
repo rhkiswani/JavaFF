@@ -16,10 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(PowerMockRunner.class)
 public class HttpClientTest {
 
-    @Before
-    public void setup(){
-    }
-
     @Test
     @PrepareForTest(ApiDetectorUtil.class)
     public void testFactory() throws Exception {

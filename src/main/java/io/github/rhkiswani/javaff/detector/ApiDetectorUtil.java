@@ -28,47 +28,32 @@ public class ApiDetectorUtil {
     public static final ApiMetadata APACHE_HTTPCLIENT_API_METADATA = new ApiMetadata("org.apache.httpcomponents", "org.apache.http.NameValuePair");
     public static final ApiMetadata GSON_METADATA = new ApiMetadata("com.google.code.gson", "com.google.gson.Gson");
 
+    private static final Boolean isJPAAvailable = ApiDetectorFactory.getDetector().isAvailable(JPA_API_METADATA);
+    private static final Boolean isSlf4jAvailable = ApiDetectorFactory.getDetector().isAvailable(SLF4_API_METADATA);
+    private static final Boolean isJacksonAvailable = ApiDetectorFactory.getDetector().isAvailable(JACKSON_API_METADATA);
+    private static final Boolean isGsonAvailable = ApiDetectorFactory.getDetector().isAvailable(GSON_METADATA);
+    private static final Boolean isApacheHttpClientAvailable = ApiDetectorFactory.getDetector().isAvailable(APACHE_HTTPCLIENT_API_METADATA);
+
 
     private ApiDetectorUtil(){}
 
-    private static Boolean isJPAAvailable = null;
-    private static Boolean isSlf4jAvailable = null;
-    private static Boolean isJacksonAvailable = null;
-    private static Boolean isGsonAvailable = null;
-    private static Boolean isApacheHttpClientAvailable = null;
-
-    public static Boolean isJPAAvailable(){
-        if(isJPAAvailable == null){
-            isJPAAvailable = ApiDetectorFactory.getDetector().isAvailable(JPA_API_METADATA);
-        }
+    public static Boolean isJPAAvailable() {
         return isJPAAvailable;
     }
 
-    public static Boolean isSlf4jAvailable(){
-        if(isSlf4jAvailable == null){
-            isSlf4jAvailable = ApiDetectorFactory.getDetector().isAvailable(SLF4_API_METADATA);
-        }
+    public static Boolean isSlf4jAvailable() {
         return isSlf4jAvailable;
     }
 
-    public static Boolean isJacksonAvailable(){
-        if(isJacksonAvailable == null){
-            isJacksonAvailable = ApiDetectorFactory.getDetector().isAvailable(JACKSON_API_METADATA);
-        }
+    public static Boolean isJacksonAvailable() {
         return isJacksonAvailable;
     }
 
-    public static boolean isApacheHttpClientAvailable() {
-        if(isApacheHttpClientAvailable == null){
-            isApacheHttpClientAvailable = ApiDetectorFactory.getDetector().isAvailable(APACHE_HTTPCLIENT_API_METADATA);
-        }
-        return isApacheHttpClientAvailable;
+    public static Boolean isGsonAvailable() {
+        return isGsonAvailable;
     }
 
-    public static boolean isGsonAvailable() {
-        if(isGsonAvailable == null){
-            isGsonAvailable = ApiDetectorFactory.getDetector().isAvailable(GSON_METADATA);
-        }
-        return isGsonAvailable;
+    public static Boolean isApacheHttpClientAvailable() {
+        return isApacheHttpClientAvailable;
     }
 }
