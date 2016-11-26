@@ -38,9 +38,6 @@ class DefaultLocaleWorker extends ValuesHolder<DefaultLocaleWorker> implements L
     private Locale locale = Locale.US;
     private ResourceBundle bundle = null;
 
-    public DefaultLocaleWorker(){
-
-    }
     @Override
     public void setName(String name) {
         this.name = name;
@@ -61,17 +58,18 @@ class DefaultLocaleWorker extends ValuesHolder<DefaultLocaleWorker> implements L
 
     @Override
     public void setPath(String path) {
-        if (path == null || path.isEmpty()){
+        String tmpPath = path;
+        if (tmpPath == null || tmpPath.isEmpty()){
             this.path = "";
             return ;
         }
-        if (path.startsWith("/")){
-            path = path.substring(1);
+        if (tmpPath.startsWith("/")){
+            tmpPath = tmpPath.substring(1);
         }
-        if (!path.endsWith("/") && path.length() > 1){
-            path = path + "/";
+        if (!tmpPath.endsWith("/") && tmpPath.length() > 1){
+            tmpPath = tmpPath + "/";
         }
-        this.path = path;
+        this.path = tmpPath;
     }
 
     public String getPath() {
