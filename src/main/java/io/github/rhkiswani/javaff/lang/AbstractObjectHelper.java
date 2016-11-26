@@ -29,11 +29,11 @@ import java.util.List;
  * @since 0.0.1
  *
  */
-public abstract class AbstractObjectHelper<INPUT, OUT> {
+public abstract class AbstractObjectHelper<I, O> {
 
     protected final ReflectionHelper reflectionHelper = ReflectionHelpersFactory.getReflectionHelper(this.getClass());
 
-    protected abstract OUT doAction(INPUT input);
+    protected abstract O doAction(I i);
 
     protected List<Field> getFieldsByAnnotation(Object obj,Class annotation){
         return getFieldsByAnnotation(obj, annotation, true);

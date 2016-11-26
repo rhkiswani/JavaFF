@@ -22,8 +22,8 @@ import io.github.rhkiswani.javaff.security.escape.exception.EncodeException;
  * @since 0.0.1
  *
  */
-public interface EscapeHandler<IN, OUT> {
+public interface EscapeHandler<I, O> {
 
-    OUT escape(IN in, Object... params) throws EncodeException;
+    O escape(I i, Object... params) throws EncodeException;
 
 }

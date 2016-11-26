@@ -1,7 +1,5 @@
 package io.github.rhkiswani.javaff.beans;
 
-import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.EmployeeByIdAnnotation;
-import io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation.PersonByIdAnnotation;
 import io.github.rhkiswani.javaff.lang.annotations.EqualsField;
 import io.github.rhkiswani.javaff.lang.annotations.HashcodeField;
 import io.github.rhkiswani.javaff.lang.annotations.ToString;

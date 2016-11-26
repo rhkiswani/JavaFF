@@ -1,4 +1,4 @@
-package io.github.rhkiswani.javaff.beans.withIdAnnotation.withEqualsAnnotation;
+package io.github.rhkiswani.javaff.beans;
 
 import io.github.rhkiswani.javaff.beans.ValuesHolder;
 import io.github.rhkiswani.javaff.lang.annotations.HashcodeField;

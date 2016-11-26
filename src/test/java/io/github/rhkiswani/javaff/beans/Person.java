@@ -1,4 +1,4 @@
-package io.github.rhkiswani.javaff.beans.withEqualsAnnotation;
+package io.github.rhkiswani.javaff.beans;
 
 import io.github.rhkiswani.javaff.beans.ValuesHolder;
 import io.github.rhkiswani.javaff.lang.annotations.EqualsField;

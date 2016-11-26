@@ -1,6 +1,6 @@
 package io.github.rhkiswani.javaff.exceptions;
 
-import io.github.rhkiswani.javaff.beans.withOutAnnotation.withEqualsAnnotation.EmployeeX;
+import io.github.rhkiswani.javaff.beans.EmployeeX;
 import io.github.rhkiswani.javaff.format.FormatUtil;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import org.junit.Before;

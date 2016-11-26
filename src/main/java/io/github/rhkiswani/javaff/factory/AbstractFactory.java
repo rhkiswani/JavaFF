@@ -29,28 +29,28 @@ import java.util.Set;
  * @since 0.0.1
  *
  */
-public abstract class AbstractFactory<IMP_TYPE> {
+public abstract class AbstractFactory<T> {
 
-    private Map<Class, IMP_TYPE> map = new LinkedHashMap<>();
+    private Map<Class, T> map = new LinkedHashMap<>();
 
-    private IMP_TYPE userDefaultImpl = null;
+    private T userDefaultImpl = null;
 
-    public void add(Class targetClass, IMP_TYPE t){
+    public void add(Class targetClass, T t){
         if (map.get(targetClass) != null){
             throw new IllegalParamException(SmartException.ALREADY_EXIST, targetClass, "please use overrideImp method instated");
         }
         map.put(targetClass, t);
     }
 
-    public void overrideImp(Class targetClass, IMP_TYPE t){
+    public void overrideImp(Class targetClass, T t){
         map.put(targetClass, t);
     }
 
-    public IMP_TYPE remove(Class targetClass){
+    public T remove(Class targetClass){
         return map.remove(targetClass);
     }
 
-    protected IMP_TYPE create(Class targetClass){
+    protected T create(Class targetClass){
         if (targetClass == null){
             throw new IllegalParamException(SmartException.NULL_VAL, "Target Class");
         }
@@ -68,15 +68,15 @@ public abstract class AbstractFactory<IMP_TYPE> {
         return getDefault(targetClass);
     }
 
-    public Collection<IMP_TYPE> listImplementations(){
+    public Collection<T> listImplementations(){
         return map.values();
     }
 
-    public void setDefault(IMP_TYPE userDefaultImpl) {
+    public void setDefault(T userDefaultImpl) {
         this.userDefaultImpl = userDefaultImpl;
     }
 
-    protected IMP_TYPE getDefault(Class targetClazz) {
+    protected T getDefault(Class targetClazz) {
         throw new NoImplementationFoundException(SmartException.NO_IMPLEMENTATION_FOUND, this.getClass().getSimpleName(), this.getClass().getSimpleName(), getDefaultImplementationUrl());
     }
 
