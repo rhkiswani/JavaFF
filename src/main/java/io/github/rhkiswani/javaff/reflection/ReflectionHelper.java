@@ -31,6 +31,8 @@ public interface ReflectionHelper<T> {
 
     void setFieldValue(T obj,String fieldName, Object value) throws ReflectionException;
 
+    void setStaticFieldValue(Class clazz,String fieldName, Object value) throws ReflectionException;
+
     Field getField(Class clazz, String fieldName) throws ReflectionException;
 
     <V> V getFieldValue(T obj, String fieldName) throws ReflectionException;
