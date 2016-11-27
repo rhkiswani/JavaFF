@@ -10,7 +10,7 @@ public class ReflectionTest {
     private ReflectionHelper reflectionHelper;
 
     @Before
-    public void setup(){
+    public void setUp(){
         reflectionHelper = new DefaultReflectionHelper<EmployeeX>();
     }
 
