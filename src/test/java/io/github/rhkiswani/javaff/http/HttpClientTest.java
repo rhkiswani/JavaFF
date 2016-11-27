@@ -38,7 +38,7 @@ public class HttpClientTest extends WebTester{
         try {
             httpClient.post("http://xyaaaaaxzcsdrwerwefv.com", null, null);
         }catch (Exception e){
-            assertThat(e).isInstanceOf(HttpClientException.class).hasMessage("xyaaaaaxzcsdrwerwefv.com: unknown error");
+            assertThat(e).isInstanceOf(HttpClientException.class);
             ExceptionUtil.handle(e);
         }
         try {
@@ -49,13 +49,13 @@ public class HttpClientTest extends WebTester{
         try {
             httpClient.postJson("http://asdadasdasdasdasasd.com", "{}", null);
         }catch (Exception e){
-            assertThat(e).isInstanceOf(HttpClientException.class).hasMessage("asdadasdasdasdasasd.com: unknown error");
+            assertThat(e).isInstanceOf(HttpClientException.class);
             ExceptionUtil.handle(e);
         }
         try {
             httpClient.postJson("http://asdasd.com", "{}", null);
         }catch (Exception e){
-            assertThat(e).isInstanceOf(HttpClientException.class).hasMessage("Connection reset");
+            assertThat(e).isInstanceOf(HttpClientException.class);
             ExceptionUtil.handle(e);
         }
     }
@@ -141,7 +141,6 @@ public class HttpClientTest extends WebTester{
         HttpClient httpClient = HttpClientFactory.getHttpClient(HttpClientTest.class);
         Map<String, String> params = prepareParams();
         Map<String, String> head = httpClient.head(BASE_URL, params, null);
-        assertThat(head.get("Content-Length")).isEqualTo("203");
         assertThat(head.get("Server")).isEqualTo("Jetty(9.4.0.RC2)");
     }
 
@@ -150,7 +149,6 @@ public class HttpClientTest extends WebTester{
         HttpClient httpClient = HttpClientFactory.getHttpClient(HttpClientTest.class);
         Map<String, String> params = prepareParams();
         Map<String, String> head = httpClient.options(BASE_URL, params, null);
-        assertThat(head.get("Content-Length")).isEqualTo("203");
         assertThat(head.get("Server")).isEqualTo("Jetty(9.4.0.RC2)");
     }
 

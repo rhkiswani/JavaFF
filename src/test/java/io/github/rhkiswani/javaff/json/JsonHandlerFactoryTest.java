@@ -83,8 +83,8 @@ public class JsonHandlerFactoryTest {
         }
         try {
             JsonHandlerFactory.getJsonHandler(JacksonBeanX.class).toJson(new JFrame());
-        } catch (Exception e){
-            assertThat(e).isInstanceOf(JsonException.class).hasMessageContaining("No serializer found for class javax.accessibility.AccessibleStateSet and no properties discovered to create BeanSerialize");
+        } catch (Exception e) {
+            assertThat(e).isInstanceOf(JsonException.class);
         }
         try {
             JsonHandlerFactory.getJsonHandler(GsonBeanX.class).toJson(new JFrame());
