@@ -42,11 +42,6 @@ public class ReflectionTest {
         }
     }
 
-    @Test
-    public void testIsPresent() {
-        assertThat(ReflectionUtil.isPresent(Integer.class.getName())).isEqualTo(true);
-        assertThat(ReflectionUtil.isPresent("com.xyz.xyz")).isEqualTo(false);
-    }
 
     @Test
     public void testExceptions() {
@@ -80,6 +75,35 @@ public class ReflectionTest {
     }
 
     @Test
+    public void testSetStaticFinalVal() {
+        reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "isSlf4jAvailable", false);
+        assertThat(ApiDetectorUtil.isSlf4jAvailable()).isEqualTo(false);
+        reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "isSlf4jAvailable", true);
+        assertThat(ApiDetectorUtil.isSlf4jAvailable()).isEqualTo(true);
+        try{
+            reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "xxxx", false);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("xxxx not found");
+        }
+        try{
+            ReflectionUtil.getCallerClass(-1);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(IllegalParamException.class).hasMessage("Number Of Levels should be greater or equal 0");
+        }
+        try{
+            ReflectionUtil.getCallerClass(10000);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(IllegalParamException.class).hasMessageContaining("StackTrace MaxSize is");
+        }
+    }
+
+    @Test
+    public void testIsPresent() {
+        assertThat(ReflectionUtil.isPresent(Integer.class.getName())).isEqualTo(true);
+        assertThat(ReflectionUtil.isPresent("com.xyz.xyz")).isEqualTo(false);
+    }
+
+    @Test
     public void testSetVal() {
         X x = new X();
         reflectionHelper.setFieldValue(x, "privateStr", "Value");
@@ -109,19 +133,6 @@ public class ReflectionTest {
     @Test
     public void testFactory() {
         assertThat(ReflectionHelpersFactory.instance() == ReflectionHelpersFactory.instance()).isEqualTo(true);
-    }
-
-    @Test
-    public void testSetStaticFinalVal() {
-        reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "isSlf4jAvailable", false);
-        assertThat(ApiDetectorUtil.isSlf4jAvailable()).isEqualTo(false);
-        reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "isSlf4jAvailable", true);
-        assertThat(ApiDetectorUtil.isSlf4jAvailable()).isEqualTo(true);
-        try{
-            reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "xxxx", false);
-        }catch (Exception e){
-            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("xxxx not found");
-        }
     }
 
     private class X {
