@@ -4,24 +4,12 @@
 
     <groupId>io.github.rhkiswani</groupId>
     <artifactId>javaff</artifactId>
-    <version>0.0.22-SNAPSHOT</version>
+    <version>0.0.23-SNAPSHOT</version>
     <name>JavaFF: Java Facade/Factories</name>
     <description>
-        We all know the Golden Object Oriented rule **Don't talk to strangers**
-
-        We all know that the API/frameworks defects or magic or limitations is not showing at the begging of the development.
-
-        So imagine that you using an API in all your projects and after spending months or years that API you got a production issue becuase of it ,
-        changing the that API would be soo hard and costy !!!
-
-
-        Main Features
-        --------------
-        - This project offers a standard/clear API for the most used API's in the Java Applications like : Exceptions, Locale, Beans, Formatter's, Json Handlers, Loggers, ReflectionHelpers ...etc
-        - **you can control the implementation's through the class path without changing line of code**
-        - Smart Exception handling mechanism
-        - Default Implementations
-        - Many Utilises
+        JavaFF: Java Facade/Factories, serves as a facade or abstraction for various frameworks like Gson ,
+        Jakson , Log4j , Logback, locale, and many more .
+        check https://github.com/rhkiswani/JavaFF
     </description>
     <url>https://github.com/rhkiswani/JavaFF</url>
 

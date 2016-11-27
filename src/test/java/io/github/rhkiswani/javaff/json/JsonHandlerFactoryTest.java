@@ -16,7 +16,7 @@ public class JsonHandlerFactoryTest {
 
     private EmployeeX employeeX = null;
     @Before
-    public void setup(){
+    public void setUp(){
         employeeX = new EmployeeX();
         employeeX.setEmpId(1000);
         employeeX.setName("Kiswani");

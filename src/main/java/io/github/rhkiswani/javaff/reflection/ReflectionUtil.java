@@ -17,7 +17,6 @@ package io.github.rhkiswani.javaff.reflection;
 
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
-import io.github.rhkiswani.javaff.reflection.exception.ReflectionException;
 
 /**
  * @author Mohamed Kiswani
@@ -26,10 +25,7 @@ import io.github.rhkiswani.javaff.reflection.exception.ReflectionException;
  */
 public class ReflectionUtil {
 
-    private ReflectionUtil(){
-
-
-    }
+    private ReflectionUtil(){}
 
     public static boolean isPresent(String className) {
         return isPresent(className, Thread.currentThread().getContextClassLoader());
@@ -46,7 +42,7 @@ public class ReflectionUtil {
     }
 
     public static void setFieldValue(Object obj, String fieldName, Object val) {
-        new DefaultReflectionHelper().setFieldValue(obj, fieldName, val);
+        ReflectionHelpersFactory.getReflectionHelper(ReflectionUtil.class).setFieldValue(obj, fieldName, val);
     }
 
     public static Class getCallerClass(int numberOfLevels){
@@ -61,10 +57,6 @@ public class ReflectionUtil {
     }
 
     public static Class forName(String className) {
-        try{
-            return Class.forName(className);
-        } catch (Exception e){
-            throw new ReflectionException(e);
-        }
+        return ReflectionHelpersFactory.getReflectionHelper(ReflectionUtil.class).forName(className);
     }
 }

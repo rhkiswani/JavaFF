@@ -20,7 +20,7 @@ public class ValuesHolderTest {
     private EmployeeByIdAnnotation e;
     private EmployeeByIdAnnotation e1;
     @Before
-    public void setup(){
+    public void setUp(){
         e = new EmployeeByIdAnnotation();
         e.setId(100000);
         e.setName("Kiswani");
