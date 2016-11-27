@@ -4,7 +4,7 @@
 
     <groupId>io.github.rhkiswani</groupId>
     <artifactId>javaff</artifactId>
-    <version>0.0.23-SNAPSHOT</version>
+    <version>0.0.24-SNAPSHOT</version>
     <name>JavaFF: Java Facade/Factories</name>
     <description>
         JavaFF: Java Facade/Factories, serves as a facade or abstraction for various frameworks like Gson ,
