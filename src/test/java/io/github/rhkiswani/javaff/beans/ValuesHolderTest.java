@@ -20,7 +20,7 @@ public class ValuesHolderTest {
     private EmployeeByIdAnnotation e;
     private EmployeeByIdAnnotation e1;
     @Before
-    public void setup(){
+    public void setUp(){
         e = new EmployeeByIdAnnotation();
         e.setId(100000);
         e.setName("Kiswani");
@@ -82,43 +82,43 @@ public class ValuesHolderTest {
     }
 
     private class ToStringTestClass extends ValuesHolder{
-        int i = 123123123;
-        float f = 123123123;
-        double d = 123123123;
-        Date date = new Date();
-        char c = '\n';
-        long l = 123123123;
-        String s = "Kiswani";
-        int[] arr = new int[]{1, 2, 3};
-        Collection coll = Arrays.asList(arr);
+        private int i = 123123123;
+        private float f = 123123123;
+        private double d = 123123123;
+        private Date date = new Date();
+        private char c = '\n';
+        private long l = 123123123;
+        private String s = "Kiswani";
+        private int[] arr = new int[]{1, 2, 3};
+        private Collection coll = Arrays.asList(arr);
     }
 
     private class ToStringTestClassX extends ValuesHolder{
         @ToString
-        int i = 123123123;
+        private int i = 123123123;
         @ToString
-        float f = 123123123;
-        double d = 123123123;
+        private float f = 123123123;
+        private double d = 123123123;
     }
 
     private class ToStringTestClassXX extends ValuesHolder{
-        int i = 9090909;
+        private int i = 9090909;
         @HashcodeField
-        float f = 4444111;
-        double d = 123123123;
+        private float f = 4444111;
+        private double d = 123123123;
     }
 
     private class ToStringTestClassXXX extends ValuesHolder{
         @EqualsField
-        int i = 10000;
-        float f = 123123123;
-        double d = 123123123;
+        private int i = 10000;
+        private float f = 123123123;
+        private double d = 123123123;
     }
 
     private class ToStringTestClassXXXX extends ValuesHolder{
-        int i = 50000;
-        float f = 123123123;
+        private int i = 50000;
+        private float f = 123123123;
         @Id
-        double d = 99900011;
+        private double d = 99900011;
     }
 }
