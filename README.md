@@ -3,6 +3,7 @@ JavaFF: Java Facade/Factories
 
 [![Build Status](https://travis-ci.org/rhkiswani/JavaFF.svg?branch=develop)](https://travis-ci.org/rhkiswani/JavaFF)
 [![Coverage Status](https://coveralls.io/repos/github/rhkiswani/JavaFF/badge.svg?branch=master)](https://coveralls.io/github/rhkiswani/JavaFF?branch=master)
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/14f56cb2e4a24df0b745943d600c9894)](https://www.codacy.com/app/rhkiswani/JavaFF?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rhkiswani/JavaFF&amp;utm_campaign=Badge_Grade)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.rhkiswani/javaff.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.github.rhkiswani%22)
 
