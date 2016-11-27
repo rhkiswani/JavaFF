@@ -34,7 +34,7 @@ class JacksonHandler implements JsonHandler {
     public <T> T fromJson(String json, Class clazz) {
         try {
             return (T) mapper.readValue(json, clazz);
-        } catch (IOException e) {
+        } catch (Throwable e) {
             throw new JsonException(e.getMessage());
         }
     }
@@ -43,7 +43,7 @@ class JacksonHandler implements JsonHandler {
     public String toJson(Object object) {
         try {
             return mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
+        } catch (Throwable e) {
             throw new JsonException(e.getMessage());
         }
     }

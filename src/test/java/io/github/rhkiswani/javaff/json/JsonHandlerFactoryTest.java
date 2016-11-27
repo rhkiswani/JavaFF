@@ -11,6 +11,8 @@ import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.assertj.core.api.Assertions.assertThat;
 public class JsonHandlerFactoryTest {
 
@@ -78,6 +80,16 @@ public class JsonHandlerFactoryTest {
         } catch (Exception e){
             assertThat(e).isInstanceOf(JsonException.class).hasMessage("Can not deserialize instance of java.lang.Integer out of START_OBJECT token\n" +
                     " at [Source: {\"empId\":1000,\"id\":10,\"name; line: 1, column: 1]");
+        }
+        try {
+            JsonHandlerFactory.getJsonHandler(JacksonBeanX.class).toJson(new BorderLayout());
+        } catch (Exception e) {
+            assertThat(e).isInstanceOf(JsonException.class);
+        }
+        try {
+            JsonHandlerFactory.getJsonHandler(GsonBeanX.class).toJson(new BorderLayout());
+        } catch (Exception e){
+            assertThat(e).isInstanceOf(JsonException.class);
         }
     }
 

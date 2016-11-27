@@ -9,7 +9,7 @@ addons:
     packages:
       - oracle-java8-installer
 
-script: mvn clean test
+script: mvn clean test -DisTest=true
 
 after_success:
   - ./tools/update_version.sh

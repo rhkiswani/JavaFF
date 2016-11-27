@@ -1,6 +1,7 @@
 package io.github.rhkiswani.javaff.reflection;
 
 import io.github.rhkiswani.javaff.beans.EmployeeX;
+import io.github.rhkiswani.javaff.detector.ApiDetectorUtil;
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import io.github.rhkiswani.javaff.reflection.exception.ReflectionException;
@@ -41,11 +42,6 @@ public class ReflectionTest {
         }
     }
 
-    @Test
-    public void testIsPresent() {
-        assertThat(ReflectionUtil.isPresent(Integer.class.getName())).isEqualTo(true);
-        assertThat(ReflectionUtil.isPresent("com.xyz.xyz")).isEqualTo(false);
-    }
 
     @Test
     public void testExceptions() {
@@ -76,6 +72,35 @@ public class ReflectionTest {
             assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("this$ not found");
         }
         assertThat(Throwable.class.isInstance(new SmartException(""))).isEqualTo(true);
+    }
+
+    @Test
+    public void testSetStaticFinalVal() {
+        reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "isSlf4jAvailable", false);
+        assertThat(ApiDetectorUtil.isSlf4jAvailable()).isEqualTo(false);
+        reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "isSlf4jAvailable", true);
+        assertThat(ApiDetectorUtil.isSlf4jAvailable()).isEqualTo(true);
+        try{
+            reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "xxxx", false);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("xxxx not found");
+        }
+        try{
+            ReflectionUtil.getCallerClass(-1);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(IllegalParamException.class).hasMessage("Number Of Levels should be greater or equal 0");
+        }
+        try{
+            ReflectionUtil.getCallerClass(10000);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(IllegalParamException.class).hasMessageContaining("StackTrace MaxSize is");
+        }
+    }
+
+    @Test
+    public void testIsPresent() {
+        assertThat(ReflectionUtil.isPresent(Integer.class.getName())).isEqualTo(true);
+        assertThat(ReflectionUtil.isPresent("com.xyz.xyz")).isEqualTo(false);
     }
 
     @Test

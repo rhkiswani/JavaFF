@@ -35,11 +35,6 @@ public class LocaleWorkersFactory extends AbstractFactory<LocaleWorker>{
         return instance;
     }
 
-    @Override
-    protected LocaleWorker getDefault(Class targetClazz) {
-        return new LocaleWorkerBuilder().path("app/").build();
-    }
-
     public static LocaleWorker getLocalWorker(Class clazz){
         return instance.create(clazz);
     }
