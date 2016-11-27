@@ -1,6 +1,7 @@
 package io.github.rhkiswani.javaff.reflection;
 
 import io.github.rhkiswani.javaff.beans.EmployeeX;
+import io.github.rhkiswani.javaff.detector.ApiDetectorUtil;
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import io.github.rhkiswani.javaff.reflection.exception.ReflectionException;
@@ -108,6 +109,19 @@ public class ReflectionTest {
     @Test
     public void testFactory() {
         assertThat(ReflectionHelpersFactory.instance() == ReflectionHelpersFactory.instance()).isEqualTo(true);
+    }
+
+    @Test
+    public void testSetStaticFinalVal() {
+        reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "isSlf4jAvailable", false);
+        assertThat(ApiDetectorUtil.isSlf4jAvailable()).isEqualTo(false);
+        reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "isSlf4jAvailable", true);
+        assertThat(ApiDetectorUtil.isSlf4jAvailable()).isEqualTo(true);
+        try{
+            reflectionHelper.setStaticFieldValue(ApiDetectorUtil.class, "xxxx", false);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("xxxx not found");
+        }
     }
 
     private class X {

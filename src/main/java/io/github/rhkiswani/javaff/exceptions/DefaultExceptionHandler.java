@@ -15,6 +15,9 @@
  */
 package io.github.rhkiswani.javaff.exceptions;
 
+import io.github.rhkiswani.javaff.log.Log;
+import io.github.rhkiswani.javaff.log.LogFactory;
+
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
@@ -22,8 +25,9 @@ package io.github.rhkiswani.javaff.exceptions;
  *
  */
 class DefaultExceptionHandler implements ExceptionHandler{
+    private static final Log LOGGER = LogFactory.getLogger(DefaultExceptionHandler.class);
 
     public void handle(Throwable t){
-        t.printStackTrace();
+        LOGGER.error(t.getMessage(), t);
     }
 }

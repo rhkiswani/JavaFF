@@ -72,7 +72,7 @@ public class WebTester {
                 String headerName = headerNames.nextElement();
                 r.requestHeaders.put(headerName, req.getHeader(headerName));
             }
-            if (r.contentType.equalsIgnoreCase("application/json")){
+            if (r.contentType != null && r.contentType.equalsIgnoreCase("application/json")){
                 BufferedReader br = req.getReader();
                 String str;
                 while( (str = br.readLine()) != null ){

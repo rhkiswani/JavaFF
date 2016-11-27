@@ -23,11 +23,9 @@ import io.github.rhkiswani.javaff.exceptions.SmartException;
  * @see SmartException
  */
 public class HttpClientException extends SmartException{
+
     public HttpClientException(String errorMsg, Object... errorMsgParams) {
         super(errorMsg, errorMsgParams);
     }
 
-    public HttpClientException(Throwable e) {
-        super(e);
-    }
 }

@@ -15,6 +15,7 @@
  */
 package io.github.rhkiswani.javaff.httpclient;
 
+import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.httpclient.exceptions.HttpClientException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -53,6 +54,9 @@ public class ApacheHttpClient implements HttpClient{
 
     private String doJsonRequest(HttpRequestBase method, String json, Map<String, String> headers) {
         try {
+            if (json == null){
+                throw new HttpClientException(SmartException.NULL_VAL, "Json Object");
+            }
             CloseableHttpClient c =  HttpClientBuilder.create().build();
             ((HttpEntityEnclosingRequestBase) method).setEntity(new StringEntity(json));
             method.setHeader("Accept", "application/json");
@@ -60,7 +64,7 @@ public class ApacheHttpClient implements HttpClient{
             setHeaders(method, headers);
             return handleResponse(method, c);
         } catch (Exception e) {
-            throw new HttpClientException(e);
+            throw new HttpClientException(e.getMessage());
         }
     }
 
@@ -85,7 +89,7 @@ public class ApacheHttpClient implements HttpClient{
             setHeaders(method, headers);
             return handleResponse(method, c);
         } catch (Exception e) {
-            throw new HttpClientException(e);
+            throw new HttpClientException(e.getMessage());
         }
     }
 
@@ -114,6 +118,11 @@ public class ApacheHttpClient implements HttpClient{
 
     @Override
     public String get(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException {
+        String urlWithParams = paramsToString(url, params);
+        return doRequest(new HttpGet(urlWithParams), params, headers);
+    }
+
+    private String paramsToString(String url, Map<String, String> params) {
         String urlWithParams = url;
         if(params != null){
             urlWithParams += "?";
@@ -121,7 +130,7 @@ public class ApacheHttpClient implements HttpClient{
                 urlWithParams += key + "=" + params.get(key) +"&";
             }
         }
-        return doRequest(new HttpGet(urlWithParams), params, headers);
+        return urlWithParams;
     }
 
     @Override
@@ -138,13 +147,14 @@ public class ApacheHttpClient implements HttpClient{
             }
             return returnedHeaders;
         } catch (Exception e) {
-            throw new HttpClientException(e);
+            throw new HttpClientException(e.getMessage());
         }
     }
 
     @Override
     public String delete(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException {
-        return doRequest(new HttpDelete(url), params, headers);
+        String urlWithParams = paramsToString(url, params);
+        return doRequest(new HttpDelete(urlWithParams), params, headers);
     }
 
     @Override
