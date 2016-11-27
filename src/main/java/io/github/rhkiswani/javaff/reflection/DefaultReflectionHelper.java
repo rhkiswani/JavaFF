@@ -66,15 +66,15 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
     @Override
     public void setFieldValue(T obj, String fieldName, Object value) throws ReflectionException {
         if (obj == null){
-            throw new ReflectionException(SmartException.NULL_VAL, obj);
+            throw new ReflectionException(SmartException.NULL_VAL, "target object");
         }
         Field field = getField(obj.getClass(), fieldName);
         if (value != null && !field.getType().isInstance(value)){
-            throw new ReflectionException(SmartException.TYPE_ERROR, field.getClass(), value.getClass());
+            throw new ReflectionException(SmartException.TYPE_ERROR, value != null ? value.getClass() : value, field.getType());
         }
         try {
             field.set(obj, value);
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             throw new ReflectionException(e);
         }
     }
@@ -82,7 +82,7 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
     @Override
     public Field getField(Class clazz, String fieldName) throws ReflectionException {
         if (clazz == null){
-            throw new ReflectionException(SmartException.NULL_VAL, clazz);
+            throw new ReflectionException(SmartException.NULL_VAL, "target class");
         }
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
@@ -101,9 +101,9 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
     }
 
     @Override
-    public T newInstance(String className, Object... constructorParams) throws ReflectionException {
+    public Class forName(String className) throws ReflectionException {
         try {
-            return (T) Class.forName(className).newInstance();
+            return Class.forName(className);
         } catch (Exception e) {
             throw new ReflectionException(e);
         }
@@ -141,7 +141,7 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
     public <V> V getFieldValue(T obj, String fieldName) throws ReflectionException {
         try {
             return (V) getField(obj.getClass(), fieldName).get(obj);
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             throw new ReflectionException(e);
         }
     }

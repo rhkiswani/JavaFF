@@ -13,4 +13,4 @@ script: mvn clean test
 
 after_success:
   - ./tools/update_version.sh
-  - mvn clean test jacoco:report coveralls:report
+  - mvn clean cobertura:cobertura coveralls:report

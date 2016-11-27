@@ -35,7 +35,7 @@ public interface ReflectionHelper<T> {
 
     <V> V getFieldValue(T obj, String fieldName) throws ReflectionException;
 
-    T newInstance(String className, Object... constructorParams) throws ReflectionException;
+    Class forName(String className) throws ReflectionException;
 
     List<Field> getFields(Class clazz);
 }
