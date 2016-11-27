@@ -11,7 +11,7 @@ import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.swing.*;
+import java.awt.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 public class JsonHandlerFactoryTest {
@@ -82,12 +82,12 @@ public class JsonHandlerFactoryTest {
                     " at [Source: {\"empId\":1000,\"id\":10,\"name; line: 1, column: 1]");
         }
         try {
-            JsonHandlerFactory.getJsonHandler(JacksonBeanX.class).toJson(new JFrame());
+            JsonHandlerFactory.getJsonHandler(JacksonBeanX.class).toJson(new BorderLayout());
         } catch (Exception e) {
             assertThat(e).isInstanceOf(JsonException.class);
         }
         try {
-            JsonHandlerFactory.getJsonHandler(GsonBeanX.class).toJson(new JFrame());
+            JsonHandlerFactory.getJsonHandler(GsonBeanX.class).toJson(new BorderLayout());
         } catch (Exception e){
             assertThat(e).isInstanceOf(JsonException.class);
         }
