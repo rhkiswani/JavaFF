@@ -185,10 +185,6 @@ public class ExceptionHandlersFactoryTest {
 
     }
 
-    private class TestExceptionHandler implements ExceptionHandler {
-        @Override
-        public void handle(Throwable t) {
-            t.printStackTrace();
-        }
+    private class TestExceptionHandler extends DefaultExceptionHandler {
     };
 }

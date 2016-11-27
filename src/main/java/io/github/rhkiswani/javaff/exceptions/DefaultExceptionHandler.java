@@ -28,6 +28,8 @@ class DefaultExceptionHandler implements ExceptionHandler{
     private static final Log LOGGER = LogFactory.getLogger(DefaultExceptionHandler.class);
 
     public void handle(Throwable t){
-        LOGGER.error(t.getMessage(), t);
+        if (!Boolean.valueOf(System.getProperty("isTest", "false"))) {
+            LOGGER.error(t.getMessage(), t);
+        }
     }
 }
