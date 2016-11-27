@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * @since 0.0.1
  * @see io.github.rhkiswani.javaff.log.Log
  */
-class DefaultLog implements Log {
+public class DefaultLog implements Log {
     private Logger logger = null ;
 
     public DefaultLog(Class clazz){

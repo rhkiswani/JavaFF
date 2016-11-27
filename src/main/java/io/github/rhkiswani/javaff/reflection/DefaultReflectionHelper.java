@@ -20,6 +20,7 @@ import io.github.rhkiswani.javaff.lang.utils.ArraysUtils;
 import io.github.rhkiswani.javaff.reflection.exception.ReflectionException;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,6 +77,19 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
             field.set(obj, value);
         } catch (Exception e) {
             throw new ReflectionException(e);
+        }
+    }
+
+    @Override
+    public void setStaticFieldValue(Class clazz, String fieldName, Object value) throws ReflectionException {
+        Field field = getField(clazz, fieldName);
+        try {
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            field.set(null, value);
+        }catch (Exception e){
+            throw new ReflectionException(e.getMessage());
         }
     }
 
