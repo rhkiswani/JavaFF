@@ -42,6 +42,6 @@ public class LogFactory extends AbstractFactory<Log>{
     }
 
     public static Log getLogger(Class aClass) {
-        return new LogWrapper(instance.create(aClass));
+        return new LogWrapper(instance().create(aClass));
     }
 }

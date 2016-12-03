@@ -40,6 +40,12 @@ public class Slf4jLoggersTest {
     }
 
     @Test
+    public void testErrorWithExceptionLog() {
+        logger.error("{0}", new NullPointerException(), "Hi");
+        testLog("Hi", Level.ERROR);
+    }
+
+    @Test
     public void testWarnLog() {
         logger.warn("{0}", "Hi");
         testLog("Hi", Level.WARN);

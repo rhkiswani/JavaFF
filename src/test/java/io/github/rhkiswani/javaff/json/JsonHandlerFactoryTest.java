@@ -64,7 +64,7 @@ public class JsonHandlerFactoryTest {
         try {
             JsonHandlerFactory.getJsonHandler(Object.class);
         } catch (Exception e) {
-            assertThat(e).isInstanceOf(NoImplementationFoundException.class).hasMessage("No implementation found for JsonHandlerFactory you need to set implementation through JsonHandlerFactory.instance().add or add https://mvnrepository.com/artifact/com.google.code.gson/gson to your classpath");
+            assertThat(e).isInstanceOf(NoImplementationFoundException.class).hasMessage("No implementation found for type [class java.lang.Object] you need to set implementation through JsonHandlerFactory.instance().add or add https://mvnrepository.com/artifact/com.google.code.gson/gson to your classpath");
         }
     }
     @Test
@@ -82,7 +82,7 @@ public class JsonHandlerFactoryTest {
                     " at [Source: {\"empId\":1000,\"id\":10,\"name; line: 1, column: 1]");
         }
         try {
-            JsonHandlerFactory.getJsonHandler(JacksonBeanX.class).toJson(new BorderLayout());
+            JsonHandlerFactory.getJsonHandler(JacksonBeanX.class).toJson(Void.TYPE);
         } catch (Exception e) {
             assertThat(e).isInstanceOf(JsonException.class);
         }

@@ -33,15 +33,8 @@ public abstract class DefaultFormatter<I, O> extends Formatter<I, O> {
             return null;
         }
         if (!ArraysUtils.isEmpty(params)){
-            try {
-                ArraysUtils.replace(params, null, "");
-                return formatVal(i, params);
-            } catch (FormatException e){
-                throw e;
-            } catch (Throwable t ){
-                throw new FormatException(t.getMessage());
-            }
-
+            ArraysUtils.replace(params, null, "");
+            return formatVal(i, params);
         }
         return formatVal(i, new Object[]{});
     }

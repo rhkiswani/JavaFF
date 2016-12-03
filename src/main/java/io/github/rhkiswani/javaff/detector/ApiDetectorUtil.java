@@ -35,8 +35,6 @@ public class ApiDetectorUtil {
     private static final Boolean isApacheHttpClientAvailable = ApiDetectorFactory.getDetector().isAvailable(APACHE_HTTPCLIENT_API_METADATA);
 
 
-    private ApiDetectorUtil(){}
-
     public static Boolean isJPAAvailable() {
         return isJPAAvailable;
     }
