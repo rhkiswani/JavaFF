@@ -42,7 +42,5 @@ public interface HttpClient {
 
     Map<String, String> options(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException;
 
-    String patch(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException;
-
     String patchJson(String url, String json, Map<String, String> headers) throws HttpClientException;
 }

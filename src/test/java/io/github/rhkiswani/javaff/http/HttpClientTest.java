@@ -27,7 +27,7 @@ public class HttpClientTest extends WebTester{
         try {
             HttpClientFactory.getHttpClient(Object.class);
         }catch (Exception e){
-            assertThat(e).isInstanceOf(NoImplementationFoundException.class).hasMessage("No implementation found for HttpClientFactory you need to set implementation through HttpClientFactory.instance().add or add https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient to your classpath");
+            assertThat(e).isInstanceOf(NoImplementationFoundException.class).hasMessage("No implementation found for type [class java.lang.Object] you need to set implementation through HttpClientFactory.instance().add or add https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient to your classpath");
         }
         HttpClientFactory.instance().add(Object.class, new ApacheHttpClient());
     }
@@ -88,13 +88,20 @@ public class HttpClientTest extends WebTester{
         String method = "PUT";
         HttpClient httpClient = HttpClientFactory.getHttpClient(HttpClientTest.class);
         Map<String, String> params = prepareParams();
-        String put = httpClient.put(BASE_URL, params, null);
+        Map<String, String> headers = prepareHeaders();
+        String put = httpClient.put(BASE_URL, params, headers);
         assertValues(method, params, put);
     }
 
     private Map<String, String> prepareParams() {
         Map<String, String> params = new HashMap<>();
         params.put("paramsEmail", "rhkiswani@gmail.com");
+        return params;
+    }
+
+    private Map<String, String> prepareHeaders() {
+        Map<String, String> params = new HashMap<>();
+        params.put("header1", "rhkiswani@gmail.com");
         return params;
     }
 
@@ -106,6 +113,7 @@ public class HttpClientTest extends WebTester{
         JsonHandler handler = JsonHandlerFactory.getJsonHandler(HttpClientTest.class);
         Response receivedRespond = handler.fromJson(post, Response.class);
 
+        assertThat(receivedRespond.requestHeaders).isNotNull();
         assertThat(receivedRespond.params).isEqualTo(params);
         assertThat(receivedRespond.method).isEqualTo(method);
         assertThat(receivedRespond.contentType).isEqualTo(contentType);

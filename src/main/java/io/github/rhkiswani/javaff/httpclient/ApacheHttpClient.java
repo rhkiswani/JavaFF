@@ -162,10 +162,6 @@ public class ApacheHttpClient implements HttpClient{
         return head(url, params, headers);
     }
 
-    @Override
-    public String patch(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException {
-        return doRequest(new HttpPatch(url), params, headers);
-    }
 
     @Override
     public String patchJson(String url, String json, Map<String, String> headers) throws HttpClientException {

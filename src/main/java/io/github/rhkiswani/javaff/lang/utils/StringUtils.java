@@ -31,4 +31,16 @@ public class StringUtils {
     public static boolean isEmpty(String input){
         return input == null || input.isEmpty();
     }
+
+    public static boolean isNotEmpty(String input){
+        return !isEmpty(input);
+    }
+
+    public static boolean isNull(String input){
+        return isEmpty(input) || "NULL".equalsIgnoreCase(input);
+    }
+
+    public static boolean isNotNull(String input){
+        return !isNull(input);
+    }
 }

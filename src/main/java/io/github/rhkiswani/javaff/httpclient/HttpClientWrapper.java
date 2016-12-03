@@ -72,11 +72,6 @@ public class HttpClientWrapper implements HttpClient{
     }
 
     @Override
-    public String patch(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException {
-        return httpClient.patch(url, params, headers);
-    }
-
-    @Override
     public String patchJson(String url, String json, Map<String, String> headers) throws HttpClientException {
         return httpClient.patchJson(url, json, headers);
     }

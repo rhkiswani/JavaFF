@@ -18,7 +18,6 @@ package io.github.rhkiswani.javaff.locale;
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.format.FormatUtil;
 import io.github.rhkiswani.javaff.lang.utils.StringUtils;
-import io.github.rhkiswani.javaff.reflection.ReflectionUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,10 +31,6 @@ public class LocaleUtil {
 
     private static Map<String, String> DEFAULT_MSGS = null;
 
-    private LocaleUtil(){
-
-    }
-
     static {
         DEFAULT_MSGS = new HashMap<>();
         DEFAULT_MSGS.put(SmartException.EXCEEDS_LIMIT, "{0} MaxSize is {1}");
@@ -47,15 +42,7 @@ public class LocaleUtil {
         DEFAULT_MSGS.put(SmartException.NEGATIVE_VAL, "{0} should be greater or equal 0");
         DEFAULT_MSGS.put(SmartException.HTTP_ERROR, "failed to connect to {0}");
         DEFAULT_MSGS.put(SmartException.NO_IMPLEMENTATION_FOUND, "No implementation found for {0} you need to set implementation through {1}.instance().add or add {2} to your classpath");
-    }
-
-    @Deprecated
-    /**
-     * use public static String getString(String key, Class targetClass, Object[] params) instead
-     */
-    public static String getString(String key, Object[] params){
-        Class targetClass = ReflectionUtil.getCallerClass(1);
-        return getString(key, targetClass, params);
+        DEFAULT_MSGS.put(SmartException.NO_IMPLEMENTATION_FOUND_WITH_NO_LINK, "No implementation found for {0} you need to set implementation through {1}.instance().add ");
     }
 
     public static String getString(String key, Class targetClass, Object[] params) {

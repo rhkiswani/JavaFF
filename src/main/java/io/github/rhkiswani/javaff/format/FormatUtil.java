@@ -22,8 +22,6 @@ package io.github.rhkiswani.javaff.format;
  */
 public class FormatUtil {
 
-    private FormatUtil(){}
-
     public static String formatString(String str, Object... params){
         return format(str, params);
     }
