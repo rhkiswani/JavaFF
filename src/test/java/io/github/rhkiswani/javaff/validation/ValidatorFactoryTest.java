@@ -39,10 +39,8 @@ public class ValidatorFactoryTest {
 
             @Override
             public void validateField(Field field, EmployeeX o) throws ValidationException {
-                if (field.isAnnotationPresent(NotNull.class)){
-                    if (ReflectionUtil.getFieldValue(o, field.getName()) == null ){
-                        throw new IllegalParamException(SmartException.NULL_VAL, field.getName());
-                    }
+                if (field.isAnnotationPresent(NotNull.class) && ReflectionUtil.getFieldValue(o, field.getName()) == null ){
+                    throw new IllegalParamException(SmartException.NULL_VAL, field.getName());
                 }
             }
 
