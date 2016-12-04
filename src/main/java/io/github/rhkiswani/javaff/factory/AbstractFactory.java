@@ -41,24 +41,26 @@ public abstract class AbstractFactory<T> {
         if (map.get(targetClass) != null){
             throw new IllegalParamException(SmartException.ALREADY_EXIST, targetClass, "please use overrideImp method instated");
         }
-        if (targetClass.isPrimitive()){
-            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
+        Class tmpClass = checkClass(targetClass);
+        map.put(tmpClass, t);
+    }
+
+    private Class checkClass(Class targetClass) {
+        Class tmpClass = targetClass;
+        if (tmpClass.isPrimitive()){
+            tmpClass = ObjectUtils.primitiveToWrapper(targetClass);
         }
-        map.put(targetClass, t);
+        return tmpClass;
     }
 
     public void overrideImp(Class targetClass, T t){
-        if (targetClass.isPrimitive()){
-            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
-        }
-        map.put(targetClass, t);
+        Class tmpClass = checkClass(targetClass);
+        map.put(tmpClass, t);
     }
 
     public T remove(Class targetClass){
-        if (targetClass.isPrimitive()){
-            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
-        }
-        return map.remove(targetClass);
+        Class tmpClass = checkClass(targetClass);
+        return map.remove(tmpClass);
     }
 
     protected T create(Class clazz){
@@ -68,10 +70,7 @@ public abstract class AbstractFactory<T> {
         if (userDefaultImpl != null){
             return userDefaultImpl;
         }
-        Class targetClass = clazz;
-        if (targetClass.isPrimitive()){
-            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
-        }
+        Class targetClass = checkClass(clazz);
         Set<Class> classSet = map.keySet();
         Class[] keys = classSet.toArray(new Class[classSet.size()]);
         for (int i = keys.length - 1 ; i >=0 ; i--){

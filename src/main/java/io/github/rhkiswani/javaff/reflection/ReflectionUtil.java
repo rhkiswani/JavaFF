@@ -18,6 +18,9 @@ package io.github.rhkiswani.javaff.reflection;
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 /**
  * @author Mohamed Kiswani
  * @since 0.0.1
@@ -65,5 +68,9 @@ public class ReflectionUtil {
 
     public static void setStaticFieldValue(Class clazz, String fieldName, Object value) {
         REFLECTION_HELPER.setStaticFieldValue(clazz, fieldName, value);
+    }
+
+    public static List<Field> getFields(Class clazz) {
+        return REFLECTION_HELPER.getFields(clazz);
     }
 }
