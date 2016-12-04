@@ -13,37 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.format;
+package io.github.rhkiswani.javaff.validation;
 
 import io.github.rhkiswani.javaff.factory.AbstractFactory;
 
-import java.util.Date;
-
 /**
  * @author Mohamed Kiswani
- * @since 0.0.1
- * @see io.github.rhkiswani.javaff.factory.AbstractFactory
- *
+ * @since 0.0.23
+ * @see AbstractFactory
  */
-public class FormatFactory extends AbstractFactory<Formatter> {
+public class ValidatorFactory extends AbstractFactory<Validator>{
 
-    private static FormatFactory instance = new FormatFactory();
+    private static ValidatorFactory instance = new ValidatorFactory();
 
-    private FormatFactory(){
-        add(Date.class, new DateFormatter());
-        add(String.class, new StringFormatter());
-        add(Number.class, new NumberFormatter());
+    private ValidatorFactory(){
     }
 
-    public static FormatFactory instance(){
+    public static ValidatorFactory instance(){
         return instance;
     }
 
-    protected Formatter getDefault(Class targetClazz){
-        return new StringFormatter();
+    public static <T> Validator<T> getValidator(Class aClass) {
+        return new ValidatorWrapper<T>(instance.create(aClass));
     }
 
-    public static <I, O> Formatter<I, O> getFormatter(Class aClass) {
-        return instance.create(aClass);
-    }
 }

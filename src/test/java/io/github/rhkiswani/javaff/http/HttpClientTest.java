@@ -153,6 +153,16 @@ public class HttpClientTest extends WebTester{
     }
 
     @Test
+    public void testHeadException() throws Exception{
+        HttpClient httpClient = HttpClientFactory.getHttpClient(HttpClientTest.class);
+        try {
+            httpClient.head("http://qwerqwerqwerqwer.com", null, null);
+        } catch (Exception e){
+            assertThat(e).isInstanceOf(HttpClientException.class);
+        }
+    }
+
+    @Test
     public void testOptions() throws Exception{
         HttpClient httpClient = HttpClientFactory.getHttpClient(HttpClientTest.class);
         Map<String, String> params = prepareParams();
