@@ -5,6 +5,7 @@ import io.github.rhkiswani.javaff.format.FormatUtil;
 import io.github.rhkiswani.javaff.reflection.ReflectionUtil;
 import org.junit.Before;
 import org.junit.Test;
+import static io.github.rhkiswani.javaff.detector.ApiDetectorUtil.*;
 
 import static io.github.rhkiswani.javaff.detector.ApiDetectorUtil.JACKSON_API_METADATA;
 import static org.assertj.core.api.Assertions.assertThat;
