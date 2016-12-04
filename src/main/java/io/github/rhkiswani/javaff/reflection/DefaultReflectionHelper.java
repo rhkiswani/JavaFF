@@ -17,6 +17,7 @@ package io.github.rhkiswani.javaff.reflection;
 
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.utils.ArraysUtils;
+import io.github.rhkiswani.javaff.lang.utils.ObjectUtils;
 import io.github.rhkiswani.javaff.reflection.exception.ReflectionException;
 
 import java.lang.reflect.Field;
@@ -51,9 +52,6 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
         for (Field field : fields) {
             for (Class aClass : annotations) {
                 if (field.isAnnotationPresent(aClass)){
-                    if (isIgnored(field)){
-                        continue;
-                    }
                     list.add(field);
                 }
             }
@@ -70,13 +68,27 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
             throw new ReflectionException(SmartException.NULL_VAL, "target object");
         }
         Field field = getField(obj.getClass(), fieldName);
-        if (value != null && !field.getType().isInstance(value)){
-            throw new ReflectionException(SmartException.TYPE_ERROR, value != null ? value.getClass() : value, field.getType());
-        }
+        validateType(value, field);
         try {
             field.set(obj, value);
         } catch (Exception e) {
             throw new ReflectionException(e);
+        }
+    }
+
+    private void validateType(Object value, Field field) {
+        boolean valueNotNull = (value != null);
+        if (valueNotNull){
+            boolean isPrimitive = field.getType().isPrimitive();
+            boolean isInstanceOfType = field.getType().isInstance(value);
+            if (isPrimitive){
+                boolean isInstanceOfWrapperClass = ObjectUtils.primitiveToWrapper(field.getType()).isInstance(value);
+                if (!isInstanceOfWrapperClass){
+                    throw new ReflectionException(SmartException.TYPE_ERROR, value.getClass(), field.getType());
+                }
+            }else if (!isInstanceOfType){
+                throw new ReflectionException(SmartException.TYPE_ERROR, value.getClass(), field.getType());
+            }
         }
     }
 
@@ -126,7 +138,7 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
     @Override
     public List<Field> getFields(Class clazz) {
         if (clazz == null){
-            throw new ReflectionException(SmartException.NULL_VAL, clazz);
+            throw new ReflectionException(SmartException.NULL_VAL, "Class");
         }
         LinkedList<Field> list = new LinkedList<Field>();
         Field[] fields = clazz.getDeclaredFields();
@@ -154,6 +166,12 @@ public class DefaultReflectionHelper<T> implements ReflectionHelper<T>{
 
     public <V> V getFieldValue(T obj, String fieldName) throws ReflectionException {
         try {
+            if (obj == null){
+                throw new ReflectionException(SmartException.NULL_VAL, "Object");
+            }
+            if (fieldName == null){
+                throw new ReflectionException(SmartException.NULL_VAL, "Field Name");
+            }
             return (V) getField(obj.getClass(), fieldName).get(obj);
         } catch (Exception e) {
             throw new ReflectionException(e);

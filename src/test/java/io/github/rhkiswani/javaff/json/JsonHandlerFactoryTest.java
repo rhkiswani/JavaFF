@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.github.rhkiswani.javaff.beans.EmployeeX;
 import io.github.rhkiswani.javaff.factory.exceptions.NoImplementationFoundException;
+import io.github.rhkiswani.javaff.format.FormatUtil;
 import io.github.rhkiswani.javaff.json.annotations.GsonBean;
 import io.github.rhkiswani.javaff.json.annotations.JacksonBean;
 import io.github.rhkiswani.javaff.json.exceptions.JsonException;
@@ -11,7 +12,7 @@ import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 public class JsonHandlerFactoryTest {
@@ -64,7 +65,7 @@ public class JsonHandlerFactoryTest {
         try {
             JsonHandlerFactory.getJsonHandler(Object.class);
         } catch (Exception e) {
-            assertThat(e).isInstanceOf(NoImplementationFoundException.class).hasMessage("No implementation found for JsonHandlerFactory you need to set implementation through JsonHandlerFactory.instance().add or add https://mvnrepository.com/artifact/com.google.code.gson/gson to your classpath");
+            assertThat(e).isInstanceOf(NoImplementationFoundException.class).hasMessage("No implementation found for type [class java.lang.Object] you need to set implementation through JsonHandlerFactory.instance().add or add https://mvnrepository.com/artifact/com.google.code.gson/gson to your classpath");
         }
     }
     @Test
@@ -82,14 +83,9 @@ public class JsonHandlerFactoryTest {
                     " at [Source: {\"empId\":1000,\"id\":10,\"name; line: 1, column: 1]");
         }
         try {
-            JsonHandlerFactory.getJsonHandler(JacksonBeanX.class).toJson(new BorderLayout());
+            JsonHandlerFactory.getJsonHandler(JacksonBeanX.class).toJson(new ToFailJsonJackson());
         } catch (Exception e) {
-            assertThat(e).isInstanceOf(JsonException.class);
-        }
-        try {
-            JsonHandlerFactory.getJsonHandler(GsonBeanX.class).toJson(new BorderLayout());
-        } catch (Exception e){
-            assertThat(e).isInstanceOf(JsonException.class);
+            assertThat(e).isInstanceOf(JsonException.class).hasMessageContaining("(through reference chain: io.github.rhkiswani.javaff.json.JsonHandlerFactoryTest$ToFailJsonJackson[\"toFailJson\"])");
         }
     }
 
@@ -103,4 +99,19 @@ public class JsonHandlerFactoryTest {
 
     }
 
+    @JacksonBean
+    private class ToFailJsonJackson{
+        private Date toFailDate = new Date();
+
+        public String getToFailJson() {
+            return FormatUtil.format(toFailDate, "34523452345234sadfasd");
+        }
+
+    }
+
+    @GsonBean
+    private class ToFailJsonGson{
+        private Date toFailDate = FormatUtil.format(new Date(), "34523452345234sadfasd");
+
+    }
 }

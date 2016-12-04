@@ -15,8 +15,10 @@
  */
 package io.github.rhkiswani.javaff.lang.utils;
 
+import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.EqualsHelper;
 import io.github.rhkiswani.javaff.lang.HashCodeHelper;
+import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 
 /**
  * @author Mohamed Kiswani
@@ -31,5 +33,32 @@ public class ObjectUtils {
 
     public static int toHashCode(Object obj) {
         return new HashCodeHelper().toHashCode(obj);
+    }
+
+    public static Class primitiveToWrapper(Class targetClass) {
+        if (targetClass == null){
+            throw new IllegalParamException(SmartException.NULL_VAL, "Target Class");
+        }
+        if (!targetClass.isPrimitive()){
+            throw new IllegalParamException("{0} is not primitive", targetClass.getSimpleName());
+        }
+        if (targetClass.equals(byte.class)){
+            return Byte.class;
+        } else if (targetClass.equals(char.class)) {
+            return Character.class;
+        } else if (targetClass.equals(short.class)) {
+            return Short.class;
+        } else if (targetClass.equals(int.class)) {
+            return Integer.class;
+        } else if (targetClass.equals(long.class)) {
+            return Long.class;
+        } else if (targetClass.equals(float.class)) {
+            return Float.class;
+        } else if (targetClass.equals(double.class)) {
+            return Double.class;
+        } else if (targetClass.equals(boolean.class)) {
+            return Boolean.class;
+        }
+        return targetClass;
     }
 }

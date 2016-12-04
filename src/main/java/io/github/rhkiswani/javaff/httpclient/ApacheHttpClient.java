@@ -139,7 +139,7 @@ public class ApacheHttpClient implements HttpClient{
             HttpHead method = new HttpHead(url);
             CloseableHttpClient client = prepareRequest(method, params);
             setHeaders(method, headers);
-            HttpResponse response= client.execute(method);
+            HttpResponse response = client.execute(method);
             Header[] s = response.getAllHeaders();
             Map<String, String> returnedHeaders = new HashMap<>();
             for (Header header : s) {
@@ -162,10 +162,6 @@ public class ApacheHttpClient implements HttpClient{
         return head(url, params, headers);
     }
 
-    @Override
-    public String patch(String url, Map<String, String> params, Map<String, String> headers) throws HttpClientException {
-        return doRequest(new HttpPatch(url), params, headers);
-    }
 
     @Override
     public String patchJson(String url, String json, Map<String, String> headers) throws HttpClientException {

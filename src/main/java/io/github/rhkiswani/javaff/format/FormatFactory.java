@@ -43,7 +43,7 @@ public class FormatFactory extends AbstractFactory<Formatter> {
         return new StringFormatter();
     }
 
-    public static Formatter getFormatter(Class aClass) {
+    public static <I, O> Formatter<I, O> getFormatter(Class aClass) {
         return instance.create(aClass);
     }
 }

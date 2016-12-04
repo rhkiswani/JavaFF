@@ -71,6 +71,32 @@ public class ReflectionTest {
         }catch (Exception e){
             assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("this$ not found");
         }
+
+        try {
+            reflectionHelper.forName("this$");
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("java.lang.ClassNotFoundException: this$");
+        }
+        try {
+            reflectionHelper.getFields(null);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("Class cant be null");
+        }
+        try {
+            reflectionHelper.getFieldValue(null, "");
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("io.github.rhkiswani.javaff.reflection.exception.ReflectionException: Object cant be null");
+        }
+        try {
+            reflectionHelper.getFieldValue(new EmployeeX(), null);
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("io.github.rhkiswani.javaff.reflection.exception.ReflectionException: Field Name cant be null");
+        }
+        try {
+            reflectionHelper.getFieldValue(new EmployeeX(), "kiswani");
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("io.github.rhkiswani.javaff.reflection.exception.ReflectionException: kiswani not found");
+        }
         assertThat(Throwable.class.isInstance(new SmartException(""))).isEqualTo(true);
     }
 
@@ -128,6 +154,22 @@ public class ReflectionTest {
         }catch (Exception e){
             assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("java.lang.IllegalArgumentException: Can not set int field io.github.rhkiswani.javaff.reflection.ReflectionTest$X.privatePrimitive to null value");
         }
+        ReflectionUtil.setFieldValue(x, "privatePrimitive", 1);
+        assertThat(ReflectionUtil.getFieldValue(x, "privatePrimitive")).isEqualTo(1);
+
+        try{
+            ReflectionUtil.setFieldValue(x, "privatePrimitive", new EmployeeX());
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("class io.github.rhkiswani.javaff.beans.EmployeeX is not fit to int");
+        }
+
+        try{
+            ReflectionUtil.setStaticFieldValue(ApiDetectorUtil.class, "isJPAAvailable", new EmployeeX());
+        }catch (Exception e){
+            assertThat(e).isInstanceOf(ReflectionException.class).hasMessage("Can not set static java.lang.Boolean field io.github.rhkiswani.javaff.detector.ApiDetectorUtil.isJPAAvailable to io.github.rhkiswani.javaff.beans.EmployeeX");
+        }
+
+        ReflectionUtil.setStaticFieldValue(ApiDetectorUtil.class, "isJPAAvailable", ApiDetectorUtil.isJPAAvailable());
     }
 
     @Test

@@ -51,7 +51,6 @@ public class LogWrapper implements Log{
         log.error(LocaleUtil.getString(message, LogWrapper.class, params));
     }
 
-    @Override
     public void error(String message, Exception e, Object... params) {
         log.error(LocaleUtil.getString(message, LogWrapper.class, params), e);
     }

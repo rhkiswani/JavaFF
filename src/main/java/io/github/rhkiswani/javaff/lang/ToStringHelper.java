@@ -36,6 +36,9 @@ public class ToStringHelper extends AbstractObjectHelper<Object, String>{
 
     @Override
     protected String doAction(Object obj) {
+        if (obj == null){
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         builder.append(obj.getClass().getSimpleName());
         builder.append("[");
@@ -45,15 +48,11 @@ public class ToStringHelper extends AbstractObjectHelper<Object, String>{
     }
 
     private String gosnToString(Object obj) {
-        try {
-            String json = JsonHandlerFactory.getJsonHandler(GsonBean.class).toJson(obj);
-            json = json.replace("{", "[");
-            json = json.replace("}", "]");
-            json = json.replace("\"", "");
-            return json;
-        }catch (Exception e){
-            return "[ can't print " + obj.getClass() + " value]";
-        }
+        String json = JsonHandlerFactory.getJsonHandler(GsonBean.class).toJson(obj);
+        json = json.replace("{", "[");
+        json = json.replace("}", "]");
+        json = json.replace("\"", "");
+        return json;
     }
 
     private String normalToString(Object obj) {
@@ -67,10 +66,13 @@ public class ToStringHelper extends AbstractObjectHelper<Object, String>{
         }
         for (int i = 0; i < fields.size() ; i++) {
             Field f = fields.get(i);
+            Object fieldValue = reflectionHelper.getFieldValue(obj, f.getName());
+            if (fieldValue == null){
+                continue;
+            }
             builder.append(f.getName());
             builder.append("=");
-            Object fieldValue = reflectionHelper.getFieldValue(obj, f.getName());
-            if (fieldValue != null && (fieldValue.getClass().isArray() || Collection.class.isInstance(fieldValue))){
+            if ((fieldValue.getClass().isArray() || Collection.class.isInstance(fieldValue))){
                 builder.append(gosnToString(fieldValue));
             } else {
                 builder.append(FormatUtil.format("{0}", fieldValue));

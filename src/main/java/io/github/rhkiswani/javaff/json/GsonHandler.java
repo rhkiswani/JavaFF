@@ -41,11 +41,7 @@ class GsonHandler implements JsonHandler {
 
     @Override
     public String toJson(Object object) {
-        try{
-            return gson.toJson(object);
-        } catch (Throwable t){
-            throw new JsonException(t.getMessage());
-        }
+        return gson.toJson(object);
     }
 
     @Override

@@ -13,23 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.format;
+package io.github.rhkiswani.javaff.validation.exceptions;
+
+import io.github.rhkiswani.javaff.exceptions.SmartException;
 
 /**
  * @author Mohamed Kiswani
- * @since 0.0.1
- *
+ * @since 0.0.23
+ * @see SmartException
  */
-public class FormatUtil {
+public class ValidationException extends SmartException{
 
-    public static String formatString(String str, Object... params){
-        return format(str, params);
+    public ValidationException(String errorMsg, Object... errorMsgParams) {
+        super(errorMsg, errorMsgParams);
     }
 
-    public static <T>T format(Object obj, Object... params){
-        if (obj == null){
-            return null;
-        }
-        return (T) FormatFactory.getFormatter(obj.getClass()).format(obj, params);
-    }
 }

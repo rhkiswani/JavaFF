@@ -5,6 +5,7 @@ import io.github.rhkiswani.javaff.beans.Person;
 import io.github.rhkiswani.javaff.beans.EmployeeByIdAnnotation;
 import io.github.rhkiswani.javaff.beans.PersonByIdAnnotation;
 import io.github.rhkiswani.javaff.beans.EmployeeX;
+import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 import io.github.rhkiswani.javaff.lang.utils.ObjectUtils;
 import org.junit.Test;
 
@@ -68,6 +69,18 @@ public class ObjectUtilsTest {
     }
 
     @Test
+    public void testEquals() throws Exception {
+        assertThat(new EqualsHelper().doAction()).isEqualTo(false);
+        assertThat(new EqualsHelper().doAction("String")).isEqualTo(false);
+        assertThat(new EqualsHelper().doAction("String", null)).isEqualTo(false);
+        assertThat(new EqualsHelper().doAction(null, "String")).isEqualTo(false);
+        assertThat(new EqualsHelper().doAction("String", "String")).isEqualTo(true);
+        assertThat(new EqualsHelper().doAction(1, 1)).isEqualTo(true);
+        assertThat(new EqualsHelper().doAction(1, 2)).isEqualTo(false);
+        assertThat(new EqualsHelper().doAction(new EmptyClass(), new EmptyClass())).isEqualTo(false);
+    }
+
+    @Test
     public void testEqualsWithSuperClassByIdAnnotation() throws Exception {
         EmployeeByIdAnnotation e = new EmployeeByIdAnnotation();
         e.setId(1);
@@ -107,4 +120,21 @@ public class ObjectUtilsTest {
         assertThat(ObjectUtils.toHashCode(null)).isEqualTo(-1);
     }
 
+    @Test
+    public void testPrimitiveToWrapper() throws Exception {
+        try{
+            ObjectUtils.primitiveToWrapper(null);
+        } catch (Exception e){
+            assertThat(e).isInstanceOf(IllegalParamException.class).hasMessage("Target Class cant be null");
+        }
+        try{
+            ObjectUtils.primitiveToWrapper(Employee.class);
+        } catch (Exception e){
+            assertThat(e).isInstanceOf(IllegalParamException.class).hasMessage("Employee is not primitive");
+        }
+        assertThat(ObjectUtils.primitiveToWrapper(int.class)).isEqualTo(Integer.class);
+    }
+
+    private class EmptyClass {
+    }
 }

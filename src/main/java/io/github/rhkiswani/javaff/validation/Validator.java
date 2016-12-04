@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.format;
+package io.github.rhkiswani.javaff.validation;
+
+import io.github.rhkiswani.javaff.validation.exceptions.ValidationException;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * @author Mohamed Kiswani
- * @since 0.0.1
+ * @since 0.0.23
  *
  */
-public class FormatUtil {
-
-    public static String formatString(String str, Object... params){
-        return format(str, params);
-    }
-
-    public static <T>T format(Object obj, Object... params){
-        if (obj == null){
-            return null;
-        }
-        return (T) FormatFactory.getFormatter(obj.getClass()).format(obj, params);
-    }
+public interface Validator<T> {
+    void validate(T t) throws ValidationException;
+    void validateList(List<T> t) throws ValidationException;
+    void validateField(Field field, T t) throws ValidationException;
+    void validateMethod(Method method, T t) throws ValidationException;
 }

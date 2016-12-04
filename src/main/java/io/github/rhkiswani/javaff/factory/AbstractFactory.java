@@ -18,6 +18,8 @@ package io.github.rhkiswani.javaff.factory;
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.factory.exceptions.NoImplementationFoundException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
+import io.github.rhkiswani.javaff.lang.utils.ObjectUtils;
+import io.github.rhkiswani.javaff.lang.utils.StringUtils;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -39,23 +41,36 @@ public abstract class AbstractFactory<T> {
         if (map.get(targetClass) != null){
             throw new IllegalParamException(SmartException.ALREADY_EXIST, targetClass, "please use overrideImp method instated");
         }
+        if (targetClass.isPrimitive()){
+            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
+        }
         map.put(targetClass, t);
     }
 
     public void overrideImp(Class targetClass, T t){
+        if (targetClass.isPrimitive()){
+            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
+        }
         map.put(targetClass, t);
     }
 
     public T remove(Class targetClass){
+        if (targetClass.isPrimitive()){
+            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
+        }
         return map.remove(targetClass);
     }
 
-    protected T create(Class targetClass){
-        if (targetClass == null){
+    protected T create(Class clazz){
+        if (clazz == null){
             throw new IllegalParamException(SmartException.NULL_VAL, "Target Class");
         }
         if (userDefaultImpl != null){
             return userDefaultImpl;
+        }
+        Class targetClass = clazz;
+        if (targetClass.isPrimitive()){
+            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
         }
         Set<Class> classSet = map.keySet();
         Class[] keys = classSet.toArray(new Class[classSet.size()]);
@@ -77,10 +92,14 @@ public abstract class AbstractFactory<T> {
     }
 
     protected T getDefault(Class targetClazz) {
-        throw new NoImplementationFoundException(SmartException.NO_IMPLEMENTATION_FOUND, this.getClass().getSimpleName(), this.getClass().getSimpleName(), getDefaultImplementationUrl());
+        if (StringUtils.isNotEmpty(getDefaultImplementationUrl())){
+            throw new NoImplementationFoundException(SmartException.NO_IMPLEMENTATION_FOUND, targetClazz, this.getClass().getSimpleName(), getDefaultImplementationUrl());
+        } else {
+            throw new NoImplementationFoundException(SmartException.NO_IMPLEMENTATION_FOUND_WITH_NO_LINK, targetClazz, this.getClass().getSimpleName());
+        }
     }
 
     protected String getDefaultImplementationUrl(){
-        return "https://mvnrepository.com";
+        return "";
     }
 }

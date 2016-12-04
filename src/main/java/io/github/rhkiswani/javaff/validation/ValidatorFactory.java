@@ -13,34 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.rhkiswani.javaff.lang.utils;
+package io.github.rhkiswani.javaff.validation;
 
-import io.github.rhkiswani.javaff.lang.ToStringHelper;
+import io.github.rhkiswani.javaff.factory.AbstractFactory;
 
 /**
  * @author Mohamed Kiswani
- * @since 0.0.1
- *
+ * @since 0.0.23
+ * @see AbstractFactory
  */
-public class StringUtils {
+public class ValidatorFactory extends AbstractFactory<Validator>{
 
-    public static String toString(Object obj) {
-        return new ToStringHelper().toString(obj);
+    private static ValidatorFactory instance = new ValidatorFactory();
+
+    private ValidatorFactory(){
     }
 
-    public static boolean isEmpty(String input){
-        return input == null || input.isEmpty();
+    public static ValidatorFactory instance(){
+        return instance;
     }
 
-    public static boolean isNotEmpty(String input){
-        return !isEmpty(input);
+    public static <T> Validator<T> getValidator(Class aClass) {
+        return new ValidatorWrapper<T>(instance.create(aClass));
     }
 
-    public static boolean isNull(String input){
-        return isEmpty(input) || "NULL".equalsIgnoreCase(input);
-    }
-
-    public static boolean isNotNull(String input){
-        return !isNull(input);
-    }
 }

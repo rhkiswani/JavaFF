@@ -1,10 +1,13 @@
 package io.github.rhkiswani.javaff.detector;
 
-import org.junit.Assert;
+import io.github.rhkiswani.javaff.exceptions.ExceptionUtil;
+import io.github.rhkiswani.javaff.format.FormatUtil;
+import io.github.rhkiswani.javaff.reflection.ReflectionUtil;
 import org.junit.Before;
 import org.junit.Test;
 import static io.github.rhkiswani.javaff.detector.ApiDetectorUtil.*;
 
+import static io.github.rhkiswani.javaff.detector.ApiDetectorUtil.JACKSON_API_METADATA;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ApiMeadataTest {
@@ -15,12 +18,6 @@ public class ApiMeadataTest {
     public void setUp(){
         apiMetadata = new ApiMetadata(null, null, null, null);
         apiMetadata2 = JACKSON_API_METADATA;
-    }
-
-    @Test(expected=IllegalAccessException.class)
-    public void testConstructorPrivate() throws Exception {
-        ApiDetectorUtil.class.newInstance();
-        Assert.fail("Utility class constructor should be private");
     }
 
     @Test
@@ -34,6 +31,10 @@ public class ApiMeadataTest {
 
     @Test
     public void testClone() throws Exception {
+        new ApiDetectorUtil();// for test coverage
+        new ExceptionUtil();
+        new FormatUtil();
+        new ReflectionUtil();
         assertThat(apiMetadata).isNotNull();
         apiMetadata2.setName("Test");
         apiMetadata2.setFrameworkUrl("URL");
