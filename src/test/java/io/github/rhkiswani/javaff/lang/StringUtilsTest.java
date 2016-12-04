@@ -65,8 +65,8 @@ public class StringUtilsTest {
     }
 
     private static class EmployeeXWithArray extends EmployeeX{
-        String[] addresses ;
-        Object[] unparsableArray ;
+        private String[] addresses ;
+        private Object[] unparsableArray ;
 
         public void setAddresses(String[] addresses) {
             this.addresses = addresses;
