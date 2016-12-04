@@ -15,11 +15,8 @@
  */
 package io.github.rhkiswani.javaff.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.rhkiswani.javaff.json.exceptions.JsonException;
-
-import java.io.IOException;
 
 /**
  * @author Mohamed Kiswani

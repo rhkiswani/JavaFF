@@ -48,15 +48,11 @@ public class ToStringHelper extends AbstractObjectHelper<Object, String>{
     }
 
     private String gosnToString(Object obj) {
-        try {
-            String json = JsonHandlerFactory.getJsonHandler(GsonBean.class).toJson(obj);
-            json = json.replace("{", "[");
-            json = json.replace("}", "]");
-            json = json.replace("\"", "");
-            return json;
-        }catch (Exception e){
-            return "[ can't print " + obj.getClass() + " value]";
-        }
+        String json = JsonHandlerFactory.getJsonHandler(GsonBean.class).toJson(obj);
+        json = json.replace("{", "[");
+        json = json.replace("}", "]");
+        json = json.replace("\"", "");
+        return json;
     }
 
     private String normalToString(Object obj) {

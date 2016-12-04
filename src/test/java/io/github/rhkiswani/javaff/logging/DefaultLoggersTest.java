@@ -28,6 +28,7 @@ public class DefaultLoggersTest {
         LogFactory.getLogger(DefaultLoggersTest.class).debug("");
         LogFactory.getLogger(DefaultLoggersTest.class).warn("");
         LogFactory.getLogger(DefaultLoggersTest.class).error("");
+        LogFactory.getLogger(DefaultLoggersTest.class).error("", new NullPointerException());
     }
 
     @After

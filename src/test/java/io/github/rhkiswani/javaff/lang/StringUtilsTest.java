@@ -66,9 +66,14 @@ public class StringUtilsTest {
 
     private static class EmployeeXWithArray extends EmployeeX{
         String[] addresses ;
+        Object[] unparsableArray ;
 
         public void setAddresses(String[] addresses) {
             this.addresses = addresses;
+        }
+
+        public void setUnparsableArray(Object[] unparsableArray) {
+            this.unparsableArray = unparsableArray;
         }
     }
 }

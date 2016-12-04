@@ -139,7 +139,7 @@ public class ApacheHttpClient implements HttpClient{
             HttpHead method = new HttpHead(url);
             CloseableHttpClient client = prepareRequest(method, params);
             setHeaders(method, headers);
-            HttpResponse response= client.execute(method);
+            HttpResponse response = client.execute(method);
             Header[] s = response.getAllHeaders();
             Map<String, String> returnedHeaders = new HashMap<>();
             for (Header header : s) {

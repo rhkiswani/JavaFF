@@ -18,6 +18,7 @@ package io.github.rhkiswani.javaff.factory;
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.factory.exceptions.NoImplementationFoundException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
+import io.github.rhkiswani.javaff.lang.utils.ObjectUtils;
 import io.github.rhkiswani.javaff.lang.utils.StringUtils;
 
 import java.util.Collection;
@@ -41,21 +42,21 @@ public abstract class AbstractFactory<T> {
             throw new IllegalParamException(SmartException.ALREADY_EXIST, targetClass, "please use overrideImp method instated");
         }
         if (targetClass.isPrimitive()){
-            targetClass = toWrapper(targetClass);
+            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
         }
         map.put(targetClass, t);
     }
 
     public void overrideImp(Class targetClass, T t){
         if (targetClass.isPrimitive()){
-            targetClass = toWrapper(targetClass);
+            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
         }
         map.put(targetClass, t);
     }
 
     public T remove(Class targetClass){
         if (targetClass.isPrimitive()){
-            targetClass = toWrapper(targetClass);
+            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
         }
         return map.remove(targetClass);
     }
@@ -69,7 +70,7 @@ public abstract class AbstractFactory<T> {
         }
         Class targetClass = clazz;
         if (targetClass.isPrimitive()){
-            targetClass = toWrapper(targetClass);
+            targetClass = ObjectUtils.primitiveToWrapper(targetClass);
         }
         Set<Class> classSet = map.keySet();
         Class[] keys = classSet.toArray(new Class[classSet.size()]);
@@ -80,27 +81,6 @@ public abstract class AbstractFactory<T> {
             }
         }
         return getDefault(targetClass);
-    }
-
-    private Class toWrapper(Class targetClass) {
-        if (targetClass.equals(byte.class)){
-            return Byte.class;
-        } else if (targetClass.equals(char.class)) {
-            return Character.class;
-        } else if (targetClass.equals(short.class)) {
-            return Short.class;
-        } else if (targetClass.equals(int.class)) {
-            return Integer.class;
-        } else if (targetClass.equals(long.class)) {
-            return Long.class;
-        } else if (targetClass.equals(float.class)) {
-            return Float.class;
-        } else if (targetClass.equals(double.class)) {
-            return Double.class;
-        } else if (targetClass.equals(boolean.class)) {
-            return Boolean.class;
-        }
-        return targetClass;
     }
 
     public Collection<T> listImplementations(){
