@@ -38,7 +38,7 @@ public class AbstractFactoryTest {
         DummyObject dummyObject2ForNumber = TestFactory.instance().create(Number.class);
         assertThat(dummyObjectForNumber).isNotNull();
         assertThat(dummyObject2ForNumber).isNotNull();
-        assertThat(dummyObjectForNumber == dummyObject2ForNumber).isEqualTo(true);
+        assertThat(dummyObjectForNumber.toString()).isEqualTo(dummyObject2ForNumber.toString());
 
         testPrimitive(byte.class, Byte.class);
         testPrimitive(short.class, Short.class);
@@ -63,7 +63,7 @@ public class AbstractFactoryTest {
         assertThat(dummyObject).isNotNull();
         DummyObject dummyObject1 = TestFactory.instance().create(primitive);
         assertThat(dummyObject1).isNotNull();
-        assertThat(dummyObject1 == dummyObject).isEqualTo(true);
+        assertThat(dummyObject1).isEqualTo(dummyObject);
     }
 
     private static class TestFactory extends AbstractFactory<DummyObject> {
@@ -89,7 +89,7 @@ public class AbstractFactoryTest {
 
     }
 
-    private static class DummyObject {
+    private static class DummyObject extends Object{
 
     }
 
