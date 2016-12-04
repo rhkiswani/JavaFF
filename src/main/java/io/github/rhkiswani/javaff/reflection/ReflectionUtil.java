@@ -24,8 +24,7 @@ import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
  *
  */
 public class ReflectionUtil {
-
-    private ReflectionUtil(){}
+    private static final ReflectionHelper REFLECTION_HELPER = ReflectionHelpersFactory.getReflectionHelper(ReflectionUtil.class);
 
     public static boolean isPresent(String className) {
         return isPresent(className, Thread.currentThread().getContextClassLoader());
@@ -42,7 +41,7 @@ public class ReflectionUtil {
     }
 
     public static void setFieldValue(Object obj, String fieldName, Object val) {
-        ReflectionHelpersFactory.getReflectionHelper(ReflectionUtil.class).setFieldValue(obj, fieldName, val);
+        REFLECTION_HELPER.setFieldValue(obj, fieldName, val);
     }
 
     public static Class getCallerClass(int numberOfLevels){
@@ -58,5 +57,13 @@ public class ReflectionUtil {
 
     public static Class forName(String className) {
         return ReflectionHelpersFactory.getReflectionHelper(ReflectionUtil.class).forName(className);
+    }
+
+    public static <T> T getFieldValue(Object obj, String fieldName) {
+        return (T) REFLECTION_HELPER.getFieldValue(obj, fieldName);
+    }
+
+    public static void setStaticFieldValue(Class clazz, String fieldName, Object value) {
+        REFLECTION_HELPER.setStaticFieldValue(clazz, fieldName, value);
     }
 }
