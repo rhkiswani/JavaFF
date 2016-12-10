@@ -89,7 +89,7 @@ public class AbstractFactoryTest {
 
     }
 
-    private static class DummyObject{
+    private static class DummyObject {
 
     }
 
