@@ -54,4 +54,5 @@ public class ApiDetectorUtil {
     public static Boolean isApacheHttpClientAvailable() {
         return isApacheHttpClientAvailable;
     }
+
 }
