@@ -19,6 +19,7 @@ import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.lang.exceptions.IllegalParamException;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,5 +73,15 @@ public class ReflectionUtil {
 
     public static List<Field> getFields(Class clazz) {
         return REFLECTION_HELPER.getFields(clazz);
+    }
+
+    public static String[] getErrorsAsArray(Throwable ex) {
+        ArrayList<String> strings = new ArrayList<>();
+        StackTraceElement[] st = ex.getStackTrace();
+        strings.add(ex.getMessage());
+        for (int i = 0; i < st.length; i++) {
+            strings.add(st[i].toString());
+        }
+        return strings.toArray(new String[strings.size()]);
     }
 }

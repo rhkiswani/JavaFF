@@ -111,7 +111,8 @@ public class HttpClientTest extends WebTester{
 
     private void assertValues(String method, Map<String, String> params, String post, String contentType) {
         JsonHandler handler = JsonHandlerFactory.getJsonHandler(HttpClientTest.class);
-        Response receivedRespond = handler.fromJson(post, Response.class);
+        Map map = handler.fromJson(post, Map.class);
+        Response receivedRespond =  handler.fromJson(map.get("response").toString(), Response.class);
 
         assertThat(receivedRespond.requestHeaders).isNotNull();
         assertThat(receivedRespond.params).isEqualTo(params);
@@ -172,7 +173,8 @@ public class HttpClientTest extends WebTester{
 
     private void assertJsonResponse(String response, String method) {
         JsonHandler handler = JsonHandlerFactory.getJsonHandler(HttpClientTest.class);
-        Response receivedRespond = handler.fromJson(response, Response.class);
+        Map map = handler.fromJson(response, Map.class);
+        Response receivedRespond =  handler.fromJson(map.get("response").toString(), Response.class);
 
         assertThat(receivedRespond.jsonParams).isEqualTo("{\"method\":\""+ method +"\"}");
         assertThat(receivedRespond.method).isEqualTo(method);
