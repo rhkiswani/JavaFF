@@ -86,6 +86,7 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>${javax.validation.api.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -205,38 +206,51 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>${mvn.plugin.coveralls.version}</version>
-                <configuration>
-                    <repoToken>jGs4NG4X5ACkcCFw0LMw8sQNUWRRvsuJv</repoToken>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${mvn.plugin.cobertura.version}</version>
-                <configuration>
-                    <format>xml</format>
-                    <maxmem>256m</maxmem>
-                    <!-- aggregated reports for multi-module projects -->
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <classpathDependencyExcludes>
-                        <classpathDependencyExcludes>ch.qos.logback:logback-classic</classpathDependencyExcludes>
-                    </classpathDependencyExcludes>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
     <profiles>
+        <profile>
+        <id>compile-to-commit</id>
+        <activation>
+            <property>
+                <name>compile-to-commit</name>
+                <value>true</value>
+            </property>
+        </activation>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>${mvn.plugin.coveralls.version}</version>
+                    <configuration>
+                        <repoToken>jGs4NG4X5ACkcCFw0LMw8sQNUWRRvsuJv</repoToken>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>${mvn.plugin.cobertura.version}</version>
+                    <configuration>
+                        <format>xml</format>
+                        <maxmem>256m</maxmem>
+                        <!-- aggregated reports for multi-module projects -->
+                        <aggregate>true</aggregate>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <classpathDependencyExcludes>
+                            <classpathDependencyExcludes>ch.qos.logback:logback-classic</classpathDependencyExcludes>
+                        </classpathDependencyExcludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+        </profile>
+
         <profile>
             <id>release</id>
             <activation>

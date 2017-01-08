@@ -17,18 +17,20 @@ package io.github.rhkiswani.javaff.httpclient;
 
 import io.github.rhkiswani.javaff.exceptions.SmartException;
 import io.github.rhkiswani.javaff.httpclient.exceptions.HttpClientException;
+import io.github.rhkiswani.javaff.httpclient.util.IOUtil;
+import io.github.rhkiswani.javaff.json.JsonHandlerFactory;
+import io.github.rhkiswani.javaff.reflection.ReflectionUtil;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,9 +70,18 @@ public class ApacheHttpClient implements HttpClient{
         }
     }
 
-    private String handleResponse(HttpRequestBase method, CloseableHttpClient c) throws IOException {
-        String response = c.execute(method, new BasicResponseHandler());
-        return response;
+    private String handleResponse(HttpRequestBase method, CloseableHttpClient c) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        try {
+            HttpResponse response = c.execute(method);
+            hashMap.put("response", IOUtil.inputStreamToString(response.getEntity().getContent()));
+            hashMap.put("status", response.getStatusLine().getStatusCode());
+            hashMap.put("headers", IOUtil.headersToMap(response.getAllHeaders()));
+        } catch (Exception ex) {
+            hashMap.put("status", HttpStatus.SC_BAD_REQUEST );
+            hashMap.put("errors", ReflectionUtil.getErrorsAsArray(ex));
+        }
+        return JsonHandlerFactory.getJsonHandler(HashMap.class).toJson(hashMap);
     }
 
     @Override
