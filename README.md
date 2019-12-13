@@ -8,6 +8,7 @@ JavaFF: Java Facade/Factories
 
 We all know the Golden Object Oriented rule **Don't talk to strangers**
 
+
 We all know that you will never find the API/frameworks defects or magic or limitations at the beginning of the development.
  
 Imagine yourself using API in all your projects for years. Everybody else is using it as well, it is famous and mature. Suddenly you have a huge production issue.  Changing that API is too hard and costly at this stage! 
