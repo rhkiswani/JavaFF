@@ -7,9 +7,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
 import java.sql.SQLException;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
