@@ -32,7 +32,7 @@
         <commons.lang.version>3.5</commons.lang.version>
         <slf4.version>1.7.21</slf4.version>
         <javax.persistenc.api.version>1.0.2</javax.persistenc.api.version>
-        <httpcomponents.httpclient.version>4.5.2</httpcomponents.httpclient.version>
+        <httpcomponents.httpclient.version>4.5.13</httpcomponents.httpclient.version>
 
         <!-- test -->
         <assertj.version>3.5.2</assertj.version>
